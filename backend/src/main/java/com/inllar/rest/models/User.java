@@ -32,6 +32,9 @@ public class User {
 	@Column(name = "phone_number", nullable = true, unique = true)
 	private String phoneNumber;
 
+	@Column(name = "avatar")
+	private String avatar;
+
 	@OneToMany(mappedBy = "user")
 	private List<Property> properties;
 
@@ -95,5 +98,13 @@ public class User {
 
 	public void setRefreshToken(RefreshToken refreshToken) {
 		this.refreshToken = refreshToken;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 }

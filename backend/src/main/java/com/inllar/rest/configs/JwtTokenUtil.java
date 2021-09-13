@@ -50,18 +50,18 @@ public class JwtTokenUtil implements Serializable {
 	private UserRepository userRepository;
 
 	/**
-	 * Returns the id of the customer token
+	 * Returns the id of the user token
 	 * 
-	 * @param token - the customer access/refresh token
+	 * @param token - the user access/refresh token
 	 */
 	public String getIdFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
 	}
 
 	/**
-	 * Returns the expiration date from the customer token
+	 * Returns the expiration date from the user token
 	 * 
-	 * @param token - the customer login token
+	 * @param token - the user login token
 	 */
 	public Date getExpirationDateFromToken(String token) {
 		return getClaimFromToken(token, Claims::getExpiration);
@@ -73,9 +73,9 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	/**
-	 * Returns a JSON with the key values inside of the customer token
+	 * Returns a JSON with the key values inside of the user token
 	 * 
-	 * @param token - the customer login token
+	 * @param token - the user login token
 	 */
 	private Claims getAllClaimsFromToken(String token) {
 		return Jwts.parser().setSigningKey(REFRESH_TOKEN_SECRET).parseClaimsJws(token).getBody();
@@ -84,7 +84,7 @@ public class JwtTokenUtil implements Serializable {
 	/**
 	 * Check if the token has expired
 	 * 
-	 * @param token - the customer login token
+	 * @param token - the user login token
 	 */
 	private Boolean isTokenExpired(String token) {
 		final Date expiration = getExpirationDateFromToken(token);
@@ -92,18 +92,18 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	/**
-	 * Generates the refresh token for the customer
+	 * Generates the refresh token for the user
 	 * 
-	 * @param customer - the customer object
+	 * @param user - the user object
 	 */
 	public String generateRefreshToken(User user) {
 		return doGenerateToken(user.getId().toString(), JWT_REFRESH_TOKEN_VALIDITY);
 	}
 
 	/**
-	 * Generates the access token for the customer
+	 * Generates the access token for the user
 	 * 
-	 * @param customer - the customer object
+	 * @param user - the user object
 	 */
 	public String generateAccessToken(RefreshToken refreshToken) {
 		return doGenerateToken(refreshToken.getId().toString(), JWT_TOKEN_VALIDITY);
@@ -112,7 +112,7 @@ public class JwtTokenUtil implements Serializable {
 	/**
 	 * Creates the token and defines its time of expiration
 	 * 
-	 * @param subject  - the id of the customer/refreshToken
+	 * @param subject  - the id of the user/refreshToken
 	 * @param validity - the time in seconds to expire
 	 */
 	private String doGenerateToken(String subject, Long validity) {
@@ -127,7 +127,7 @@ public class JwtTokenUtil implements Serializable {
 	 * Checks if the refresh token is valid
 	 * 
 	 * @param token    - the refresh token
-	 * @param customer - the customer's object
+	 * @param user - the user's object
 	 */
 	public Boolean validateRefreshToken(String token, User user) {
 		final String id = getIdFromToken(token);
@@ -136,7 +136,7 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	/**
-	 * Checks if the token is valid for this customer
+	 * Checks if the token is valid for this user
 	 * 
 	 * @param token        - the access token
 	 * @param refreshToken - the refresh token's object
@@ -164,7 +164,7 @@ public class JwtTokenUtil implements Serializable {
 	 * @throws EntityNotFoundException - case refresh token from access token
 	 *                                 doesn't exists
 	 * @param token - the access token
-	 * @return the customer from token
+	 * @return the user from token
 	 */
 	public User getUserFromAccessToken(String token) {
 		String refreshTokenId = getIdFromToken(token);
@@ -176,12 +176,12 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	/**
-	 * @throws EntityNotFoundException - case customer from refresh token doesn't
+	 * @throws EntityNotFoundException - case user from refresh token doesn't
 	 *                                 exists
 	 * @param token - the refresh token
-	 * @return customer - the customer's object from db
+	 * @return user - the user's object from db
 	 */
-	public User getCustomerFromRefreshToken(String token) {
+	public User getUserFromRefreshToken(String token) {
 		String userId = getIdFromToken(token);
 
 		User user = userRepository.findById(UUID.fromString(userId))

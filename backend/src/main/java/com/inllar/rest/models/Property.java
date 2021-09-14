@@ -30,14 +30,29 @@ public class Property {
 
 	@Column(name = "number_bathrooms", nullable = false)
 	private int numberBathRooms;
+	
+	@Column(name = "number_bedrooms", nullable = false)
+	private int numberBedRooms;
+	
+	@Column(name = "number_kitchens", nullable = false)
+	private int numberKitchens;
 
 	@Column(name = "square_meters", nullable = false)
 	private double squareMeters;
 
-	@Column(name = "hasPool", nullable = false)
+	@Column(name = "has_pool", nullable = false)
 	private boolean hasPool;
+	
+	@Column(name = "has_party_area", nullable = false)
+	private boolean hasPartyArea;
+	
+	@Column(name = "has_grill", nullable = false)
+	private boolean hasGrill;
+	
+	@Column(name = "has_garage", nullable = false)
+	private boolean hasGarage;
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description", nullable = true)
 	private String description;
 
 	@ManyToOne

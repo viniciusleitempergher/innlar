@@ -6,10 +6,14 @@ import java.util.Collections;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+import javax.security.sasl.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,10 @@ import com.inllar.rest.models.RefreshToken;
 import com.inllar.rest.models.User;
 import com.inllar.rest.repositories.RefreshTokenRepository;
 import com.inllar.rest.repositories.UserRepository;
+import com.inllar.rest.requests.LoginRequest;
+import com.inllar.rest.requests.RegisterRequest;
+import com.inllar.rest.requests.TokenRequest;
+import com.inllar.rest.requests.TokensResponse;
 
 @Service("authService")
 @Component
@@ -43,7 +51,42 @@ public class AuthService {
 	@Value("${google.client.id}")
 	String CLIENT_ID;
 
-	public String[][] login(String googleId) throws GeneralSecurityException, IOException {
+	public TokensResponse register(RegisterRequest request) {
+		if (userRepository.existsByEmail(request.getEmail())) {
+			throw new EntityExistsException();
+		}
+
+		User user = new User();
+		user.setEmail(request.getEmail());
+		user.setPassword(request.getPassword());
+		user.setName(request.getName());
+
+		if (request.getPhoneNumber() != null)
+			user.setPhoneNumber(request.getPhoneNumber());
+
+		userService.createUser(user);
+
+		TokensResponse response = handleExistingUser(user);
+		return response;
+	}
+
+	public TokensResponse login(LoginRequest request) throws AuthenticationException {
+
+		String email = request.getEmail();
+		String password = request.getPassword();
+
+		User user = userRepository.findByEmail(email);
+		BCryptPasswordEncoder cript = new BCryptPasswordEncoder();
+
+		if (!cript.matches(password, user.getPassword())) {
+			throw new AuthenticationException();
+		}
+
+		TokensResponse response = handleExistingUser(user);
+		return response;
+	}
+
+	public TokensResponse googleLogin(String googleId) throws GeneralSecurityException, IOException {
 
 		HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
 		JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -53,7 +96,7 @@ public class AuthService {
 
 		GoogleIdToken idToken = verifier.verify(googleId);
 
-		String[][] tokens;
+		TokensResponse response;
 
 		if (idToken != null) {
 			Payload payload = idToken.getPayload();
@@ -76,41 +119,58 @@ public class AuthService {
 			user.setAvatar(pictureUrl);
 
 			if (!userService.userExists(email)) {
-				tokens = handleCreateUser(user);
+				response = handleCreateUser(user);
 			} else {
-				tokens = handleExistingUser(user);
+				response = handleExistingUser(user);
 			}
 		} else {
-			System.out.println("Invalid ID token.");
-			throw new EntityExistsException();
+			throw new AuthenticationException();
 		}
-		return tokens;
+		return response;
 	}
 
-	private String[][] handleExistingUser(User userData) {
+	private TokensResponse handleExistingUser(User userData) {
 
 		User user = userRepository.findByEmail(userData.getEmail());
-		System.out.println("User: " + user.getEmail());
-		RefreshToken dataRefreshToken = refreshTokenRepository.findByUser(user);
 
-		String refreshToken = dataRefreshToken.getToken();
+		try {
+			RefreshToken dataRefreshToken = refreshTokenRepository.findByUser(user);
+			String refreshToken = dataRefreshToken.getToken();
 
-		if (jwt.validateRefreshToken(refreshToken, user)) {
-			String accessToken = createAccessToken(dataRefreshToken);
-			return new String[][] { { "token", accessToken + "" }, { "refreshToken", refreshToken + "" } };
-		} else {
-			String tokens[] = createRefreshToken(user);
-			return new String[][] { { "token", tokens[0] }, { "refreshToken", tokens[1] } };
+			if (jwt.validateRefreshToken(refreshToken, user)) {
+				String accessToken = createAccessToken(dataRefreshToken);
+
+				TokensResponse response = new TokensResponse();
+
+				response.setAccessToken(accessToken);
+				response.setRefreshToken(refreshToken);
+
+				return response;
+			} else {
+				throw new EntityNotFoundException();
+			}
+		} catch (EntityNotFoundException | NullPointerException e) {
 		}
+
+		String tokens[] = createRefreshToken(user);
+		TokensResponse response = new TokensResponse();
+
+		response.setAccessToken(tokens[0]);
+		response.setRefreshToken(tokens[1]);
+
+		return response;
 	}
 
-	private String[][] handleCreateUser(User userData) {
+	private TokensResponse handleCreateUser(User userData) {
 		User user = userService.createUser(userData);
 
 		String[] tokens = createRefreshToken(user);
-		String[][] tokensJson = { { "token", tokens[0] + "" }, { "refreshToken", tokens[1] + "" } };
 
-		return tokensJson;
+		TokensResponse response = new TokensResponse();
+		response.setAccessToken(tokens[0]);
+		response.setRefreshToken(tokens[1]);
+
+		return response;
 	}
 
 	private String[] createRefreshToken(User user) {

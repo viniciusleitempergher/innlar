@@ -1,12 +1,59 @@
 package com.inllar.rest.controller;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityExistsException;
+import javax.security.sasl.AuthenticationException;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.inllar.rest.exceptions.ConflictException;
+import com.inllar.rest.exceptions.UnauthorizedException;
+import com.inllar.rest.requests.LoginRequest;
+import com.inllar.rest.requests.RegisterRequest;
+import com.inllar.rest.requests.TokenRequest;
+import com.inllar.rest.requests.TokensResponse;
+import com.inllar.rest.services.AuthService;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/auth")
 public class AuthController {
-	
+
+	@Resource(name = "authService")
+	private AuthService authService;
+
+	@PostMapping("/register")
+	public TokensResponse register(@RequestBody RegisterRequest request) {
+		try {
+			TokensResponse response = authService.register(request);
+			return response;
+		} catch (EntityExistsException e) {
+			throw new ConflictException();
+		}
+	}
+
+	@PostMapping("/login")
+	public TokensResponse login(@RequestBody LoginRequest request) {
+		try {
+			TokensResponse response = authService.login(request);
+			return response;
+		} catch (AuthenticationException | NullPointerException e) {
+			throw new UnauthorizedException();
+		}
+	}
+
+	@PostMapping("/google-login")
+	public TokensResponse googleLogin(@RequestBody TokenRequest request) throws Exception {
+		String googleId = request.getToken();
+		try {
+			TokensResponse response = authService.googleLogin(googleId);
+			return response;
+		} catch (AuthenticationException e) {
+			throw new UnauthorizedException();
+		}
+	}
 }

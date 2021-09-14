@@ -50,8 +50,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				// public endpoints
 				.antMatchers("/auth/**").permitAll().antMatchers(HttpMethod.POST, "/auth/login").permitAll()
 				// private endpoints
-				.antMatchers("/property").hasRole("USER").anyRequest().authenticated()
-				.antMatchers("/user").hasRole("USER").anyRequest().authenticated();
+				.antMatchers("/property").hasRole("USER").anyRequest().authenticated();
+				//.antMatchers("/user").hasRole("USER").anyRequest().authenticated();
 
 		// Add JWT token filter
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

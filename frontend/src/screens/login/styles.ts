@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   loginButton: {
     marginTop: '12%',
-    marginBottom: '7%'
+    marginBottom: 0
   },
   hasntAccount: {
     padding: "12%",
@@ -29,5 +29,24 @@ export const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 45,
     marginBottom: 15
+  },
+  googleButton: {
+    width: '100%',
+    height: 40,
+    backgroundColor: colors.primary,
+    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+
+  googleIcon: {
+    fontSize: 24, 
+    color: "#fff",
+    marginLeft: 20
+  },
+
+  googleTxt: {
+    color: "#fff",
+    marginLeft: 50
   }
 });

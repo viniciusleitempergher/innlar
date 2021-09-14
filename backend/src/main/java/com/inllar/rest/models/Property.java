@@ -22,6 +22,9 @@ public class Property {
 	@Column(name = "id", updatable = false, unique = true, nullable = false, columnDefinition = "uuid")
 	private UUID id;
 
+	@Column(name = "name", nullable = false)
+	private String name;
+
 	@Column(name = "number_rooms", nullable = false)
 	private int numberRooms;
 
@@ -48,6 +51,14 @@ public class Property {
 	private Address address;
 
 	public Property() {
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public UUID getId() {

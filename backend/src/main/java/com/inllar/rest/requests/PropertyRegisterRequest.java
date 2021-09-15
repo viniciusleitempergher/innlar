@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PropertyRegisterRequest implements Serializable {
 	private static final long serialVersionUID = 3031371885274757967L;
 
@@ -26,7 +28,7 @@ public class PropertyRegisterRequest implements Serializable {
 	private String city;
 	private String state;
 
-	private List<String> images;
+	private List<MultipartFile> images;
 
 	private UUID userId;
 
@@ -169,11 +171,11 @@ public class PropertyRegisterRequest implements Serializable {
 		this.state = state;
 	}
 
-	public List<String> getImages() {
+	public List<MultipartFile> getImages() {
 		return images;
 	}
 
-	public void setImages(List<String> images) {
+	public void setImages(List<MultipartFile> images) {
 		this.images = images;
 	}
 

@@ -1,4 +1,4 @@
-package com.inllar.rest.configs;
+package com.inllar.rest.utils;
 
 import java.io.Serializable;
 import java.util.Date;

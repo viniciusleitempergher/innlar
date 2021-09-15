@@ -24,7 +24,6 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
-import com.inllar.rest.configs.JwtTokenUtil;
 import com.inllar.rest.models.RefreshToken;
 import com.inllar.rest.models.User;
 import com.inllar.rest.repositories.RefreshTokenRepository;
@@ -33,6 +32,7 @@ import com.inllar.rest.requests.LoginRequest;
 import com.inllar.rest.requests.RegisterRequest;
 import com.inllar.rest.requests.TokenRequest;
 import com.inllar.rest.requests.TokensResponse;
+import com.inllar.rest.utils.JwtTokenUtil;
 
 @Service("authService")
 @Component

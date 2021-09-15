@@ -30,10 +30,10 @@ public class Property {
 
 	@Column(name = "number_bathrooms", nullable = false)
 	private int numberBathRooms;
-	
+
 	@Column(name = "number_bedrooms", nullable = false)
 	private int numberBedRooms;
-	
+
 	@Column(name = "number_kitchens", nullable = false)
 	private int numberKitchens;
 
@@ -42,13 +42,13 @@ public class Property {
 
 	@Column(name = "has_pool", nullable = false)
 	private boolean hasPool;
-	
+
 	@Column(name = "has_party_area", nullable = false)
 	private boolean hasPartyArea;
-	
+
 	@Column(name = "has_grill", nullable = false)
 	private boolean hasGrill;
-	
+
 	@Column(name = "has_garage", nullable = false)
 	private boolean hasGarage;
 
@@ -146,5 +146,45 @@ public class Property {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public int getNumberBedRooms() {
+		return numberBedRooms;
+	}
+
+	public void setNumberBedRooms(int numberBedRooms) {
+		this.numberBedRooms = numberBedRooms;
+	}
+
+	public int getNumberKitchens() {
+		return numberKitchens;
+	}
+
+	public void setNumberKitchens(int numberKitchens) {
+		this.numberKitchens = numberKitchens;
+	}
+
+	public boolean isHasPartyArea() {
+		return hasPartyArea;
+	}
+
+	public void setHasPartyArea(boolean hasPartyArea) {
+		this.hasPartyArea = hasPartyArea;
+	}
+
+	public boolean isHasGrill() {
+		return hasGrill;
+	}
+
+	public void setHasGrill(boolean hasGrill) {
+		this.hasGrill = hasGrill;
+	}
+
+	public boolean isHasGarage() {
+		return hasGarage;
+	}
+
+	public void setHasGarage(boolean hasGarage) {
+		this.hasGarage = hasGarage;
 	}
 }

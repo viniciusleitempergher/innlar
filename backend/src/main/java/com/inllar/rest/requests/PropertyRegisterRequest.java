@@ -28,10 +28,6 @@ public class PropertyRegisterRequest implements Serializable {
 	private String city;
 	private String state;
 
-	private List<MultipartFile> images;
-
-	private UUID userId;
-
 	public PropertyRegisterRequest() {
 	}
 
@@ -169,21 +165,5 @@ public class PropertyRegisterRequest implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
-	}
-
-	public List<MultipartFile> getImages() {
-		return images;
-	}
-
-	public void setImages(List<MultipartFile> images) {
-		this.images = images;
-	}
-
-	public UUID getUserId() {
-		return userId;
-	}
-
-	public void setUserId(UUID userId) {
-		this.userId = userId;
 	}
 }

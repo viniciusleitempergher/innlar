@@ -19,7 +19,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.inllar.rest.utils.JwtTokenUtil;
 
-
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -49,7 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			chain.doFilter(request, response);
 		}
 
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(null, null, null);
+		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(null, token, null);
 
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityNotFoundException;
+import javax.security.sasl.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.inllar.rest.models.Address;
 import com.inllar.rest.models.Image;
@@ -21,6 +24,7 @@ import com.inllar.rest.repositories.UserRepository;
 import com.inllar.rest.requests.PropertyRegisterResponse;
 import com.inllar.rest.requests.PropertyRegisterRequest;
 import com.inllar.rest.utils.FileUploadUtil;
+import com.inllar.rest.utils.JwtTokenUtil;
 
 @Service("propertyService")
 public class PropertyService {
@@ -34,10 +38,14 @@ public class PropertyService {
 	@Autowired
 	private ImageRepository imageRepository;
 
+	@Autowired
+	private JwtTokenUtil jwt;
+
 	public PropertyRegisterResponse createProperty(PropertyRegisterRequest request) {
 
-		User user = userRepository.findById(request.getUserId())
-				.orElseThrow(() -> new EntityNotFoundException("User not found"));
+		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+		User user = jwt.getUserFromAccessToken(token);
 
 		Property property = new Property();
 
@@ -62,17 +70,39 @@ public class PropertyService {
 		address.setState(request.getState());
 		address.setStreet(request.getStreet());
 		address.setProperty(property);
-
-		property.setAddress(address);
+		
 		property.setUser(user);
 
 		propertyRepository.save(property);
+		property.setAddress(address);
 		addressRepository.save(address);
+
+		propertyRepository.save(property);
+
+		PropertyRegisterResponse response = new PropertyRegisterResponse();
+		response.setPropertyId(property.getId().toString());
+
+		return response;
+	}
+
+	public void saveImages(MultipartFile[] images, String propertyId) throws AuthenticationException {
+		Property property = propertyRepository.findById(UUID.fromString(propertyId))
+				.orElseThrow(() -> new EntityNotFoundException());
+
+		User user = property.getUser();
+
+		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		User userFromToken = jwt.getUserFromAccessToken(token);
+
+		if (user != userFromToken) {
+			throw new AuthenticationException();
+		}
 
 		List<Image> dbImages = new ArrayList<Image>();
 
-		request.getImages().forEach((image) -> {
-			String url = user.getId().toString() + "/" + property.getId();
+		for (int i = 0; i < images.length; i++) {
+			MultipartFile image = images[i];
+			String url = "user_content/" + user.getId().toString() + "/" + property.getId();
 			String filename = UUID.randomUUID().toString();
 			try {
 				FileUploadUtil.saveFile(url, filename, image);
@@ -85,16 +115,9 @@ public class PropertyService {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		});
+		}
 
 		property.setImages(dbImages);
-		propertyRepository.save(property);
-
-		PropertyRegisterResponse response = new PropertyRegisterResponse();
-		response.setImageUrl(dbImages.get(0).getUrl());
-		response.setName(property.getName());
-
-		return response;
 	}
 
 }

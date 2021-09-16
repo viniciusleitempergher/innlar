@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, View } from 'react-native';
+import { Text, View, KeyboardAvoidingView, Platform} from 'react-native';
 import { Form } from '../../components/form';
 import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
@@ -9,6 +9,10 @@ import { styles } from './styles';
 
 export function Register() {
   return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
     <View style={styles.container}>
       <Form title="Cadastro">
         <View style={[styles.nameField, styles.field]}>
@@ -35,7 +39,8 @@ export function Register() {
           <Button title="Cadastrar" />
         </View>
       </Form>
-
+    
     </View>
+    </KeyboardAvoidingView>
   );
 }

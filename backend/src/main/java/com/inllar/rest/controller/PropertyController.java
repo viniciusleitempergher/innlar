@@ -44,10 +44,10 @@ public class PropertyController {
 		}
 	}
 
-//	@GetMapping
-//	public PropertiesResponse getProperties() {
-//
-//	}
+	@GetMapping
+	public PropertiesResponse getProperties() {
+
+	}
 
 //	@GetMapping("/get-by-id")
 //	public PropertyGetResponse getProperty(@RequestBody PropertyGetRequest request) {

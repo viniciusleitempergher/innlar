@@ -12,7 +12,6 @@ import javax.security.sasl.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -33,6 +32,8 @@ import com.inllar.rest.requests.RegisterRequest;
 import com.inllar.rest.requests.TokenRequest;
 import com.inllar.rest.requests.TokensResponse;
 import com.inllar.rest.utils.JwtTokenUtil;
+
+import io.jsonwebtoken.ExpiredJwtException;
 
 @Service("authService")
 @Component
@@ -149,7 +150,7 @@ public class AuthService {
 			} else {
 				throw new EntityNotFoundException();
 			}
-		} catch (EntityNotFoundException | NullPointerException e) {
+		} catch (EntityNotFoundException | NullPointerException | ExpiredJwtException e) {
 		}
 
 		String tokens[] = createRefreshToken(user);

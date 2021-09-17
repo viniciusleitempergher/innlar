@@ -20,7 +20,6 @@ import com.inllar.rest.models.User;
 import com.inllar.rest.repositories.AddressRepository;
 import com.inllar.rest.repositories.ImageRepository;
 import com.inllar.rest.repositories.PropertyRepository;
-import com.inllar.rest.repositories.UserRepository;
 import com.inllar.rest.requests.PropertyRegisterResponse;
 import com.inllar.rest.requests.PropertyRegisterRequest;
 import com.inllar.rest.utils.FileUploadUtil;
@@ -33,8 +32,7 @@ public class PropertyService {
 	private PropertyRepository propertyRepository;
 	@Autowired
 	private AddressRepository addressRepository;
-	@Autowired
-	private UserRepository userRepository;
+
 	@Autowired
 	private ImageRepository imageRepository;
 

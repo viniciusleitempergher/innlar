@@ -1,10 +1,6 @@
 package com.inllar.rest.requests;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public class PropertyRegisterRequest implements Serializable {
 	private static final long serialVersionUID = 3031371885274757967L;

@@ -18,8 +18,6 @@ export default function App() {
     Rajdhani_700Bold,
   })
 
-
-
   if (!fontsLoaded) {
     return <AppLoading />
   }
@@ -31,7 +29,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <PropertyRegisterStepThree/>
+      <PropertyRegister/>
     </Background>
   );
 }

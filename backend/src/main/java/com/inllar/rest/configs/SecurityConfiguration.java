@@ -17,7 +17,6 @@ import org.springframework.web.filter.CorsFilter;
 
 import com.inllar.rest.filters.JwtFilter;
 
-
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -49,9 +48,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				// public endpoints
 				.antMatchers("/auth/**").permitAll().antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+				.antMatchers("/swagger-ui/**").permitAll()
 				// private endpoints
 				.antMatchers("/property").hasRole("USER").anyRequest().authenticated();
-				//.antMatchers("/user").hasRole("USER").anyRequest().authenticated();
+		// .antMatchers("/user").hasRole("USER").anyRequest().authenticated();
 
 		// Add JWT token filter
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

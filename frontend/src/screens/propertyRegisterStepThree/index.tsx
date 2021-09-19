@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { Form } from '../../components/form';
@@ -6,14 +6,26 @@ import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
 import { Checkbox } from '../../components/checkbox'
 import { styles } from './styles';
+import { Question } from '../../components/question';
+import { CheckBoxQuestion } from '../../components/checkboxQuestion';
 
+type Props = {
+  back: VoidFunction,
+  next: VoidFunction
+}
 
-export function PropertyRegisterStepThree() {
+export function PropertyRegisterStepThree({ back, next }: Props) {
 
-  const [checked, setChecked] = useState(false);
-  //const [churrasqueira, setChurasqueira] = useState(false);
-  //const [areaFesta, setAreaFesta] = useState(false);
+  const [area, setArea] = useState("");
+  const [quartos, setQuartos] = useState("");
+  const [banheiros, setBanheiros] = useState("");
+  const [salas, setSalas] = useState("");
+  const [cozinhas, setCozinhas] = useState("");
 
+  const [areaFesta, setAreaFesta] = useState(false);
+  const [churrasqueira, setChurasqueira] = useState(false);
+  const [piscina, setPiscina] = useState(false);
+  const [garagem, setGaragem] = useState(false);
 
   return (
     <KeyboardAvoidingView
@@ -26,41 +38,20 @@ export function PropertyRegisterStepThree() {
             <Text style={styles.steps}>3º Passo</Text>
             <Text style={styles.description}>Características Físicas:</Text>
           </View>
-          <View style={styles.viewInput}>
-            <Text style={styles.smallDescription}>Área do Terreno (m²):</Text>
-            <TextArea keyboardType='numeric' style={styles.inputNumber} />
-          </View>
-          <View style={styles.viewInput}>
-            <Text style={styles.smallDescription}>Nº de Quartos:</Text>
-            <TextArea keyboardType='numeric' style={styles.inputNumber} />
-          </View>
-          <View style={styles.viewInput}>
-            <Text style={styles.smallDescription}>Nº de Banheiros:</Text>
-            <TextArea keyboardType='numeric' style={styles.inputNumber} />
-          </View>
-          <View style={styles.viewInput}>
-            <Text style={styles.smallDescription}>Nº de Salas:</Text>
-            <TextArea keyboardType='numeric' style={styles.inputNumber} />
-          </View>
-          <View style={styles.viewInput}>
-            <Text style={styles.smallDescription}>Nº de Cozinhas:</Text>
-            <TextArea keyboardType='numeric' style={styles.inputNumber} />
-          </View>
-          <View style={styles.viewInput}>
-            <Text style={styles.smallDescription}>Possui área de festa?</Text>
-            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-              <Checkbox checked={checked} onPress={() => setChecked(!checked)} />
-            </View>
-          </View>
-          
-
-
-
+          <Question title="Área do Terreno (m²):" onChangeText={setArea} />
+          <Question title="Nº de Quartos:" onChangeText={setQuartos} />
+          <Question title="Nº de Banheiros:" onChangeText={setBanheiros} />
+          <Question title="Nº de Salas:" onChangeText={setSalas} />
+          <Question title="Nº de Cozinhas:" onChangeText={setCozinhas} />
+          <CheckBoxQuestion title="Possui área de festa?" checked={areaFesta} onPress={() => { setAreaFesta(!areaFesta) }} />
+          <CheckBoxQuestion title="Possui churrasqueira?" checked={churrasqueira} onPress={() => { setChurasqueira(!churrasqueira) }} />
+          <CheckBoxQuestion title="Possui piscina?" checked={piscina} onPress={() => { setPiscina(!piscina) }} />
+          <CheckBoxQuestion title="Possui garagem?" checked={garagem} onPress={() => { setGaragem(!garagem) }} />
 
           <View style={styles.line} />
           <View style={styles.buttons}>
-            <Button style={styles.button} title="Voltar" />
-            <Button style={styles.button} title="Continuar" />
+            <Button style={styles.button} title="Voltar" onPress={back} />
+            <Button style={styles.button} title="Continuar" onPress={next} />
           </View>
           <View style={styles.balls}>
             <View style={styles.blueBall} />

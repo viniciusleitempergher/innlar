@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { fonts } from '../../global/styles/fonts';
-import { colors } from '../../global/styles/colors';
 
 export const styles = StyleSheet.create({
     container: {
@@ -13,7 +12,7 @@ export const styles = StyleSheet.create({
       marginBottom: 5
     },
     nameField: {
-      marginTop: 15,
+      marginTop: 15
     },
     field: {
       marginBottom: 20
@@ -27,22 +26,22 @@ export const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 16,
         marginTop: 20,
+        marginBottom: 15
     },
     smallDescription: {
+        textAlign: "center",
         fontSize: 14,
-        marginBottom: 5,
-        marginTop: 5
+        marginBottom: 15
     },
 
     line: {
-        marginVertical: 20,
         borderBottomColor: '#01525A',
         borderBottomWidth: 1,
     },
 
-    inputAddress:{
+    inputDescription:{
         width: '100%',
-        height: 30,
+        height: 100,
         backgroundColor: '#fff',
         color: '#000',
         borderRadius: 8,  
@@ -75,29 +74,12 @@ export const styles = StyleSheet.create({
     },
 
     balls: {
-        marginTop:10,
-        marginEnd: 90,
-        marginStart: 90,
-        display: "flex",
-        flexDirection: 'row',
-        alignItems: "center",
-        justifyContent:"space-between"
-    },
-
-    button:{
-        width: '48%',
-        height: 40,
-        backgroundColor: colors.primary,
-        borderRadius: 8,
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-
-    buttons:{
-        marginTop:10,
-        display: "flex",
-        flexDirection: 'row',
-        alignItems: "center",
-        justifyContent:"space-between"
+      marginTop:10,
+      marginEnd: 90,
+      marginStart: 90,
+      display: "flex",
+      flexDirection: 'row',
+      alignItems: "center",
+      justifyContent:"space-between"
     }
   });

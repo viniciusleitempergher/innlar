@@ -1,44 +1,104 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
-import { Form } from '../../components/form';
-import { TextArea } from '../../components/textArea';
-import { Button } from '../../components/button';
+import { View } from 'react-native';
+import { PropertyRegisterStepOne } from '../propertyRegisterStepOne';
+import { PropertyRegisterStepThree } from '../propertyRegisterStepThree';
+import { PropertyRegisterStepTwo } from '../propertyRegisterStepTwo';
 
 import { styles } from './styles';
 
-export function PropertyRegister() {
-  return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.container}
-    >
-      <View style={styles.container}>
-        <Form title="Registre sua Propriedade">
-          <View style={[styles.nameField, styles.field]}>
-            <Text style={styles.steps}>1º Passo</Text>
-            <Text style={styles.description}>Comece definindo o nome da sua propriedade:</Text>
-            <TextArea placeholder="Nome da Propriedade" />
-          </View>
-          <View style={styles.line} />
-          <View style={[styles.nameField, styles.field]}>
-            <Text style={styles.description}>Crie uma Descrição</Text>
-            <Text style={styles.smallDescription}>Adicione uma pequena descrição sobre sua propriedade (*opcional)</Text>
-            <TextArea style={styles.inputDescription} placeholder="Descrição" numberOfLines={7} multiline />
-          </View>
-          <View style={styles.line} />
-          <View style={styles.nameField}>
-            <Button title="Continuar" />
-          </View>
-          <View style={styles.balls}>
-            <View style={styles.blueBall} />
-            <View style={styles.ball} />
-            <View style={styles.ball} />
-            <View style={styles.ball} />
-          </View>
-        </Form>
+type Form = {
+  name: string,
+  description: string,
+  state: string,
+  cep: string,
+  city: string,
+  district: string,
+  street: string,
+  number: number,
+  squareMeters: number,
+  numberRooms: number,
+  numberBathRooms: number,
+  numberKitchens: number,
+  hasPartyArea: boolean,
+  hasGrill: boolean,
+  hasPool: boolean,
+  hasGarage: boolean,
+  propertyValue: number
+}
 
-      </View>
-    </KeyboardAvoidingView>
+export type stepTwoParams = {
+  nome: string,
+  descricao: string
+};
+
+export type stepThreeParams = {
+  state: string,
+  cep: string,
+  city: string,
+  district: string,
+  street: string,
+  number: number
+}
+
+export function PropertyRegister() {
+  const [step, setStep] = useState(0);
+
+  let form: Form = {
+    name: "",
+    description: "",
+    state: "",
+    cep: "",
+    city: "",
+    district: "",
+    street: "",
+    number: 0,
+    squareMeters: 0,
+    numberRooms: 0,
+    numberBathRooms: 0,
+    numberKitchens: 0,
+    hasPartyArea: false,
+    hasGrill: false,
+    hasPool: false,
+    hasGarage: false,
+    propertyValue: 0
+  };
+
+  function handleStepBack() {
+    setStep(step - 1)
+  }
+
+  function handleStepTwo({ nome, descricao }: stepTwoParams) {
+    form.name = nome;
+    form.description = descricao;
+    setStep(2)
+  }
+
+  function handleStepThree({ state, cep, city, district, street, number }: stepThreeParams) {
+    form.state = state;
+    form.cep = cep;
+    form.city = city;
+    form.district = district;
+    form.street = street;
+    form.number = number;
+    setStep(3)
+  }
+
+  function handleStepFour() {
+    setStep(4)
+  }
+
+  return (
+    <View style={styles.container}>
+      {
+        (step == 1) ?
+          <PropertyRegisterStepOne next={handleStepTwo} />
+          : (step == 2) ?
+            <PropertyRegisterStepTwo back={handleStepBack} next={handleStepThree} />
+            : (step == 3) ?
+              <PropertyRegisterStepThree back={handleStepBack} next={handleStepFour} />
+              : <PropertyRegisterStepOne next={handleStepTwo} />
+      }
+    </View>
   );
 }

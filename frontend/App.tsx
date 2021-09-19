@@ -6,10 +6,10 @@ import { Rajdhani_500Medium, Rajdhani_700Bold } from '@expo-google-fonts/rajdhan
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Register } from './src/screens/register';
-import { PropertyRegister } from './src/screens/propertyRegister';
 import { PropertyRegisterStepTwo } from './src/screens/propertyRegisterStepTwo';
 import { PropertyRegisterStepThree } from './src/screens/propertyRegisterStepThree';
 import { Checkbox } from './src/components/checkbox';
+import { PropertyRegister } from './src/screens/propertyRegister';
 
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <PropertyRegister/>
+      <PropertyRegister />
     </Background>
   );
 }

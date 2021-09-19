@@ -1,6 +1,7 @@
 package com.inllar.rest.filters;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.FilterChain;
@@ -31,6 +32,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
 		// Get authorization header and validate
 		final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+		System.out.println(header);
 
 		if (header == null || !header.startsWith("Bearer ")) {
 			chain.doFilter(request, response);

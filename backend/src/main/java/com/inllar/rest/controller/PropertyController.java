@@ -14,14 +14,20 @@ import com.inllar.rest.requests.PropertyRegisterRequest;
 import com.inllar.rest.requests.PropertyRegisterResponse;
 import com.inllar.rest.services.PropertyService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @CrossOrigin
 @RestController
+@SecurityRequirement(name = "accesstoken")
 @RequestMapping(value = "/properties")
 public class PropertyController {
 
 	@Resource(name = "propertyService")
 	private PropertyService propertyService;
 
+	@ApiOperation("Endpoint used to create new properties")
 	@PostMapping("/create")
 	public PropertyRegisterResponse createProperty(@RequestBody PropertyRegisterRequest request) {
 		try {
@@ -31,6 +37,7 @@ public class PropertyController {
 		}
 	}
 
+	@ApiOperation("Endpoint used to upload property images")
 	@PostMapping("/images")
 	public void uploadImages(@RequestParam("images") MultipartFile[] files,
 			@RequestParam("propertyId") String propertyId) throws Exception {

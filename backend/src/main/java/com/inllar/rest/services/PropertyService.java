@@ -9,6 +9,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.security.sasl.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +23,8 @@ import com.inllar.rest.repositories.AddressRepository;
 import com.inllar.rest.repositories.ImageRepository;
 import com.inllar.rest.repositories.PropertyRepository;
 import com.inllar.rest.requests.PropertyRegisterResponse;
+import com.inllar.rest.requests.PropertiesFilterResponse;
+import com.inllar.rest.requests.PropertiesGetResponse;
 import com.inllar.rest.requests.PropertyRegisterRequest;
 import com.inllar.rest.utils.FileUploadUtil;
 import com.inllar.rest.utils.JwtTokenUtil;
@@ -68,7 +72,7 @@ public class PropertyService {
 		address.setState(request.getState());
 		address.setStreet(request.getStreet());
 		address.setProperty(property);
-		
+
 		property.setUser(user);
 
 		propertyRepository.save(property);
@@ -116,6 +120,66 @@ public class PropertyService {
 		}
 
 		property.setImages(dbImages);
+		propertyRepository.save(property);
 	}
 
+	public PropertiesGetResponse getPropertiesByAddress(String cep, String city, String district, String state) {
+		Address requestedAddress = new Address();
+		requestedAddress.setCep(cep);
+		requestedAddress.setCity(city);
+		requestedAddress.setDistrict(district);
+		requestedAddress.setState(state);
+
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues().withIgnorePaths("number");
+		Example<Address> example = Example.of(requestedAddress, matcher);
+
+		List<Address> matchingAddresses = addressRepository.findAll(example);
+
+		System.out.println(matchingAddresses.size());
+
+		ArrayList<Property> properties = new ArrayList<Property>();
+
+		for (Address address : matchingAddresses) {
+			Property property = address.getProperty();
+			property.setUser(null);
+			property.getAddress().setProperty(null);
+			properties.add(property);
+		}
+
+		PropertiesGetResponse response = new PropertiesGetResponse();
+		response.setProperties(properties);
+		return response;
+	}
+
+	public PropertiesFilterResponse getSearchFilters() {
+		ArrayList<String> addressesCep = new ArrayList<String>();
+		ArrayList<String> addressesCity = new ArrayList<>();
+		ArrayList<String> addressesDistrict = new ArrayList<>();
+		ArrayList<String> addressesState = new ArrayList<>();
+
+		List<Address> addresses = addressRepository.findAll();
+		addresses.forEach((address) -> {
+
+			if (!addressesCep.stream().anyMatch(address.getCep()::equalsIgnoreCase))
+				addressesCep.add(address.getCep());
+
+			if (!addressesCity.stream().anyMatch(address.getCity()::equalsIgnoreCase))
+				addressesCity.add(address.getCity());
+
+			if (!addressesDistrict.stream().anyMatch(address.getDistrict()::equalsIgnoreCase))
+				addressesDistrict.add(address.getDistrict());
+
+			if (!addressesState.stream().anyMatch(address.getState()::equalsIgnoreCase))
+				addressesState.add(address.getState());
+		});
+
+		PropertiesFilterResponse response = new PropertiesFilterResponse();
+
+		response.setCep(addressesCep);
+		response.setCity(addressesCity);
+		response.setDistrict(addressesDistrict);
+		response.setState(addressesState);
+
+		return response;
+	}
 }

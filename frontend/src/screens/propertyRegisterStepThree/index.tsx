@@ -9,6 +9,7 @@ import { styles } from './styles';
 import { Question } from '../../components/question';
 import { CheckBoxQuestion } from '../../components/checkboxQuestion';
 
+
 type Props = {
   back: VoidFunction,
   next: VoidFunction

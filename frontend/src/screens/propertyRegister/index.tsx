@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { PropertyRegisterStepOne } from '../propertyRegisterStepOne';
 import { PropertyRegisterStepThree } from '../propertyRegisterStepThree';
 import { PropertyRegisterStepTwo } from '../propertyRegisterStepTwo';
+import { PropertyRegisterStepFour } from '../propertyRegisterStepFour';
 
 import { styles } from './styles';
 
@@ -97,7 +98,7 @@ export function PropertyRegister() {
             <PropertyRegisterStepTwo back={handleStepBack} next={handleStepThree} />
             : (step == 3) ?
               <PropertyRegisterStepThree back={handleStepBack} next={handleStepFour} />
-              : <PropertyRegisterStepOne next={handleStepTwo} />
+              : <PropertyRegisterStepFour back={handleStepBack} next={handleStepFour}/>
       }
     </View>
   );

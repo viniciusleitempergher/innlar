@@ -4,7 +4,9 @@ import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
-    width: '85%',
+    width: '95%',
+    marginTop: 10,
+    marginBottom: 10,
     padding: "5%",
     borderColor: colors.primary,
     borderWidth: 1,

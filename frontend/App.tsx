@@ -10,6 +10,8 @@ import { PropertyRegisterStepTwo } from './src/screens/propertyRegisterStepTwo';
 import { PropertyRegisterStepThree } from './src/screens/propertyRegisterStepThree';
 import { Checkbox } from './src/components/checkbox';
 import { PropertyRegister } from './src/screens/propertyRegister';
+import { Home } from './src/screens/home';
+import { PropertyInfo } from './src/screens/propertyInfo';
 
 
 export default function App() {
@@ -29,7 +31,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <PropertyRegister />
+      <PropertyInfo />
     </Background>
   );
 }

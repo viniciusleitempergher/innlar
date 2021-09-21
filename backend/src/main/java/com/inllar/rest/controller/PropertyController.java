@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inllar.rest.exceptions.NotFoundException;
 import com.inllar.rest.models.Address;
 import com.inllar.rest.models.Property;
 import com.inllar.rest.repositories.AddressRepository;
 import com.inllar.rest.requests.PropertiesFilterResponse;
 import com.inllar.rest.requests.PropertiesGetResponse;
+import com.inllar.rest.requests.PropertyGetResponse;
 import com.inllar.rest.requests.PropertyRegisterRequest;
 import com.inllar.rest.requests.PropertyRegisterResponse;
 import com.inllar.rest.services.PropertyService;
@@ -84,8 +87,13 @@ public class PropertyController {
 		}
 	}
 
-//	@GetMapping("/get-by-id")
-//	public PropertyGetResponse getProperty(@RequestBody PropertyGetRequest request) {
-//		
-//	}
+	@ApiOperation("Get the property by the id from param")
+	@GetMapping
+	public PropertyGetResponse getProperty(@RequestParam String uuid) {
+		try {
+			return propertyService.getPropertyById(uuid);
+		} catch (EntityNotFoundException e) {
+			throw new NotFoundException();
+		}
+	}
 }

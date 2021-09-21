@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "users")
 public class User {
 	@Id
@@ -42,6 +44,17 @@ public class User {
 	private RefreshToken refreshToken;
 
 	public User() {
+	}
+
+	@JsonIgnore
+	public User getUserData() {
+		User user = new User();
+		user.setAvatar(this.avatar);
+		user.setEmail(this.email);
+		user.setId(this.id);
+		user.setName(this.name);
+		user.setPhoneNumber(this.phoneNumber);
+		return user;
 	}
 
 	public UUID getId() {

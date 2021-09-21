@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "properties")
 public class Property {
 	@Id
@@ -25,8 +27,8 @@ public class Property {
 	@Column(name = "name", nullable = false)
 	private String name;
 
-	@Column(name = "number_rooms", nullable = false)
-	private int numberRooms;
+	@Column(name = "value", nullable = false)
+	private double value;
 
 	@Column(name = "number_bathrooms", nullable = false)
 	private int numberBathRooms;
@@ -65,6 +67,35 @@ public class Property {
 	@OneToOne(mappedBy = "property")
 	private Address address;
 
+	@JsonIgnore
+	public Property getPropertyData() {
+		Property property = new Property();
+
+		property.setAddress(address);
+		property.setDescription(description);
+		property.setHasGarage(hasGarage);
+		property.setHasGrill(hasGrill);
+		property.setHasPartyArea(hasPartyArea);
+		property.setHasPool(hasPool);
+		property.setId(id);
+		property.setImages(images);
+		property.setName(name);
+		property.setNumberBathRooms(numberBathRooms);
+		property.setNumberBedRooms(numberBedRooms);
+		property.setNumberKitchens(numberKitchens);
+		property.setSquareMeters(squareMeters);
+		property.setUser(user);
+		property.setValue(value);
+		property.setUser(this.user.getUserData());
+		property.getUser().setProperties(null);
+		property.getAddress().setProperty(null);
+		property.getImages().forEach((Image image) -> {
+			image.setProperty(null);
+		});
+
+		return property;
+	}
+
 	public Property() {
 	}
 
@@ -84,12 +115,12 @@ public class Property {
 		this.id = id;
 	}
 
-	public int getNumberRooms() {
-		return numberRooms;
+	public double getValue() {
+		return this.value;
 	}
 
-	public void setNumberRooms(int numberRooms) {
-		this.numberRooms = numberRooms;
+	public void setValue(double value) {
+		this.value = value;
 	}
 
 	public int getNumberBathRooms() {

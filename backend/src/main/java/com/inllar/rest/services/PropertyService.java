@@ -25,6 +25,7 @@ import com.inllar.rest.repositories.PropertyRepository;
 import com.inllar.rest.requests.PropertyRegisterResponse;
 import com.inllar.rest.requests.PropertiesFilterResponse;
 import com.inllar.rest.requests.PropertiesGetResponse;
+import com.inllar.rest.requests.PropertyGetResponse;
 import com.inllar.rest.requests.PropertyRegisterRequest;
 import com.inllar.rest.utils.FileUploadUtil;
 import com.inllar.rest.utils.JwtTokenUtil;
@@ -57,11 +58,11 @@ public class PropertyService {
 		property.setHasGrill(request.isHasGrill());
 		property.setHasPartyArea(request.isHasPartyArea());
 		property.setHasGarage(request.isHasGarage());
-		property.setNumberRooms(request.getNumberRooms());
 		property.setNumberBathRooms(request.getNumberBathRooms());
 		property.setNumberBedRooms(request.getNumberBedRooms());
 		property.setNumberKitchens(request.getNumberKitchens());
 		property.setSquareMeters(request.getSquareMeters());
+		property.setValue(request.getValue());
 
 		Address address = new Address();
 
@@ -141,9 +142,7 @@ public class PropertyService {
 
 		for (Address address : matchingAddresses) {
 			Property property = address.getProperty();
-			property.setUser(null);
-			property.getAddress().setProperty(null);
-			properties.add(property);
+			properties.add(property.getPropertyData());
 		}
 
 		PropertiesGetResponse response = new PropertiesGetResponse();
@@ -180,6 +179,15 @@ public class PropertyService {
 		response.setDistrict(addressesDistrict);
 		response.setState(addressesState);
 
+		return response;
+	}
+
+	public PropertyGetResponse getPropertyById(String id) {
+		Property property = propertyRepository.findById(UUID.fromString(id))
+				.orElseThrow(() -> new EntityNotFoundException());
+
+		PropertyGetResponse response = new PropertyGetResponse();
+		response.setProperty(property.getPropertyData());
 		return response;
 	}
 }

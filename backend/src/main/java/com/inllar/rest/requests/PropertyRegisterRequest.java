@@ -6,7 +6,7 @@ public class PropertyRegisterRequest implements Serializable {
 	private static final long serialVersionUID = 3031371885274757967L;
 
 	private String name;
-	private int numberRooms;
+	private double value;
 	private int numberBathRooms;
 	private int numberBedRooms;
 	private int numberKitchens;
@@ -35,12 +35,12 @@ public class PropertyRegisterRequest implements Serializable {
 		this.name = name;
 	}
 
-	public int getNumberRooms() {
-		return numberRooms;
+	public double getValue() {
+		return this.value;
 	}
 
-	public void setNumberRooms(int numberRooms) {
-		this.numberRooms = numberRooms;
+	public void setValue(double value) {
+		this.value = value;
 	}
 
 	public int getNumberBathRooms() {

@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { colors } from '../../global/styles/colors';
 
 import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
+    marginTop: getStatusBarHeight(),
     flex: 1,
     width: '100%',
     alignItems: 'center',
@@ -13,34 +15,14 @@ export const styles = StyleSheet.create({
   inputTitle: {
     marginBottom: 5
   },
-  nameField: {
-    marginTop: 15,
-  },
   field: {
     marginBottom: 20
-  },
-
-  innlarIcon: {
-    display: "flex",
-    alignSelf: "center",
-    marginBottom: 5,
-    width: 120,
-    height: 120
   },
 
   searchProperty: {
     display: "flex",
     flexDirection: 'row',
     justifyContent: "center"
-  },
-
-  searchButton: {
-    width: '105%',
-    height: 40,
-    backgroundColor: colors.primary,
-    borderRadius: 8,
-    flexDirection: 'row',
-    alignItems: 'center'
   },
 
   property: {
@@ -73,24 +55,24 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     color: "#01525A",
     marginBottom: 5
-},
+  },
 
-propertyDescription:{
-  width: '100%',
-  height: 120,
-  color: '#000',
-  borderRadius: 8, 
-  borderColor: "#01525A",
-  borderWidth: 1, 
-  fontFamily: fonts.raj500,
-  fontSize: 13,
-  padding: 15,
-  textAlignVertical: 'center',
-  textAlign: 'center',
-  marginTop: 10
-},
+  propertyDescription: {
+    width: '100%',
+    height: 120,
+    color: '#000',
+    borderRadius: 8,
+    borderColor: "#01525A",
+    borderWidth: 1,
+    fontFamily: fonts.raj500,
+    fontSize: 13,
+    padding: 15,
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    marginTop: 10
+  },
 
-description: {
+  description: {
     width: '100%',
     color: '#000',
     fontFamily: fonts.raj500,
@@ -99,22 +81,22 @@ description: {
     textAlign: 'left',
     marginTop: 10,
     marginBottom: 10
-},
+  },
 
-roomIcons: {
+  roomIcons: {
     display: "flex",
     flexDirection: "row",
     marginBottom: 10
-},
+  },
 
-roomIconsText: {
+  roomIconsText: {
     marginTop: 5,
     marginLeft: 5
-},
+  },
 
-line: {
+  line: {
     borderBottomColor: '#01525A',
     borderBottomWidth: 1,
     marginBottom: 10
-}
+  }
 });

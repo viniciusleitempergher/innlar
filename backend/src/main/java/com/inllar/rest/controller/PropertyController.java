@@ -40,8 +40,6 @@ public class PropertyController {
 
 	@Resource(name = "propertyService")
 	private PropertyService propertyService;
-	@Autowired
-	private AddressRepository addressRepository;
 
 	@ApiOperation("Endpoint used to create new properties")
 	@PostMapping("/create")
@@ -92,6 +90,16 @@ public class PropertyController {
 	public PropertyGetResponse getProperty(@RequestParam String uuid) {
 		try {
 			return propertyService.getPropertyById(uuid);
+		} catch (EntityNotFoundException e) {
+			throw new NotFoundException();
+		}
+	}
+
+	@ApiOperation("Get all the properties of a user")
+	@GetMapping("/get-from-user")
+	public PropertiesGetResponse getPropertiesFromUser(@RequestParam String userUuid) {
+		try {
+			return propertyService.getPropertiesFromUser(userUuid);
 		} catch (EntityNotFoundException e) {
 			throw new NotFoundException();
 		}

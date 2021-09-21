@@ -22,6 +22,7 @@ import com.inllar.rest.models.User;
 import com.inllar.rest.repositories.AddressRepository;
 import com.inllar.rest.repositories.ImageRepository;
 import com.inllar.rest.repositories.PropertyRepository;
+import com.inllar.rest.repositories.UserRepository;
 import com.inllar.rest.requests.PropertyRegisterResponse;
 import com.inllar.rest.requests.PropertiesFilterResponse;
 import com.inllar.rest.requests.PropertiesGetResponse;
@@ -37,7 +38,8 @@ public class PropertyService {
 	private PropertyRepository propertyRepository;
 	@Autowired
 	private AddressRepository addressRepository;
-
+	@Autowired
+	private UserRepository userRepository;
 	@Autowired
 	private ImageRepository imageRepository;
 
@@ -188,6 +190,21 @@ public class PropertyService {
 
 		PropertyGetResponse response = new PropertyGetResponse();
 		response.setProperty(property.getPropertyData());
+		return response;
+	}
+
+	public PropertiesGetResponse getPropertiesFromUser(String userId) {
+		User user = userRepository.findById(UUID.fromString(userId)).orElseThrow(() -> new EntityNotFoundException());
+
+		List<Property> userProperties = user.getProperties();
+		ArrayList<Property> userPropertiesData = new ArrayList<>();
+
+		userProperties.forEach((property) -> {
+			userPropertiesData.add(property.getPropertyData());
+		});
+
+		PropertiesGetResponse response = new PropertiesGetResponse();
+		response.setProperties(userPropertiesData);
 		return response;
 	}
 }

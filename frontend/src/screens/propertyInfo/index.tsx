@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Text, View, KeyboardAvoidingView, Platform, Image, ScrollView } from 'react-native';
 import { Form } from '../../components/form';
@@ -6,12 +6,30 @@ import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import axios from 'axios';
 
 
 import { styles } from './styles';
+import MapView from 'react-native-maps';
 
 
 export function PropertyInfo() {
+
+  let [latitude, setLatitude] = useState(0);
+  let [longitude, setLongitude] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      let response = await axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+        params: {
+          address: "Rua+Rio+de+Janeiro,+471+Bairro+das+Capitais+Timbó+-+SC",
+          key: "648197320786-mcu8ni0jrqjoeaoi95cforg0cmrjcacb.apps.googleusercontent.com"
+        }
+      });
+
+      console.log(response.data);
+    })()
+  })
 
   return (
     <ScrollView>
@@ -49,9 +67,24 @@ export function PropertyInfo() {
                   <Text style={styles.roomIconsText}>520 m²</Text>
                 </View>
 
-
+                <MapView
+                  showsUserLocation={true}		//destacando a localização do usuário no mapa
+                  showsMyLocationButton={false} 	//ocultando o botão que move o mapa para a localização do usuário
+                  toolbarEnabled={false}	//ocultando opções do google maps ao clicar em objetos do mapa
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                    position: 'absolute',
+                  }}	// Fazendo com que o mapa ocupe a tela inteira
+                  initialRegion={{
+                    latitude,	//posição inicial do mapa
+                    longitude,	//posição inicial do mapa
+                    latitudeDelta: 0.195,  	//determina o zoom do mapa
+                    longitudeDelta: 0.1921,	//determina o zoom do mapa
+                  }}
+                />
               </View>
-
+ 
             </View>
 
 

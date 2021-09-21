@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles/colors';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
+    marginTop: getStatusBarHeight(),
     flex: 1,
     width: '100%',
     alignItems: 'center',

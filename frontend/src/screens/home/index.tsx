@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 
-import { Text, View, KeyboardAvoidingView, Platform, Image, ScrollView} from 'react-native';
+import { Text, View, KeyboardAvoidingView, Platform, Image, ScrollView, Modal, Alert, Pressable} from 'react-native';
 import { Form } from '../../components/form';
 import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
 import { FontAwesome } from '@expo/vector-icons';
+import { ModalHome } from '../../components/modal';
+import { ModalMenu } from '../../components/modalMenu';
 
 import { styles } from './styles';
 
@@ -19,7 +21,7 @@ export function Home() {
     >
       <View style={styles.container}>
         <Form title="">
-        <FontAwesome name="bars" size={24} color="#01525A" />
+          <ModalMenu/>
         <View style={styles.innlarIcon}>
             <Image
             source={require('../../assets/logo.png')} 
@@ -27,9 +29,8 @@ export function Home() {
             />
         </View>
         <View style={styles.searchProperty}>
-            <Button style={styles.searchButton} title="Buscar Propriedade"/>
+            <ModalHome />
         </View>
-        
           <View style={[styles.property, styles.nameField, styles.field]}> 
             <View style={styles.line} />
                 <Image

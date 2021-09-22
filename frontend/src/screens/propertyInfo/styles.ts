@@ -1,14 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { colors } from '../../global/styles/colors';
 
 import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1
+  },
   container: {
     marginTop: getStatusBarHeight(),
     flex: 1,
     width: '100%',
+    minHeight: 1000,
+    marginBottom: getBottomSpace() + 10,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -20,19 +25,16 @@ export const styles = StyleSheet.create({
   },
 
   searchProperty: {
-    display: "flex",
     flexDirection: 'row',
     justifyContent: "center"
   },
 
   property: {
-    display: "flex",
     flexDirection: 'column',
     justifyContent: "center"
   },
 
   propertyImage: {
-    display: "flex",
     alignSelf: "center",
     width: "100%",
     marginTop: 12,
@@ -84,7 +86,6 @@ export const styles = StyleSheet.create({
   },
 
   roomIcons: {
-    display: "flex",
     flexDirection: "row",
     marginBottom: 10
   },

@@ -1,5 +1,6 @@
 package com.inllar.rest.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +43,7 @@ public class PropertyController {
 	@Resource(name = "propertyService")
 	private PropertyService propertyService;
 
-	@ApiOperation("Endpoint used to create new properties")
+	@ApiOperation("Create new properties")
 	@PostMapping("/create")
 	public PropertyRegisterResponse createProperty(@RequestBody PropertyRegisterRequest request) {
 		try {
@@ -51,7 +53,7 @@ public class PropertyController {
 		}
 	}
 
-	@ApiOperation("Endpoint used to upload property images")
+	@ApiOperation("Upload property images")
 	@PostMapping("/images")
 	public void uploadImages(@RequestParam("images") MultipartFile[] files,
 			@RequestParam("propertyId") String propertyId) throws Exception {
@@ -62,7 +64,7 @@ public class PropertyController {
 		}
 	}
 
-	@ApiOperation("Endpoint used to search properties by the address")
+	@ApiOperation("Search properties by the address")
 	@GetMapping("/search")
 	public PropertiesGetResponse getProperties(@RequestParam String cep, @RequestParam String city,
 			@RequestParam String district, @RequestParam String state) {
@@ -75,7 +77,7 @@ public class PropertyController {
 		}
 	}
 
-	@ApiOperation("Endpoint used to get the current CEPs, cities, states and districts registered in the database")
+	@ApiOperation("Get the current CEPs, cities, states and districts registered in the database")
 	@GetMapping("/search-filters")
 	public PropertiesFilterResponse getPropertiesSearchFilters() {
 		try {
@@ -100,6 +102,25 @@ public class PropertyController {
 	public PropertiesGetResponse getPropertiesFromUser(@RequestParam String userUuid) {
 		try {
 			return propertyService.getPropertiesFromUser(userUuid);
+		} catch (EntityNotFoundException e) {
+			throw new NotFoundException();
+		}
+	}
+
+	@ApiOperation("Edit a property")
+	@PostMapping("/edit")
+	public void editProperty(@RequestBody PropertyRegisterRequest request, @RequestParam String propertyId) {
+		try {
+			propertyService.editProperty(request, propertyId);
+		} catch (EntityNotFoundException e) {
+			throw new NotFoundException();
+		}
+	}
+
+	@DeleteMapping("/images")
+	public void deleteImages(@RequestParam("images") String[] imagesId) throws IOException {
+		try {
+			propertyService.removeImages(imagesId);
 		} catch (EntityNotFoundException e) {
 			throw new NotFoundException();
 		}

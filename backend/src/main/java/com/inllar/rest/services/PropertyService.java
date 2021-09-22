@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.inllar.rest.exceptions.UnauthorizedException;
 import com.inllar.rest.models.Address;
 import com.inllar.rest.models.Image;
 import com.inllar.rest.models.Property;
@@ -206,5 +207,48 @@ public class PropertyService {
 		PropertiesGetResponse response = new PropertiesGetResponse();
 		response.setProperties(userPropertiesData);
 		return response;
+	}
+
+	public void editProperty(PropertyRegisterRequest request, String propertyId) {
+		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		User userFromToken = jwt.getUserFromAccessToken(token);
+
+		Property propertyToEdit = propertyRepository.findById(UUID.fromString(propertyId))
+				.orElseThrow(() -> new EntityNotFoundException());
+
+		if (propertyToEdit.getUser() != userFromToken) {
+			throw new UnauthorizedException();
+		}
+
+		// Edit the address
+		propertyToEdit.getAddress().setCep(request.getCep());
+		propertyToEdit.getAddress().setCity(request.getCity());
+		propertyToEdit.getAddress().setDistrict(request.getDistrict());
+		propertyToEdit.getAddress().setNumber(request.getNumber());
+		propertyToEdit.getAddress().setState(request.getState());
+		propertyToEdit.getAddress().setStreet(request.getStreet());
+
+		propertyToEdit.setDescription(request.getDescription());
+		propertyToEdit.setHasGarage(request.isHasGarage());
+		propertyToEdit.setHasGrill(request.isHasGrill());
+		propertyToEdit.setHasPartyArea(request.isHasPartyArea());
+		propertyToEdit.setHasPool(request.isHasPool());
+		propertyToEdit.setName(request.getName());
+		propertyToEdit.setNumberBathRooms(request.getNumberBathRooms());
+		propertyToEdit.setNumberBedRooms(request.getNumberBedRooms());
+		propertyToEdit.setNumberKitchens(request.getNumberKitchens());
+		propertyToEdit.setSquareMeters(request.getSquareMeters());
+		propertyToEdit.setValue(request.getValue());
+
+		propertyRepository.save(propertyToEdit);
+	}
+
+	public void removeImages(String[] imagesId) throws IOException {
+		for (int i = 0; i < imagesId.length; i++) {
+			Image image = imageRepository.findById(UUID.fromString(imagesId[i]))
+					.orElseThrow(() -> new EntityNotFoundException());
+			FileUploadUtil.removeFile("", image.getUrl());
+			imageRepository.delete(image);
+		}
 	}
 }

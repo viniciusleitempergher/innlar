@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.inllar.rest.models.User;
 import com.inllar.rest.repositories.UserRepository;
+import com.inllar.rest.requests.GetUserResponse;
 
 @Service("userService")
 public class UserService {
@@ -75,5 +76,18 @@ public class UserService {
 
 	public User getUser(UUID id) {
 		return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+	}
+
+	public GetUserResponse getUserData(UUID id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"))
+				.getUserData();
+
+		GetUserResponse response = new GetUserResponse();
+		response.setAvatar(user.getAvatar());
+		response.setEmail(user.getEmail());
+		response.setName(user.getName());
+		response.setPhoneNumber(user.getPhoneNumber());
+
+		return response;
 	}
 }

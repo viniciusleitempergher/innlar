@@ -36,13 +36,13 @@ export function Login() {
               <AntDesign style={styles.googleIcon} name="google" />
               <Text style={styles.googleTxt}>Entrar com Google</Text>
             </TouchableOpacity>
-            
+
           </View>
         </Form>
         <View style={styles.hasntAccount}>
           <Text style={styles.hasntAccountTxt}>Não possui uma conta?</Text>
           <Button title="Cadastrar-se" />
-          
+
         </View>
       </View>
     </KeyboardAvoidingView>

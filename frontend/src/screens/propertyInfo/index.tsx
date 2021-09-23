@@ -4,13 +4,14 @@ import { Text, View, KeyboardAvoidingView, Platform, Image, ScrollView } from 'r
 import { Form } from '../../components/form';
 import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, EvilIcons } from '@expo/vector-icons';
 import { FontAwesome, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import axios from 'axios';
 
 
 import { styles } from './styles';
 import MapView from 'react-native-maps';
+import { UserProfile } from '../../components/userProfile';
 
 
 export function PropertyInfo() {
@@ -22,8 +23,8 @@ export function PropertyInfo() {
     (async () => {
       let response = await axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
         params: {
-          address: "Rua+Rio+de+Janeiro,+471+Bairro+das+Capitais+Timbó+-+SC",
-          key: "648197320786-mcu8ni0jrqjoeaoi95cforg0cmrjcacb.apps.googleusercontent.com"
+          address: "Rua%20Rio%20de%20Janeiro,%20471%20Bairro%20das%20Capitais%20Timbó%20-%20SC",
+          key: "AIzaSyD9fg133bwbh872XIheUw_fQtHPN3X4QDE"
         }
       });
 
@@ -32,7 +33,7 @@ export function PropertyInfo() {
   })
 
   return (
-    <ScrollView style={styles.scrollView}>
+    <ScrollView>
       <View style={styles.container}>
         <Form>
           <AntDesign name="left" size={24} color="#01525A" />
@@ -62,8 +63,8 @@ export function PropertyInfo() {
                 <MaterialIcons name="grid-on" size={24} color="#01525A" />
                 <Text style={styles.roomIconsText}>520 m²</Text>
               </View>
-
             </View>
+            <UserProfile phoneNumber="47 98801 - 0812" username="Kayo Felipe" />
             <MapView
               showsUserLocation={true}		//destacando a localização do usuário no mapa
               showsMyLocationButton={false} 	//ocultando o botão que move o mapa para a localização do usuário
@@ -81,8 +82,6 @@ export function PropertyInfo() {
               }}
             />
           </View>
-
-
         </Form>
       </View>
     </ScrollView>

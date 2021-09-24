@@ -35,4 +35,13 @@ public class UserController {
 			throw e;
 		}
 	}
+
+	@GetMapping("/me")
+	public GetUserResponse getMe() {
+		try {
+			return userService.getMe();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }

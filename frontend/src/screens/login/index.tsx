@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { KeyboardAvoidingView, Platform, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,8 +10,20 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { styles } from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { api } from '../services/api';
+import { useAuth } from '../../hooks/auth';
 
 export function Login() {
+
+  const { signIn, loading } = useAuth();
+
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleLogin() {
+    await signIn(login, password);
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -21,15 +33,15 @@ export function Login() {
         <Ionicons name="people-sharp" size={24} color="black" style={styles.peopleIcon} />
         <Form title="Entrar">
           <View style={styles.emailInput}>
-            <TextArea placeholder="Email" />
+            <TextArea placeholder="Email" onChangeText={setLogin} />
           </View>
 
           <View style={styles.passwordInput}>
-            <TextArea placeholder="Senha" textContentType="password" secureTextEntry={true} />
+            <TextArea placeholder="Senha" textContentType="password" secureTextEntry={true} onChangeText={setPassword} />
           </View>
 
           <View style={styles.loginButton}>
-            <Button title="Login" />
+            <Button title="Login" onPress={handleLogin} />
           </View>
           <View style={styles.loginButton}>
             <TouchableOpacity style={styles.googleButton}>

@@ -12,6 +12,7 @@ import { Checkbox } from './src/components/checkbox';
 import { PropertyRegister } from './src/screens/propertyRegister';
 import { Home } from './src/screens/home';
 import { PropertyInfo } from './src/screens/propertyInfo';
+import { AuthProvider } from './src/hooks/auth';
 
 
 export default function App() {
@@ -31,7 +32,9 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <PropertyInfo />
+      <AuthProvider>
+        <Login />
+      </AuthProvider>
     </Background>
   );
 }

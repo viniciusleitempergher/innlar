@@ -5,13 +5,13 @@ export const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 40,
-    backgroundColor: colors.primary,
+    backgroundColor: "white",
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center'
   },
   buttonText: {
-    color: colors.primaryFont,
+    color: "black",
     width: '100%',
     textAlign: 'center'
   }

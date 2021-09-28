@@ -6,7 +6,7 @@ import { Button } from '../../components/button';
 import { Form } from '../../components/form';
 import { TextArea } from '../../components/textArea';
 
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons  } from '@expo/vector-icons';
 
 import { styles } from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -30,14 +30,14 @@ export function Login() {
       style={styles.container}
     >
       <View style={styles.container}>
-        <Ionicons name="people-sharp" size={24} color="black" style={styles.peopleIcon} />
-        <Form title="Entrar">
+        <MaterialCommunityIcons name="account-group" size={90} color="white" />
+        <Form title="LOGIN">
           <View style={styles.emailInput}>
             <TextArea placeholder="Email" onChangeText={setLogin} />
           </View>
 
           <View style={styles.passwordInput}>
-            <TextArea placeholder="Senha" textContentType="password" secureTextEntry={true} onChangeText={setPassword} />
+            <TextArea  placeholder="Senha" textContentType="password" secureTextEntry={true} onChangeText={setPassword} />
           </View>
 
           <View style={styles.loginButton}>

@@ -26,14 +26,14 @@ export const styles = StyleSheet.create({
     marginBottom: 15
   },
   peopleIcon: {
-    color: colors.primary,
-    fontSize: 45,
+    color: 'white',
+    fontSize: 80,
     marginBottom: 15
   },
   googleButton: {
     width: '100%',
     height: 40,
-    backgroundColor: colors.primary,
+    backgroundColor: 'white',
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center'
@@ -41,12 +41,12 @@ export const styles = StyleSheet.create({
 
   googleIcon: {
     fontSize: 24, 
-    color: "#fff",
+    color: "black",
     marginLeft: 20
   },
 
   googleTxt: {
-    color: "#fff",
-    marginLeft: 50
+    color: "black",
+    marginLeft: 75
   }
 });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Text, View, KeyboardAvoidingView, Platform, Image, ScrollView } from 'react-native';
+import { Text, View, KeyboardAvoidingView, Platform, Image, ScrollView,  } from 'react-native';
 import { Form } from '../../components/form';
 import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';

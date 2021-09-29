@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Background } from './src/components/background';
-import { Login } from './src/screens/login';
+// import { Login } from './src/screens/login';
 import { Rajdhani_500Medium, Rajdhani_700Bold } from '@expo-google-fonts/rajdhani';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
@@ -13,7 +13,6 @@ import { PropertyRegister } from './src/screens/propertyRegister';
 import { Home } from './src/screens/home';
 import { PropertyInfo } from './src/screens/propertyInfo';
 import { AuthProvider } from './src/hooks/auth';
-
 
 export default function App() {
   const [fontsLoaded] = useFonts({

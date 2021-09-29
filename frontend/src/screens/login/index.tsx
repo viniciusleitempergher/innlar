@@ -54,7 +54,6 @@ export function Login() {
         <View style={styles.hasntAccount}>
           <Text style={styles.hasntAccountTxt}>Não possui uma conta?</Text>
           <Button title="Cadastrar-se" />
-
         </View>
       </View>
     </KeyboardAvoidingView>

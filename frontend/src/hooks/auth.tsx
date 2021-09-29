@@ -7,16 +7,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from "../screens/services/api";
 
 type User = {
-    id: string,
     name: string,
     avatar: string,
     email: string,
+    phoneNumber: string,
 }
 
 type AuthContextData = {
     //user: User,
     loading: boolean,
-    signIn: (email: string, password: string) => Promise<any>,
+    signIn: (email: string, password: string) => Promise<void>,
     user: any;
     //signOut: () => Promise<void>,
 }
@@ -30,12 +30,12 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({} as User);
 
     async function signIn(email: string, password: string) {
         setLoading(true);
         try {
-            return new Promise(async (resolve) => {
+            return new Promise<void>(async (resolve) => {
                 const response = await api.post("/auth/login", {
                     email,
                     password
@@ -48,11 +48,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
                 api.defaults.headers.authorization = `Bearer ${accessToken}`
 
-                let user = (await api.get("/users/me")).data;
+                const userResponse = await api.get("/users/me");
+
+                let user: User = userResponse.data;
 
                 setUser(user)
 
-                resolve(response)
+                resolve()
             })
         } catch (e) {
             throw e

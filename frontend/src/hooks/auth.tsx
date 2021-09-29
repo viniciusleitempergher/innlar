@@ -8,17 +8,16 @@ import { api } from "../screens/services/api";
 
 type User = {
     id: string,
-    username: string,
-    firstName: string,
+    name: string,
     avatar: string,
     email: string,
-    token: string,
 }
 
 type AuthContextData = {
     //user: User,
     loading: boolean,
     signIn: (email: string, password: string) => Promise<any>,
+    user: any;
     //signOut: () => Promise<void>,
 }
 
@@ -31,6 +30,7 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState({});
 
     async function signIn(email: string, password: string) {
         setLoading(true);
@@ -48,10 +48,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
                 api.defaults.headers.authorization = `Bearer ${accessToken}`
 
-                let user = await api.get("/users/me");
+                let user = (await api.get("/users/me")).data;
 
-                console.log(user.data);
-
+                setUser(user)
 
                 resolve(response)
             })
@@ -65,6 +64,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return (
         <AuthContext.Provider value={{
             loading,
+            user,
             signIn
         }}>
             {children}

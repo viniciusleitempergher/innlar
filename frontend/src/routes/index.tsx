@@ -1,22 +1,20 @@
 import React from 'react';
 
-import { createStackNavigator } from "@react-navigation/stack"
-import { Login } from '../screens/login';
-import { Home } from '../screens/home';
-import { PropertyInfo } from '../screens/propertyInfo';
-import { PropertyRegister } from '../screens/propertyRegister';
-import { Register } from '../screens/register';
-
-const { Navigator, Screen } = createStackNavigator();
+import { createStackNavigator } from "@react-navigation/stack";
+import { useAuth } from '../hooks/auth';
+import { AppRoutes } from './appRoutes';
+import { SignRoutes } from './signRoutes';
 
 export function Routes() {
+
+    const { user } = useAuth();
+
     return (
-        <Navigator>
-            <Screen name="login" component={Login} />
-            <Screen name="home" component={Home} />
-            <Screen name="propertyInfo" component={PropertyInfo} />
-            <Screen name="propertyRegister" component={PropertyRegister} />
-            <Screen name="register" component={Register} />
-        </Navigator>
+        <>
+            {
+                (user) ? <AppRoutes />
+                    : <SignRoutes />
+            }
+        </>
     )
 }

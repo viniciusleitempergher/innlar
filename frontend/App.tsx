@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Background } from './src/components/background';
-import { Login } from './src/screens/login';
+// import { Login } from './src/screens/login';
 import { Rajdhani_500Medium, Rajdhani_700Bold } from '@expo-google-fonts/rajdhani';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { Register } from './src/screens/register';
-import { PropertyRegisterStepTwo } from './src/screens/propertyRegisterStepTwo';
-import { PropertyRegisterStepThree } from './src/screens/propertyRegisterStepThree';
-import { Checkbox } from './src/components/checkbox';
-import { PropertyRegister } from './src/screens/propertyRegister';
-import { Home } from './src/screens/home';
-import { PropertyInfo } from './src/screens/propertyInfo';
+import { PropertyEdit } from './src/screens/propertyEdit/Index';
+// import { Register } from './src/screens/register';
+// import { PropertyRegisterStepTwo } from './src/screens/propertyRegisterStepTwo';
+// import { PropertyRegisterStepThree } from './src/screens/propertyRegisterStepThree';
+// import { Checkbox } from './src/components/checkbox';
+// import { PropertyRegister } from './src/screens/propertyRegister';
+// import { Home } from './src/screens/home';
+// import { PropertyInfo } from './src/screens/propertyInfo';
+// import { PropertyEditStepTwo } from './src/screens/propertyEditStepTwo';
+// import { PropertyEditStepThree } from './src/screens/propertyEditStepThree';
 
 
 export default function App() {
@@ -31,7 +34,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <Home />
+      <PropertyEdit/>
     </Background>
   );
 }

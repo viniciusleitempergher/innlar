@@ -41,19 +41,25 @@ export function Login() {
           </View>
 
           <View style={styles.loginButton}>
-            <Button title="Login" onPress={handleLogin} />
+          <TouchableOpacity onPress={handleLogin} style={styles.button}>
+              <Text style={styles.buttonTxt}>Login</Text>
+            </TouchableOpacity>
           </View>
+
           <View style={styles.loginButton}>
             <TouchableOpacity style={styles.googleButton}>
-              <AntDesign style={styles.googleIcon} name="google" />
+              <AntDesign style={styles.googleIcon} name="google"/>
               <Text style={styles.googleTxt}>Entrar com Google</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
 
           </View>
         </Form>
         <View style={styles.hasntAccount}>
           <Text style={styles.hasntAccountTxt}>Não possui uma conta?</Text>
-          <Button title="Cadastrar-se" />
+          <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonTxt}>Cadastre-se</Text>
+          </TouchableOpacity>
+
         </View>
       </View>
     </KeyboardAvoidingView>

@@ -3,10 +3,10 @@ import { colors } from '../../global/styles/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: 40,
+    width: '80%',
+    height: 50,
     backgroundColor: "white",
-    borderRadius: 8,
+    borderRadius: 60,
     flexDirection: 'row',
     alignItems: 'center'
   },

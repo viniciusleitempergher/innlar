@@ -117,6 +117,7 @@ public class PropertyController {
 		}
 	}
 
+	@ApiOperation("Delete the images by the id from param")
 	@DeleteMapping("/images")
 	public void deleteImages(@RequestParam("images") String[] imagesId) throws IOException {
 		try {

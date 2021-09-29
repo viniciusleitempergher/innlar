@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles/colors';
+import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
@@ -19,34 +20,54 @@ export const styles = StyleSheet.create({
     marginBottom: 0
   },
   hasntAccount: {
-    padding: "12%",
+    padding: "7%",
   },
   hasntAccountTxt: {
     textAlign: 'center',
     marginBottom: 15
   },
   peopleIcon: {
-    color: colors.primary,
-    fontSize: 45,
+    color: 'white',
+    fontSize: 80,
     marginBottom: 15
   },
+
+  button: {
+    display: 'flex',
+    width: '100%',
+    height: 50,
+    backgroundColor: 'white',
+    borderRadius: 100
+  },
+
+  buttonTxt: {
+    color: "black",
+    textAlign: 'center',
+    display:'flex',
+    paddingTop: 15,
+    fontFamily: fonts.raj500,
+    fontSize: 18
+  },
+
   googleButton: {
     width: '100%',
-    height: 40,
-    backgroundColor: colors.primary,
-    borderRadius: 8,
+    height: 50,
+    backgroundColor: 'white',
+    borderRadius: 100,
     flexDirection: 'row',
     alignItems: 'center'
   },
 
   googleIcon: {
-    fontSize: 24, 
-    color: "#fff",
+    fontSize: 30, 
+    color: "#666666",
     marginLeft: 20
   },
 
   googleTxt: {
-    color: "#fff",
-    marginLeft: 50
+    color: "black",
+    marginLeft: 60,
+    fontFamily: fonts.raj500,
+    fontSize: 18
   }
 });

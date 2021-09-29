@@ -5,15 +5,11 @@ import { colors } from '../../global/styles/colors';
 import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1
-  },
   container: {
-    marginTop: getStatusBarHeight(),
-    flex: 1,
+    marginTop: getStatusBarHeight(),    
     width: '100%',
-    minHeight: 1000,
-    marginBottom: getBottomSpace() + 10,
+    marginBottom: getBottomSpace() + 20,
+    height: 1200,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -70,7 +66,7 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     padding: 15,
     textAlignVertical: 'center',
-    textAlign: 'center',
+    textAlign: 'justify',
     marginTop: 10
   },
 

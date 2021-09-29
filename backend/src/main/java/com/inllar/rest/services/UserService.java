@@ -11,14 +11,19 @@ import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
 import org.passay.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.inllar.rest.models.User;
 import com.inllar.rest.repositories.UserRepository;
+import com.inllar.rest.requests.GetUserResponse;
+import com.inllar.rest.utils.JwtTokenUtil;
 
 @Service("userService")
 public class UserService {
+	@Autowired
+	private JwtTokenUtil jwt;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -75,5 +80,32 @@ public class UserService {
 
 	public User getUser(UUID id) {
 		return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+	}
+
+	public GetUserResponse getUserData(UUID id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"))
+				.getUserData();
+
+		GetUserResponse response = new GetUserResponse();
+		response.setAvatar(user.getAvatar());
+		response.setEmail(user.getEmail());
+		response.setName(user.getName());
+		response.setPhoneNumber(user.getPhoneNumber());
+
+		return response;
+	}
+
+	public GetUserResponse getMe() {
+		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+		User user = jwt.getUserFromAccessToken(token);
+
+		GetUserResponse response = new GetUserResponse();
+		response.setAvatar(user.getAvatar());
+		response.setEmail(user.getEmail());
+		response.setName(user.getName());
+		response.setPhoneNumber(user.getPhoneNumber());
+
+		return response;
 	}
 }

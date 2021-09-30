@@ -13,6 +13,7 @@ import { PropertyRegister } from './src/screens/propertyRegister';
 import { Home } from './src/screens/home';
 import { PropertyInfo } from './src/screens/propertyInfo';
 import { AuthProvider } from './src/hooks/auth';
+import { Routes } from './src/routes';
 
 
 export default function App() {
@@ -33,7 +34,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <PropertyRegister />
+        <Routes />
       </AuthProvider>
     </Background>
   );

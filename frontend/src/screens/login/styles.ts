@@ -69,5 +69,10 @@ export const styles = StyleSheet.create({
     marginLeft: 60,
     fontFamily: fonts.raj500,
     fontSize: 18
+  },
+
+  invalidInput: {
+    borderBottomColor: "red",
+    borderBottomWidth: 3
   }
 });

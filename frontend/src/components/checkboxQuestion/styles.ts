@@ -20,10 +20,11 @@ export const styles = StyleSheet.create({
     marginRight: 20,
     paddingHorizontal: 16,
     textAlignVertical: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   smallDescription: {
-    fontSize: 14,
+    fontFamily: fonts.raj500,
+    fontSize: 16,
     marginBottom: 5,
     marginTop: 5,
     marginLeft: 10

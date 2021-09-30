@@ -1,5 +1,5 @@
 export const colors = {
-  primary: "#01525A",
-  primaryFont: "#ffffff",
-  secondary: "#aee0ec",
+  title: "#3A2519",
+  inputTxt: "#68762E",
+  darkGreen: "#2C320F",
 }

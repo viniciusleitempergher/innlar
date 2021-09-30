@@ -9,11 +9,11 @@ type Props = TouchableOpacityProps & {
 }
 
 export const Checkbox = ({ checked, ...rest }: Props) => {
-  const styleChecked = checked ? { backgroundColor: "#517275" } : { borderColor: "white", height: 36, width: 36, borderWidth: 2 };
+  const styleChecked = checked ? { backgroundColor: "#2E3510" } : { borderColor: "black", height: 30, width: 30, borderWidth: 0.5 };
 
   return (
     <TouchableOpacity style={[styles.checkbox, styleChecked]} activeOpacity={0.2} {...rest}>
-      {checked && <AntDesign name="checkcircleo" size={36} color="white" />}
+      {checked && <AntDesign name="checkcircleo" size={30} color="white" />}
     </TouchableOpacity>
   );
 }

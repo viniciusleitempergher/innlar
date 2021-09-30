@@ -4,6 +4,7 @@ import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { Form } from '../../components/form';
 import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { styles } from './styles';
 
@@ -24,11 +25,14 @@ export function PropertyRegisterStepOne({ next }: Props) {
       style={styles.container}
     >
       <View style={styles.container}>
-        <Form title="Registre sua Propriedade">
+        <Form title="">
+          <View>
+            <Text style={styles.title}>Registre sua Propriedade</Text>
+          </View>
           <View style={[styles.nameField, styles.field]}>
             <Text style={styles.steps}>1º Passo</Text>
-            <Text style={styles.description}>Comece definindo o nome da sua propriedade:</Text>
-            <TextArea placeholder="Nome da Propriedade" onChangeText={setNome} />
+            <Text style={styles.description}>Comece definindo o nome da sua propriedade abaixo:</Text>
+            <TextArea style={styles.inputName} onChangeText={setNome} />
           </View>
           <View style={styles.line} />
           <View style={[styles.nameField, styles.field]}>
@@ -37,9 +41,9 @@ export function PropertyRegisterStepOne({ next }: Props) {
             <TextArea style={styles.inputDescription} placeholder="Descrição" numberOfLines={7} multiline onChangeText={setDesc} />
           </View>
           <View style={styles.line} />
-          <View style={styles.nameField}>
-            <Button title="Continuar" onPress={() => { next({ nome, descricao: desc }) }} />
-          </View>
+          <TouchableOpacity onPress={() => { next({ nome, descricao: desc }) }} style={styles.button}>
+              <Text style={styles.buttonTxt}>Continuar</Text>
+          </TouchableOpacity>
           <View style={styles.balls}>
             <View style={styles.blueBall} />
             <View style={styles.ball} />

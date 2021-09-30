@@ -4,6 +4,7 @@ import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { Form } from '../../components/form';
 import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { styles } from './styles';
 import { stepThreeParams } from '../propertyRegister';
@@ -28,7 +29,10 @@ export function PropertyRegisterStepTwo({ next, back }: Props) {
       style={styles.container}
     >
       <View style={styles.container}>
-        <Form title="Registre sua Propriedade">
+        <Form title="">
+        <View>
+            <Text style={styles.title}>Registre sua Propriedade</Text>
+          </View>
           <View style={[styles.nameField, styles.field]}>
             <Text style={styles.steps}>2º Passo</Text>
             <Text style={styles.description}>Informe o Endereço:</Text>
@@ -57,13 +61,18 @@ export function PropertyRegisterStepTwo({ next, back }: Props) {
             <Text style={styles.smallDescription}>Nº da propriedade:</Text>
             <TextArea keyboardType='numeric' style={styles.inputAddress} onChangeText={(txt) => { setNumber(+txt) }} />
           </View>
-
-
-          <View style={styles.line} />
+          
           <View style={styles.buttons}>
-            <Button style={styles.button} title="Voltar" onPress={back} />
-            <Button style={styles.button} title="Continuar" onPress={() => { next({ cep, city, district, number, state, street }) }} />
+          <TouchableOpacity onPress={back} style={styles.button}>
+              <Text style={styles.buttonTxt}>Voltar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => { next({ cep, city, district, number, state, street }) }} style={styles.button}>
+              <Text style={styles.buttonTxt}>Continuar</Text>
+          </TouchableOpacity>
+        
           </View>
+
           <View style={styles.balls}>
             <View style={styles.blueBall} />
             <View style={styles.blueBall} />

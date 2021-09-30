@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { Background } from './src/components/background';
+
+// import { Login } from './src/screens/login';
 import { Login } from './src/screens/login';
+
 import { Rajdhani_500Medium, Rajdhani_700Bold, Rajdhani_400Regular } from '@expo-google-fonts/rajdhani';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
@@ -12,7 +15,11 @@ import { Checkbox } from './src/components/checkbox';
 import { PropertyRegister } from './src/screens/propertyRegister';
 import { Home } from './src/screens/home';
 import { PropertyInfo } from './src/screens/propertyInfo';
+import { InicialPage } from './src/screens/inicialPage';
 import { AuthProvider } from './src/hooks/auth';
+
+import { Login } from './src/screens/login';
+
 import { PropertyEdit } from './src/screens/propertyEdit/Index';
 import { Profile } from './src/screens/profile';
 
@@ -22,7 +29,7 @@ export default function App() {
     Rajdhani_500Medium,
     Rajdhani_700Bold,
     Rajdhani_400Regular
-    
+
   })
 
   if (!fontsLoaded) {
@@ -37,7 +44,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <Profile/>
+        <Login />
       </AuthProvider>
     </Background>
   );

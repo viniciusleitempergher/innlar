@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { KeyboardAvoidingView, Platform, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Text, View, ImageBackground } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '../../components/button';
 import { Form } from '../../components/form';
@@ -41,13 +41,13 @@ export function Login() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-      {
         (loading)
           ?
           <Loading />
           :
           <View style={styles.container}>
-            <MaterialCommunityIcons name="account-group" size={90} color="white" />
+          <ImageBackground source={require('../../assets/background.jpg')} style={{width: '100%', height: '100%'}} > 
+            <MaterialCommunityIcons style={styles.peopleIcon} name="account-group"  />
             <Form title="LOGIN">
               <View style={styles.emailInput}>
                 <TextArea placeholder="Email" onChangeText={setLogin} isValid={!invalidUser} />
@@ -80,6 +80,16 @@ export function Login() {
             </View>
           </View>
       }
+        </Form>
+        <View style={styles.hasntAccount}>
+          <Text style={styles.hasntAccountTxt}>Não possui uma conta?</Text>
+          <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonTxt}>Cadastre-se</Text>
+          </TouchableOpacity>
+
+        </View>
+        </ImageBackground> 
+      </View>
     </KeyboardAvoidingView>
   );
 }

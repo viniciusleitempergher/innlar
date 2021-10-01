@@ -17,6 +17,7 @@ import { Home } from './src/screens/home';
 import { PropertyInfo } from './src/screens/propertyInfo';
 import { InicialPage } from './src/screens/inicialPage';
 import { AuthProvider } from './src/hooks/auth';
+import { Routes } from './src/routes';
 
 import { Login } from './src/screens/login';
 
@@ -44,7 +45,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <Login />
+        <Routes />
       </AuthProvider>
     </Background>
   );

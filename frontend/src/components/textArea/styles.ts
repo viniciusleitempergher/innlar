@@ -19,5 +19,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     textAlignVertical: 'center',
     textAlign: 'center'
+  },
+  invalidInput: {
+    borderBottomColor: '#ff5842',
   }
 });

@@ -16,8 +16,8 @@ type User = {
 type AuthContextData = {
     //user: User,
     loading: boolean,
-    signIn: (email: string, password: string) => Promise<void>,
-    user: any;
+    signIn: (email: string, password: string) => Promise<void | number>,
+    user: User;
     //signOut: () => Promise<void>,
 }
 
@@ -29,13 +29,20 @@ type AuthProviderProps = {
 export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider({ children }: AuthProviderProps) {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({} as User);
 
     async function signIn(email: string, password: string) {
         setLoading(true);
-        try {
-            return new Promise<void>(async (resolve) => {
+
+        return new Promise<void>(async (resolve) => {
+            try {
+                await (() => {
+                    return new Promise((resolve) => {
+                        setTimeout(resolve, 2000);
+                    })
+                })()
+
                 const response = await api.post("/auth/login", {
                     email,
                     password
@@ -53,14 +60,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 let user: User = userResponse.data;
 
                 setUser(user)
-
                 resolve()
-            })
-        } catch (e) {
-            throw e
-        } finally {
-            setLoading(false)
-        }
+            } catch (e) {
+                resolve(e.response.status);
+            } finally {
+                setLoading(false)
+            }
+        })
     }
 
     return (

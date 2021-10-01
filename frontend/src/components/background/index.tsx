@@ -10,6 +10,8 @@ type Props = {
 }
 
 export function Background({ children }: Props) {
+  console.log(backgroundImg);
+
   return (
     <View style={styles.container}>
       {children}

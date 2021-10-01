@@ -1,5 +1,6 @@
 package com.inllar.rest.models;
 
+import java.sql.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -15,16 +16,19 @@ import org.hibernate.annotations.Type;
 public class Message {
 	public Message() {
 	}
-	
+
 	@Id
 	@GeneratedValue(generator = "uuid4")
 	@Type(type = "org.hibernate.type.PostgresUUIDType")
 	@Column(name = "id", updatable = false, unique = true, nullable = false, columnDefinition = "uuid")
 	private UUID id;
-	
+
+	@Column(name = "date", nullable = false)
+	private Date timestamp;
+
 	@Column(name = "text", nullable = false)
 	private String text;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "chat_id", referencedColumnName = "id")
 	private Chat chat;

@@ -41,7 +41,8 @@ export function Login() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
-        (loading)
+      {
+        loading
           ?
           <Loading />
           :
@@ -78,18 +79,9 @@ export function Login() {
               </TouchableOpacity>
 
             </View>
-          </View>
-      }
-        </Form>
-        <View style={styles.hasntAccount}>
-          <Text style={styles.hasntAccountTxt}>Não possui uma conta?</Text>
-          <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonTxt}>Cadastre-se</Text>
-          </TouchableOpacity>
-
-        </View>
         </ImageBackground> 
       </View>
+    }
     </KeyboardAvoidingView>
   );
 }

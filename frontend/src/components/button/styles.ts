@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles/colors';
+import { fonts } from '../../global/styles/fonts';
+
 
 export const styles = StyleSheet.create({
   container: {
@@ -13,6 +15,7 @@ export const styles = StyleSheet.create({
   buttonText: {
     color: "black",
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily:  fonts.raj500
   }
 });

@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   searchButton: {
     width: '105%',
     height: 40,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.darkGreen,
     borderRadius: 8,
     flexDirection: 'row',
     alignItems: 'center'

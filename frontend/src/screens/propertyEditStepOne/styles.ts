@@ -1,6 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { color } from 'react-native-reanimated';
-import { colors } from '../../global/styles/colors';
 import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
@@ -9,13 +7,6 @@ export const styles = StyleSheet.create({
       width: '100%',
       alignItems: 'center',
       justifyContent: 'center'
-    },
-    title: { 
-      fontFamily: fonts.raj500,
-      fontSize: 40,
-      color: colors.title,
-      textAlign: 'center',
-      letterSpacing: 10
     },
     inputTitle: {
       marginBottom: 5
@@ -29,21 +20,18 @@ export const styles = StyleSheet.create({
     steps: {
         textAlign: "center",
         textDecorationLine: "underline",
-        fontSize: 20,
-        fontFamily: fonts.raj500,
+        fontSize: 20
     },
     description: {
         textAlign: "center",
-        fontSize: 18,
+        fontSize: 16,
         marginTop: 20,
-        marginBottom: 15,
-        fontFamily: fonts.raj500,
+        marginBottom: 15
     },
     smallDescription: {
         textAlign: "center",
-        fontSize: 16,
-        marginBottom: 15,
-      fontFamily: fonts.raj500,
+        fontSize: 14,
+        marginBottom: 15
     },
 
     line: {
@@ -51,20 +39,14 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
 
-    inputName: {
-      textAlign: 'center',
-      fontSize: 18, 
-      color: colors.inputTxt
-    },
-
     inputDescription:{
         width: '100%',
         height: 100,
         backgroundColor: '#fff',
-        color: colors.inputTxt,
+        color: '#000',
         borderRadius: 8,  
         fontFamily: fonts.raj500,
-        fontSize: 18,
+        fontSize: 13,
         marginRight: 4,
         paddingHorizontal: 16,
         textAlignVertical: 'center',
@@ -72,22 +54,22 @@ export const styles = StyleSheet.create({
     },
 
     ball: {
-        backgroundColor: "transparent",
-        height: 15,
-        width:15,
+        backgroundColor: "#98CACF",
+        height: 20,
+        width:20,
         borderRadius: 100,
-        borderColor: "black",
-        borderWidth: 1,
+        borderColor: "white",
+        borderWidth: 3,
         marginTop: 8
     },
 
     blueBall: {
-      backgroundColor: colors.darkGreen,
-      height: 15,
-      width:15,
+      backgroundColor: "#01525A",
+      height: 20,
+      width:20,
       borderRadius: 100,
-      borderColor: "black",
-      borderWidth: 1,
+      borderColor: "white",
+      borderWidth: 3,
       marginTop: 8
     },
 
@@ -99,25 +81,5 @@ export const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: "center",
       justifyContent:"space-between"
-    },
-    button: {
-      display: 'flex',
-      width: '70%',
-      flexDirection: 'row',
-      alignSelf: "center",
-      justifyContent: "center",
-      height: 45,
-      backgroundColor: colors.darkGreen,
-      borderRadius: 100,
-      marginTop: 50
-    },
-  
-    buttonTxt: {
-      color: "white",
-      textAlign: 'center',
-      display:'flex',
-      paddingTop: 10,
-      fontFamily: fonts.raj500,
-      fontSize: 18
     }
   });

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { fonts } from '../../global/styles/fonts';
+import { colors } from '../../global/styles/colors'
 
 export const styles = StyleSheet.create({
   viewInput: {
@@ -11,19 +12,22 @@ export const styles = StyleSheet.create({
   },
   inputNumber: {
     width: '25%',
-    height: 25,
+    height: 30,
+    borderColor:"black",
+    borderWidth:0.5,
     backgroundColor: '#fff',
-    color: '#000',
+    color: colors.inputTxt,
     borderRadius: 8,
     fontFamily: fonts.raj500,
-    fontSize: 13,
+    fontSize: 18,
     marginRight: 20,
     paddingHorizontal: 16,
     textAlignVertical: 'center',
     textAlign: 'center'
   },
   smallDescription: {
-    fontSize: 14,
+    fontFamily: fonts.raj500,
+    fontSize: 16,
     marginHorizontal: 3,
     marginLeft: 10
   },

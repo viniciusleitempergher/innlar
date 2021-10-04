@@ -8,7 +8,6 @@ import { Checkbox } from '../../components/checkbox'
 import { styles } from './styles';
 import { Question } from '../../components/question';
 import { CheckBoxQuestion } from '../../components/checkboxQuestion';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 type Props = {
@@ -16,7 +15,7 @@ type Props = {
   next: VoidFunction
 }
 
-export function PropertyRegisterStepThree({ back, next }: Props) {
+export function PropertyEditStepThree({ back, next }: Props) {
 
   const [area, setArea] = useState("");
   const [quartos, setQuartos] = useState("");
@@ -35,10 +34,7 @@ export function PropertyRegisterStepThree({ back, next }: Props) {
       style={styles.container}
     >
       <View style={styles.container}>
-        <Form title="">
-        <View>
-            <Text style={styles.title}>Registre sua Propriedade</Text>
-          </View>
+        <Form title="Editar sua Propriedade">
           <View style={[styles.nameField, styles.field]}>
             <Text style={styles.steps}>3º Passo</Text>
             <Text style={styles.description}>Características Físicas:</Text>
@@ -53,17 +49,11 @@ export function PropertyRegisterStepThree({ back, next }: Props) {
           <CheckBoxQuestion title="Possui piscina?" checked={piscina} onPress={() => { setPiscina(!piscina) }} />
           <CheckBoxQuestion title="Possui garagem?" checked={garagem} onPress={() => { setGaragem(!garagem) }} />
 
+          <View style={styles.line} />
           <View style={styles.buttons}>
-          <TouchableOpacity onPress={back} style={styles.button}>
-              <Text style={styles.buttonTxt}>Voltar</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity  onPress={next} style={styles.button}>
-              <Text style={styles.buttonTxt}>Continuar</Text>
-          </TouchableOpacity>
-        
+            <Button style={styles.button} title="Voltar" onPress={back} />
+            <Button style={styles.button} title="Continuar" onPress={next} />
           </View>
-
           <View style={styles.balls}>
             <View style={styles.blueBall} />
             <View style={styles.blueBall} />
@@ -73,5 +63,4 @@ export function PropertyRegisterStepThree({ back, next }: Props) {
         </Form>
       </View>
     </KeyboardAvoidingView>
-  );
-}
+)};

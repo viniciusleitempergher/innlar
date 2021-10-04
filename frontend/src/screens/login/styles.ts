@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+
   },
   emailInput: {
     marginTop: '5%'
@@ -28,8 +29,8 @@ export const styles = StyleSheet.create({
   },
   peopleIcon: {
     color: 'white',
-    fontSize: 80,
-    marginBottom: 15
+    fontSize: 90,
+    textAlign: "center"
   },
 
   button: {

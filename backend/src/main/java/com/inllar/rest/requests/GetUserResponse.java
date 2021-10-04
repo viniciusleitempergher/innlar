@@ -1,11 +1,13 @@
 package com.inllar.rest.requests;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.inllar.rest.models.Property;
 
 public class GetUserResponse {
 
+	private UUID id;
 	private String name;
 	private String email;
 	private String password;
@@ -59,5 +61,13 @@ public class GetUserResponse {
 
 	public void setProperties(List<Property> properties) {
 		this.properties = properties;
+	}
+
+	public UUID getId() {
+		return id;
+	}
+
+	public void setId(UUID id) {
+		this.id = id;
 	}
 }

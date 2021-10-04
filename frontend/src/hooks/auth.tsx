@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from "../screens/services/api";
 
 type User = {
+    id: string,
     name: string,
     avatar: string,
     email: string,

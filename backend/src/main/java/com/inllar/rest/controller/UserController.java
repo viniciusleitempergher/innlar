@@ -7,11 +7,15 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.inllar.rest.requests.GetMessagesResponse;
 import com.inllar.rest.requests.GetUserResponse;
+import com.inllar.rest.requests.SendMessageRequest;
 import com.inllar.rest.services.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +44,24 @@ public class UserController {
 	public GetUserResponse getMe() {
 		try {
 			return userService.getMe();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@GetMapping("/my-messages")
+	public GetMessagesResponse getMessages() {
+		try {
+			return userService.getMessages();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@PostMapping("/send-message")
+	public void sendMessage(@RequestBody SendMessageRequest request) {
+		try {
+			userService.sendMessage(request.getMessage(), request.getUserId());
 		} catch (Exception e) {
 			throw e;
 		}

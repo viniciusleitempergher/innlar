@@ -30,6 +30,10 @@ public class Message {
 	private String text;
 
 	@ManyToOne
+	@JoinColumn(name = "sender", referencedColumnName = "id")
+	private User sender;
+	
+	@ManyToOne
 	@JoinColumn(name = "chat_id", referencedColumnName = "id")
 	private Chat chat;
 

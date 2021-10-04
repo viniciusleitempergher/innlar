@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.inllar.rest.models.User;
 import com.inllar.rest.repositories.UserRepository;
+import com.inllar.rest.requests.GetMessagesResponse;
 import com.inllar.rest.requests.GetUserResponse;
 import com.inllar.rest.utils.JwtTokenUtil;
 
@@ -101,11 +102,22 @@ public class UserService {
 		User user = jwt.getUserFromAccessToken(token);
 
 		GetUserResponse response = new GetUserResponse();
+		response.setId(user.getId());
 		response.setAvatar(user.getAvatar());
 		response.setEmail(user.getEmail());
 		response.setName(user.getName());
 		response.setPhoneNumber(user.getPhoneNumber());
 
 		return response;
+	}
+	
+	public GetMessagesResponse getMessages() {
+		GetMessagesResponse response = new GetMessagesResponse();
+		
+		return response;
+	}
+	
+	public void sendMessage(String message, String receiverId) {
+		
 	}
 }

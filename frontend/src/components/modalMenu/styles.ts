@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
       height: '100%',
       width: "100%",
       margin: 20,
-      backgroundColor: "#B3D3CE",
+      backgroundColor: "#EEE6DC",
       padding: 25,
       shadowColor: "#000",
       shadowOffset: {
@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
 
 
     buttonClose: {
-      backgroundColor: "#B3D3CE",
+      backgroundColor: "#EEE6DC",
     },
 
     iconClose: {
@@ -60,11 +60,11 @@ export const styles = StyleSheet.create({
       },
 
     button:{
-      backgroundColor: "#01525A",
-      width: "95%",
-      borderRadius: 10,
-      padding: 15,
-      marginBottom: 15,
+      backgroundColor: "#E8D6BE",
+      width: "75%",
+      borderRadius: 20,
+      padding: 10,
+      marginBottom: 20,
     },
 
 
@@ -81,18 +81,23 @@ export const styles = StyleSheet.create({
       fontFamily: fonts.raj700
     },
 
-    modalText: {
-      marginTop: 20,
-      marginBottom: 5,
-      marginLeft: 7,
-      fontSize: 24,
-      textAlign: "left",
-      fontFamily: fonts.raj700,
-      color: "#01525A"
-    },
-
     barsIcon: {
         display: "flex",
         alignSelf: "flex-end"
     },
+    userImage:{
+      paddingTop:50,
+      paddingBottom:30,
+      fontSize: 90,
+      textAlign: "center",
+      color:"gray"
+    },
+    button1:{
+      marginTop:120,
+      backgroundColor: "#E8D6BE",
+      width: "75%",
+      borderRadius: 20,
+      padding: 10,
+      marginBottom: 20,
+    }
   });

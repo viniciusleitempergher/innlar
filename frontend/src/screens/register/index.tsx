@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Text, View, KeyboardAvoidingView, Platform} from 'react-native';
+import { Text, View, KeyboardAvoidingView, Platform, ImageBackground} from 'react-native';
 import { Form } from '../../components/form';
 import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
@@ -15,6 +15,8 @@ export function Register() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}
     >
+      
+    <ImageBackground source={require('../../assets/background.jpg')} style={{width: '100%', height: '100%'}} > 
     <View style={styles.container}>
       <Form title="CADASTRO">
         <View style={[styles.nameField, styles.field]}>
@@ -38,8 +40,10 @@ export function Register() {
           </TouchableOpacity>
         </View>
       </Form>
-    
+
     </View>
+    
+    </ImageBackground> 
     </KeyboardAvoidingView>
   );
 }

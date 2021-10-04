@@ -46,9 +46,10 @@ export function Login() {
           ?
           <Loading />
           :
-          <View style={styles.container}>
           <ImageBackground source={require('../../assets/background.jpg')} style={{width: '100%', height: '100%'}} > 
+          <View style={styles.container}>
             <MaterialCommunityIcons style={styles.peopleIcon} name="account-group"  />
+            
             <Form title="LOGIN">
               <View style={styles.emailInput}>
                 <TextArea placeholder="Email" onChangeText={setLogin} isValid={!invalidUser} />
@@ -72,6 +73,7 @@ export function Login() {
 
               </View>
             </Form>
+            </View>
             <View style={styles.hasntAccount}>
               <Text style={styles.hasntAccountTxt}>Não possui uma conta?</Text>
               <TouchableOpacity style={styles.button}>
@@ -79,8 +81,7 @@ export function Login() {
               </TouchableOpacity>
 
             </View>
-        </ImageBackground> 
-      </View>
+            </ImageBackground> 
     }
     </KeyboardAvoidingView>
   );

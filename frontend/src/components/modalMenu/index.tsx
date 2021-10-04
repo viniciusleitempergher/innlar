@@ -26,20 +26,23 @@ export const ModalMenu = () => {
               <Pressable
                 onPress={() => setModalVisible(!modalVisible)}
               >
-                <AntDesign name="close" size={24} color="#4B5754" />
+                <AntDesign name="close" size={24} color="#666666" />
               </Pressable>
             </View>
             <View style={styles.innlarIcon}>
               <Image
-              source={require('../../assets/logo.png')} 
+              source={require('../../assets/logoPreta.png')} 
               style={styles.innlarIcon} 
               />
             </View>
-              <Text style={styles.modalText}>Menu</Text>
+              <FontAwesome style={styles.userImage} name="user-circle-o" />
               <View style={styles.buttons}>
                 <Button style={styles.button} title="Meu Perfil"/>
-                <Button style={styles.button} title="Registrar Propriedades"/>
-                <Button style={styles.button} title="Sair"
+                <Button style={styles.button} title="Conversas"/>
+                <Button style={styles.button} title="Registrar Propriedades"
+                />
+                
+                <Button style={styles.button1} title="Sair"
                 />
 
               </View>
@@ -51,7 +54,7 @@ export const ModalMenu = () => {
           style={styles.barsIcon}
           onPress={() => setModalVisible(true)}
         >
-          <FontAwesome name="bars" size={24} color="#01525A" />
+          <FontAwesome name="bars" size={24} color="#666666" />
         </Pressable>
       </View>
     );

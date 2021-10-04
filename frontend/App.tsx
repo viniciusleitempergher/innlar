@@ -43,7 +43,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <Login />
+        <Profile />
       </AuthProvider>
     </Background>
   );

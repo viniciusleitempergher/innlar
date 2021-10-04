@@ -3,6 +3,7 @@ import { colors } from '../../global/styles/colors';
 import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
     width: '100%',
@@ -49,7 +50,6 @@ export const styles = StyleSheet.create({
     fontFamily: fonts.raj500,
     fontSize: 18
   },
-
   googleButton: {
     width: '100%',
     height: 50,

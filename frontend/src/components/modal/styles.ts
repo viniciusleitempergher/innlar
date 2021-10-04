@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
         width: 0,
         height: 2
       },
-      shadowOpacity: 0.5,
+      shadowOpacity: 0.8,
       shadowRadius: 90,
       elevation: 5
     },
@@ -33,26 +33,28 @@ export const styles = StyleSheet.create({
     },
 
     button: {
-      borderRadius: 10,
+      borderRadius: 100,
       padding: 10,
       width: '100%',
       marginBottom: 10,
     },
 
     buttonOpen: {
-      backgroundColor: "#01525A",
+      backgroundColor: "#EEE6DC",
+      borderColor:"#919191",
+      borderWidth:1,
     },
 
     buttonClose: {
-      backgroundColor: "#B3D3CE",
+      backgroundColor: "#A5BDA2"
     },
 
     buttonSearch:{
-      backgroundColor: "#01525A",
+      backgroundColor: "#B9A78D",
       width: "100%",
-      borderRadius: 10,
+      borderRadius: 20,
       padding: 10,
-      marginBottom: 10,
+      marginBottom: 15,
     },
 
     buttonsModalClose:{
@@ -67,7 +69,7 @@ export const styles = StyleSheet.create({
     },
 
     textStyle: {
-      color: "white",
+      color: "black",
       fontWeight: "bold",
       textAlign: "center",
       fontFamily: fonts.raj700

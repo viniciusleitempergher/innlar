@@ -16,8 +16,8 @@ import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { RectButton } from "react-native-gesture-handler";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 
 import apto from "../../assets/testeCasa.jpg";
 import apto2 from "../../assets/testeCasa2.jpg";
@@ -35,12 +35,9 @@ export function Profile() {
       >
         <View style={styles.container}>
           <Form title="">
+            <AntDesign name="arrowleft" size={30} color="black" />
             <View style={styles.border}>
-              <EvilIcons
-                name="user"
-                size={150}
-                color="black"
-              />
+              <EvilIcons name="user" size={200} color="black" />
             </View>
             {me ? (
               <View style={styles.buttonBorder}>
@@ -58,6 +55,13 @@ export function Profile() {
                 color="black"
               />
             )}
+            <View style={styles.stars}>
+              <Entypo name="star" size={24} color="black" />
+              <Entypo name="star" size={24} color="black" />
+              <Entypo name="star" size={24} color="black" />
+              <Entypo name="star" size={24} color="black" />
+              <Entypo name="star-outlined" size={24} color="black" />
+            </View>
             <Text style={styles.profileTitle}>José da Silva</Text>
             <View style={styles.containerInfo}>
               <Text style={styles.information}>josedasilva@gmail.com</Text>
@@ -67,12 +71,11 @@ export function Profile() {
             <Text style={styles.title}>Propriedades</Text>
 
             <Property srcImage={apto} propertyName="Residencial Monte Carlo" />
+            <Text style={styles.edit}>Editar</Text>
             <Property srcImage={apto2} propertyName="Casa Bela Vista" />
+            <Text style={styles.edit}>Editar</Text>
             <Property srcImage={apto3} propertyName="Apartamento Luxuoso" />
-
-            <View style={styles.borderTwo}>
-              <Feather name="edit-3" size={45} color="white" />
-            </View>
+            <Text style={styles.edit}>Editar</Text>
           </Form>
         </View>
       </KeyboardAvoidingView>

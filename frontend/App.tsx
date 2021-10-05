@@ -44,7 +44,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <Chat />
+        <Profile />
       </AuthProvider>
     </Background>
   );

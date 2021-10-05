@@ -21,7 +21,7 @@ import { ModalMenu } from "../../components/modalMenu";
 
 import { styles } from "./styles";
 
-export function Home() {
+export function Home({ navigation }: any) {
   return (
     <ScrollView>
       <KeyboardAvoidingView
@@ -34,7 +34,7 @@ export function Home() {
         >
           <View style={styles.container}>
             <Form title="">
-              <ModalMenu />
+              <ModalMenu navigation={navigation} />
               <View style={styles.innlarIcon}>
                 <Image
                   source={require("../../assets/logoPreta.png")}

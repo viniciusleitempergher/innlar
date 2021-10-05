@@ -44,7 +44,7 @@ public class User {
 	@OneToOne(mappedBy = "user")
 	private RefreshToken refreshToken;
 	
-	@ManyToMany
+	@ManyToMany(mappedBy = "users")
 	private List<Chat> chats;
 
 	public User() {

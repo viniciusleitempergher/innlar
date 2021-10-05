@@ -1,6 +1,6 @@
 package com.inllar.rest.models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -24,7 +24,7 @@ public class Message {
 	private UUID id;
 
 	@Column(name = "date", nullable = false)
-	private Date timestamp;
+	private Timestamp timestamp;
 
 	@Column(name = "text", nullable = false)
 	private String text;
@@ -59,5 +59,21 @@ public class Message {
 
 	public void setChat(Chat chat) {
 		this.chat = chat;
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public User getSender() {
+		return sender;
+	}
+
+	public void setSender(User sender) {
+		this.sender = sender;
 	}
 }

@@ -1,6 +1,10 @@
 package com.inllar.rest.services;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,10 +19,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.inllar.rest.models.Chat;
+import com.inllar.rest.models.Message;
 import com.inllar.rest.models.User;
+import com.inllar.rest.repositories.ChatRepository;
+import com.inllar.rest.repositories.MessageRepository;
 import com.inllar.rest.repositories.UserRepository;
-import com.inllar.rest.requests.GetMessagesResponse;
+import com.inllar.rest.requests.GetChatsResponse;
 import com.inllar.rest.requests.GetUserResponse;
+import com.inllar.rest.requests.SendMessageRequest;
 import com.inllar.rest.utils.JwtTokenUtil;
 
 @Service("userService")
@@ -28,6 +37,10 @@ public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ChatRepository chatRepository;
+	@Autowired
+	private MessageRepository messageRepository;
 
 	public User createUser(User userData) {
 
@@ -110,14 +123,67 @@ public class UserService {
 
 		return response;
 	}
-	
-	public GetMessagesResponse getMessages() {
-		GetMessagesResponse response = new GetMessagesResponse();
-		
+
+	public GetChatsResponse getChats() {
+		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+		User user = jwt.getUserFromAccessToken(token);
+
+		GetChatsResponse response = new GetChatsResponse();
+
+		List<Chat> chats = user.getChats();
+
+		chats.forEach((chat) -> {
+			chat.setUsers(null);
+			chat.getMessages().forEach((message) -> {
+				message.setSender(message.getSender().getUserData());
+				message.setChat(null);
+			});
+		});
+
+		response.setChats(chats);
+
 		return response;
 	}
-	
-	public void sendMessage(String message, String receiverId) {
-		
+
+	public void sendMessage(SendMessageRequest request) {
+
+		String message = request.getMessage();
+		String receiverId = request.getUserId();
+
+		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+		User sender = jwt.getUserFromAccessToken(token);
+
+		User receiver = getUser(UUID.fromString(receiverId));
+
+		List<User> usersOfChat = new ArrayList<User>();
+		usersOfChat.add(receiver);
+		usersOfChat.add(sender);
+
+		Chat chat;
+
+		if (!chatRepository.existsByUsersIn(usersOfChat)) {
+			chat = new Chat();
+			chat.setUsers(usersOfChat);
+			chatRepository.save(chat);
+		} else {
+			chat = chatRepository.findByUsersIn(usersOfChat).get(0);
+		}
+
+		List<Message> messages = chat.getMessages();
+
+		Message messageModel = new Message();
+		messageModel.setChat(chat);
+		messageModel.setText(message);
+		messageModel.setSender(sender);
+		messageModel.setTimestamp(Timestamp.from(Instant.now()));
+
+		messageRepository.save(messageModel);
+		messages.add(messageModel);
+
+		chat.setMessages(messages);
+
+		chatRepository.save(chat);
 	}
 }

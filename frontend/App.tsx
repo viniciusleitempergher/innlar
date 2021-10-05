@@ -22,6 +22,7 @@ import { Routes } from './src/routes';
 import { PropertyEdit } from './src/screens/propertyEdit/Index';
 import { Profile } from './src/screens/profile';
 import { Chat } from './src/screens/chat';
+import { Conversations } from './src/screens/conversations';
 
 
 export default function App() {
@@ -44,7 +45,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <Chat />
+        <Routes />
       </AuthProvider>
     </Background>
   );

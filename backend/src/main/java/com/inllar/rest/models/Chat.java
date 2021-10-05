@@ -24,17 +24,17 @@ public class Chat {
 	}
 	
 	@ManyToMany
-	private List<User> user;
+	private List<User> users;
 
 	@OneToMany(mappedBy = "chat")
 	private List<Message> messages;
 
-	public List<User> getUser() {
-		return user;
+	public List<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(List<User> user) {
-		this.user = user;
+	public void setUsers(List<User> users) {
+		this.users = users;
 	}
 
 	public List<Message> getMessages() {

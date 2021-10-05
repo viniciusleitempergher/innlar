@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inllar.rest.requests.GetMessagesResponse;
+import com.inllar.rest.requests.GetChatsResponse;
 import com.inllar.rest.requests.GetUserResponse;
 import com.inllar.rest.requests.SendMessageRequest;
 import com.inllar.rest.services.UserService;
@@ -49,10 +49,10 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("/my-messages")
-	public GetMessagesResponse getMessages() {
+	@GetMapping("/my-chats")
+	public GetChatsResponse getChats() {
 		try {
-			return userService.getMessages();
+			return userService.getChats();
 		} catch (Exception e) {
 			throw e;
 		}
@@ -61,7 +61,7 @@ public class UserController {
 	@PostMapping("/send-message")
 	public void sendMessage(@RequestBody SendMessageRequest request) {
 		try {
-			userService.sendMessage(request.getMessage(), request.getUserId());
+			userService.sendMessage(request);
 		} catch (Exception e) {
 			throw e;
 		}

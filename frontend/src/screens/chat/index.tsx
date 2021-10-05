@@ -24,6 +24,6 @@ export function Chat() {
     }, [messages])
 
     return (
-        <Text>Login</Text>
+        <Text>Chat</Text>
     );
 }

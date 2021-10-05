@@ -1,10 +1,11 @@
-import React, { createContext} from "react";
+import React, { createContext, useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { ReactNode } from "react";
 import * as AuthSession from 'expo-auth-session';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from "../screens/services/api";
+import * as SecureStore from 'expo-secure-store';
 
 type User = {
     id: string,
@@ -12,6 +13,8 @@ type User = {
     avatar: string,
     email: string,
     phoneNumber: string,
+    accessToken: string,
+    refreshToken: string,
 }
 
 type AuthContextData = {
@@ -33,6 +36,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({} as User);
 
+    useEffect(() => {
+        setLoading(true);
+        (async () => {
+            try {
+                const accessToken = await SecureStore.getItemAsync("accessToken");
+                const refreshToken = await SecureStore.getItemAsync("refreshToken");
+
+                if (accessToken && refreshToken) {
+                    let user = await prepareUser(accessToken, refreshToken);
+                    setUser(user);
+                }
+            } catch (e) {
+                throw e;
+            } finally {
+                setLoading(false)
+            }
+        })()
+    }, [])
+
     async function signIn(email: string, password: string) {
         setLoading(true);
 
@@ -51,14 +73,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
                 const { accessToken, refreshToken } = response.data;
 
-                await AsyncStorage.setItem("accessToken", accessToken);
-                await AsyncStorage.setItem("refreshToken", refreshToken);
+                await SecureStore.setItemAsync("accessToken", accessToken);
+                await SecureStore.setItemAsync("refreshToken", refreshToken);
 
-                api.defaults.headers.authorization = `Bearer ${accessToken}`
-
-                const userResponse = await api.get("/users/me");
-
-                let user: User = userResponse.data;
+                let user = await prepareUser(accessToken, refreshToken);
 
                 setUser(user)
                 resolve()
@@ -68,6 +86,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 setLoading(false)
             }
         })
+    }
+
+    async function prepareUser(accessToken: string, refreshToken: string) {
+        api.defaults.headers.authorization = `Bearer ${accessToken}`
+
+        const userResponse = await api.get("/users/me");
+
+        let user: User = userResponse.data;
+
+        user.accessToken = accessToken;
+        user.refreshToken = refreshToken;
+
+        return user;
     }
 
     return (

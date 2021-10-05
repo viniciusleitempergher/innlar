@@ -23,11 +23,14 @@ export const styles = StyleSheet.create({
   },
   hasntAccount: {
     padding: "7%",
+    
   },
+
   hasntAccountTxt: {
     textAlign: 'center',
     marginBottom: 15
   },
+
   peopleIcon: {
     color: 'white',
     fontSize: 90,

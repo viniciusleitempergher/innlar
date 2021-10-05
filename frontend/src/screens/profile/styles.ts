@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     color: "black",
     fontFamily: fonts.raj500,
     fontSize: 25,
+    marginTop: 8,
   },
 
   containerInfo: {
@@ -94,25 +95,25 @@ export const styles = StyleSheet.create({
   },
   buttonBorder: {
     position: "relative",
-    marginTop: -25,
+    marginTop: -30,
     alignSelf: "center",
-    marginLeft: 100,
+    marginRight: -100,
     borderWidth: 2,
     borderColor: "black",
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
-    padding: 2
+    padding: 2,
   },
 
   border: {
     alignSelf: "center",
-    height: 160,
-    width: 160,
+    height: 200,
+    width: 200,
+    overflow: "hidden",
     borderWidth: 2,
     borderRadius: 1000,
     justifyContent: "center",
-    alignItems: "center"
   },
 
   button: {
@@ -120,17 +121,18 @@ export const styles = StyleSheet.create({
     marginTop: -35,
     alignSelf: "center",
     marginLeft: 110,
-
+  },
+  stars: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 100,
   },
 
-  borderTwo: {
-    position: "absolute",    
-    bottom: 10,
-    right: 10,
-    borderWidth: 2,
-    borderRadius: 34,
-    borderColor: "black",
-    padding: 9,
-    backgroundColor: colors.title,
-  },
+  edit: {
+    textDecorationLine: "underline",
+    fontFamily: fonts.raj500,
+    fontSize: 18,
+    marginBottom: 8,
+  }
 });

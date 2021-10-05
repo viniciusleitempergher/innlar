@@ -71,11 +71,11 @@ export function Profile() {
             <Text style={styles.title}>Propriedades</Text>
 
             <Property srcImage={apto} propertyName="Residencial Monte Carlo" />
-            <Text style={styles.edit}>Editar</Text>
+            {me && <Text style={styles.edit}>Editar</Text>}
             <Property srcImage={apto2} propertyName="Casa Bela Vista" />
-            <Text style={styles.edit}>Editar</Text>
+            {me && <Text style={styles.edit}>Editar</Text>}
             <Property srcImage={apto3} propertyName="Apartamento Luxuoso" />
-            <Text style={styles.edit}>Editar</Text>
+            {me && <Text style={styles.edit}>Editar</Text>}
           </Form>
         </View>
       </KeyboardAvoidingView>

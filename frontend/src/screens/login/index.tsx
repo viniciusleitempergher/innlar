@@ -10,7 +10,7 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { styles } from './styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { api } from '../services/api';
+import { api } from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 import { Loading } from '../../components/loading';
 import { useNavigation } from '@react-navigation/native';

@@ -18,20 +18,30 @@ export const styles = StyleSheet.create({
     field: {
       marginBottom: 20
     },
+    title: { 
+      fontFamily: fonts.raj500,
+      fontSize: 40,
+      color: colors.title,
+      textAlign: 'center',
+      letterSpacing: 10
+    },
     steps: {
         textAlign: "center",
         textDecorationLine: "underline",
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: fonts.raj500,
     },
     description: {
         textAlign: "center",
-        fontSize: 16,
+        fontSize: 18,
         marginTop: 20,
+        fontFamily: fonts.raj500,
     },
     smallDescription: {
-        fontSize: 14,
+        fontSize: 16,
         marginBottom: 5,
-        marginTop: 5
+        marginTop: 6,
+        fontFamily: fonts.raj500,
     },
 
     line: {
@@ -43,61 +53,77 @@ export const styles = StyleSheet.create({
     inputAddress:{
         width: '100%',
         height: 30,
-        backgroundColor: '#fff',
-        color: '#000',
+        backgroundColor: 'transparent',
         borderRadius: 8,  
         fontFamily: fonts.raj500,
-        fontSize: 13,
-        marginRight: 4,
-        paddingHorizontal: 16,
+        color: colors.inputTxt,
+        fontSize: 18,
         textAlignVertical: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        borderBottomColor: "gray",
+        borderLeftColor: 'transparent',
+        borderRightColor:'transparent',
+        borderTopColor: 'transparent',
+        borderWidth: 1,
     },
 
     ball: {
-        backgroundColor: "#98CACF",
-        height: 20,
-        width:20,
-        borderRadius: 100,
-        borderColor: "white",
-        borderWidth: 3,
-        marginTop: 8
-    },
-
-    blueBall: {
-      backgroundColor: "#01525A",
-      height: 20,
-      width:20,
+      backgroundColor: "transparent",
+      height: 15,
+      width:15,
       borderRadius: 100,
-      borderColor: "white",
-      borderWidth: 3,
+      borderColor: "black",
+      borderWidth: 1,
       marginTop: 8
-    },
+  },
 
-    balls: {
-        marginTop:10,
-        marginEnd: 90,
-        marginStart: 90,
-        display: "flex",
-        flexDirection: 'row',
-        alignItems: "center",
-        justifyContent:"space-between"
-    },
+  blueBall: {
+    backgroundColor: colors.darkGreen,
+    height: 15,
+    width:15,
+    borderRadius: 100,
+    borderColor: "black",
+    borderWidth: 1,
+    marginTop: 8
+  },
 
-    button:{
-        width: '48%',
-        height: 40,
-        backgroundColor: colors.primary,
-        borderRadius: 8,
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
+  balls: {
+    marginTop:10,
+    marginEnd: 90,
+    marginStart: 90,
+    display: "flex",
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent:"space-between"
+  },
+
+  button: {
+    display: 'flex',
+    width: '85%',
+    flexDirection: 'row',
+    alignSelf: "center",
+    justifyContent: "center",
+    height: 45,
+    backgroundColor: colors.darkGreen,
+    borderRadius: 100,
+    marginTop: 26,
+    
+  },
+
+  buttonTxt: {
+    color: "white",
+    textAlign: 'center',
+    display:'flex',
+    paddingTop: 10,
+    fontFamily: fonts.raj500,
+    fontSize: 18,
+  },
 
     buttons:{
-        marginTop:10,
         display: "flex",
         flexDirection: 'row',
         alignItems: "center",
         justifyContent:"space-between"
+
     }
   });

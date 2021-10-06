@@ -5,6 +5,7 @@ import { Home } from "../screens/home";
 import { PropertyInfo } from "../screens/propertyInfo";
 import { PropertyRegister } from "../screens/propertyRegister";
 import { Conversations } from '../screens/conversations';
+import { Chat } from '../screens/chat';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -17,6 +18,7 @@ export function AppRoutes() {
             <Screen name="propertyInfo" component={PropertyInfo} />
             <Screen name="propertyRegister" component={PropertyRegister} />
             <Screen name="conversations" component={Conversations} />
+            <Screen name="chat" component={Chat} />
         </Navigator>
     )
 }

@@ -24,6 +24,8 @@ import { PropertyEdit } from './src/screens/propertyEdit/Index';
 import { Profile } from './src/screens/profile';
 import { Chat } from './src/screens/chat';
 import { Conversations } from './src/screens/conversations';
+import { Property } from './src/components/property';
+import { UserProfile } from './src/components/userProfile';
 
 
 export default function App() {
@@ -46,7 +48,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <Profile />
+        <ChatList />
       </AuthProvider>
     </Background>
   );

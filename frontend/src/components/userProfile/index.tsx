@@ -13,7 +13,6 @@ type Props = {
 export function UserProfile({ username, phoneNumber }: Props) {
     return (
         <View style={styles.container}>
-            <EvilIcons name="user" size={90} color="black" style={styles.profileIcon} />
             <Text>{username}</Text>
             <Text>{phoneNumber}</Text>
         </View>

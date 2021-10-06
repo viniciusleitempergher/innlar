@@ -108,17 +108,18 @@ export const styles = StyleSheet.create({
 
   profileIcon: {
     fontSize: 200,
-    position: "absolute",
-
+    marginLeft: -14,
+    marginTop: 5
   },
   profileIconBorder: {
     alignSelf: "center",
     overflow: "hidden",
     borderWidth: 2,
     borderRadius: 1000,
-    padding: 5,
+    padding: 3,
     height: 180,
     width: 180,
+    
   },
 
   button: {

@@ -41,8 +41,8 @@ export const styles = StyleSheet.create({
   propertyTitle: {
     textAlign: "left",
     fontFamily: fonts.raj700,
-    color: "#01525A",
-    fontSize: 25,
+    color: "#000",
+    fontSize: 21,
     marginBottom: 8,
     marginTop: 12
   },
@@ -57,27 +57,23 @@ export const styles = StyleSheet.create({
 
   propertyDescription: {
     width: '100%',
-    height: 120,
+    height: 105,
     color: '#000',
-    borderRadius: 8,
-    borderColor: "#01525A",
-    borderWidth: 1,
     fontFamily: fonts.raj500,
-    fontSize: 13,
-    padding: 15,
+    fontSize: 15,
     textAlignVertical: 'center',
     textAlign: 'justify',
-    marginTop: 10
+    marginBottom: 30
   },
 
   description: {
     width: '100%',
     color: '#000',
-    fontFamily: fonts.raj500,
+    fontFamily: fonts.raj700,
     fontSize: 16,
     textAlignVertical: 'center',
     textAlign: 'left',
-    marginTop: 10,
+    marginTop: 15,
     marginBottom: 10
   },
 
@@ -95,5 +91,64 @@ export const styles = StyleSheet.create({
     borderBottomColor: '#01525A',
     borderBottomWidth: 1,
     marginBottom: 10
-  }
+  },
+
+  icons: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: 16
+  },
+
+  textIcons: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginHorizontal: -5
+  },
+
+  carIcon:{
+    marginRight: -20
+  },
+
+  titleDescription: {
+    color: "#000",
+    marginTop: 30,
+    fontSize: 18,
+    fontFamily: fonts.raj700,
+    marginBottom: 3
+  },
+
+  title: {
+    color: "#000",
+    fontFamily: fonts.raj700,
+    fontSize: 18,
+    marginTop: 10,
+    marginBottom: 3
+  },
+
+  text: {
+    fontFamily: fonts.raj500,
+    fontSize: 15
+  },
+
+  profile: {
+    fontFamily: fonts.raj500,
+    fontSize: 16,
+    textAlign: "center"
+
+  },
+
+  email: {
+    fontFamily: fonts.raj400,
+    textAlign: "center"
+  },
+
+  stars: {
+    display: "flex",
+    flexDirection: "row",
+  },
+
+  
+
 });

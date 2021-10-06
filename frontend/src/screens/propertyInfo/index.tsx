@@ -6,6 +6,7 @@ import { TextArea } from '../../components/textArea';
 import { Button } from '../../components/button';
 import { AntDesign, EvilIcons } from '@expo/vector-icons';
 import { FontAwesome, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
 import axios from 'axios';
 
 
@@ -36,35 +37,48 @@ export function PropertyInfo() {
     <ScrollView>
       <View style={styles.container}>
         <Form>
-          <AntDesign name="left" size={24} color="#01525A" />
+          <AntDesign name="left" size={24} color="#000" />
           <View style={styles.property}>
             <Image
               source={require('../../assets/testeCasa3.png')}
               style={styles.propertyImage}
             />
+          
+            
             <Text style={styles.propertyTitle}>Apartamento Luxuoso</Text>
-            <Text style={styles.value}>Valor: R$1.000.000,00</Text>
-            <Text style={styles.propertyDescription}>Lindo e amplo apartamento no bairro das Nações. São 120m² de muito bem divididos, composto de 1 suíte mais dois dormitórios, living, salas com belíssima vista (5º pavimento), lavabo, área de serviço e duas vagas de garagem individuais.</Text>
-            <Text style={styles.description}>Esta propriedade possui:</Text>
-            <View>
+            <View style={styles.stars}> 
+              <Entypo name="star" size={20} color="black" />
+              <Entypo name="star" size={20} color="black" />
+              <Entypo name="star" size={20} color="black" />
+              <Entypo name="star" size={20} color="black" />
+              <Entypo name="star-outlined" size={20} color="black" />
+              </View>
+            
+            <Text style={styles.description}>Caracteristicas:</Text>
+            <View style= {styles.icons}>
               <View style={styles.roomIcons}>
-                <FontAwesome name="bed" size={24} color="#01525A" />
-                <Text style={styles.roomIconsText}>3 Quartos</Text>
+                <FontAwesome name="bed" size={24} color="#000" />
               </View>
               <View style={styles.roomIcons}>
-                <FontAwesome name="bathtub" size={24} color="#01525A" />
-                <Text style={styles.roomIconsText}>2 Banheiros</Text>
+                <FontAwesome name="bathtub" size={24} color="#000" />
+              </View>
+              <View style={styles.carIcon}>
+                <FontAwesome5 name="car" size={24} color="#000" />
               </View>
               <View style={styles.roomIcons}>
-                <FontAwesome5 name="car" size={24} color="#01525A" />
-                <Text style={styles.roomIconsText}>2 Garagens</Text>
-              </View>
-              <View style={styles.roomIcons}>
-                <MaterialIcons name="grid-on" size={24} color="#01525A" />
-                <Text style={styles.roomIconsText}>520 m²</Text>
+                <MaterialIcons name="grid-on" size={24} color="#000" />
               </View>
             </View>
-            <UserProfile phoneNumber="47 98801 - 0812" username="Kayo Felipe" />
+            <View style={styles.textIcons}>
+              <Text style={styles.roomIconsText}>3 Quartos</Text>
+              <Text style={styles.roomIconsText}>2 Banheiros</Text>
+              <Text style={styles.roomIconsText}>2 Garagens</Text>
+              <Text style={styles.roomIconsText}>520 m²</Text>
+            </View>
+            
+              <Text style={styles.titleDescription}>Descriçao</Text>
+              <Text style={styles.propertyDescription}>Lindo e amplo apartamento no bairro das Nações. São 120m² de muito bem divididos, composto de 1 suíte mais dois dormitórios, living, salas com belíssima vista (5º pavimento), lavabo, área de serviço e duas vagas de garagem individuais.</Text>
+            
             <MapView
               showsUserLocation={true}		//destacando a localização do usuário no mapa
               showsMyLocationButton={false} 	//ocultando o botão que move o mapa para a localização do usuário
@@ -80,7 +94,15 @@ export function PropertyInfo() {
                 latitudeDelta: 0.195,  	//determina o zoom do mapa
                 longitudeDelta: 0.1921,	//determina o zoom do mapa
               }}
-            />
+              />
+             
+                <Text style= {styles.title}>Localização</Text>
+                <Text style= {styles.text}>Rua Rio de Janeiro, 451, Bairro das Nações, Cidade Timbó - SC </Text>
+
+                <Text style={styles.title}>Locador</Text>
+                <Text style={styles.profile}>José da Silva</Text>
+                <Text style={styles.email}>josedasilva@gmail.com</Text>
+
           </View>
         </Form>
       </View>

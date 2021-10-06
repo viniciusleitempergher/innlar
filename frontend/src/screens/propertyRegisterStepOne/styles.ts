@@ -20,9 +20,9 @@ export const styles = StyleSheet.create({
     inputTitle: {
       marginBottom: 5
     },
-    nameField: {
-      marginTop: 15
-    },
+      nameField: {
+        marginTop: 15
+      },
     field: {
       marginBottom: 20
     },

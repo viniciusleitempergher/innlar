@@ -36,8 +36,8 @@ export function Profile() {
         <View style={styles.container}>
           <Form title="">
             <AntDesign name="arrowleft" size={30} color="black" />
-            <View style={styles.border}>
-              <EvilIcons name="user" size={200} color="black" />
+            <View style={styles.profileIconBorder}>
+              <EvilIcons style={styles.profileIcon} name="user" color="black" />
             </View>
             {me ? (
               <View style={styles.buttonBorder}>

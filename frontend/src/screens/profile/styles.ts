@@ -106,14 +106,19 @@ export const styles = StyleSheet.create({
     padding: 2,
   },
 
-  border: {
+  profileIcon: {
+    fontSize: 200,
+    position: "absolute",
+
+  },
+  profileIconBorder: {
     alignSelf: "center",
-    height: 200,
-    width: 200,
     overflow: "hidden",
     borderWidth: 2,
     borderRadius: 1000,
-    justifyContent: "center",
+    padding: 5,
+    height: 180,
+    width: 180,
   },
 
   button: {

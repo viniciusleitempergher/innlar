@@ -61,7 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         return new Promise<void>(async (resolve) => {
             try {
-                api.defaults.headers = "";
+                api.defaults.headers.authorization = "";
                 await (() => {
                     return new Promise((resolve) => {
                         setTimeout(resolve, 2000);

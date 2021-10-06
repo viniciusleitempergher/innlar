@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../global/styles/colors';
-
 import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
@@ -19,22 +18,40 @@ export const styles = StyleSheet.create({
   field: {
     marginBottom: 20
   },
+  title: { 
+    fontFamily: fonts.raj500,
+    fontSize: 40,
+    color: colors.title,
+    textAlign: 'center',
+    letterSpacing: 10
+  },
+
+  inputName: {
+    textAlign: 'center',
+    color: colors.inputTxt,
+    fontSize: 18
+  },
+
   steps: {
     textAlign: "center",
     textDecorationLine: "underline",
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: fonts.raj500
   },
+  
   description: {
     textAlign: "center",
-    fontSize: 16,
+    fontSize: 18,
     marginTop: 15,
+    fontFamily: fonts.raj500
   },
 
   smallDescription: {
     textAlign: "center",
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 10,
-    marginTop: 20
+    marginTop: 20, 
+  fontFamily: fonts.raj500,
 },
 
 inputDescription:{
@@ -52,46 +69,60 @@ inputDescription:{
 },
 
   line: {
-    marginTop: 10,
     borderBottomColor: '#01525A',
     borderBottomWidth: 1,
   },
 
-  blueBall: {
-    backgroundColor: "#01525A",
-    height: 20,
-    width: 20,
-    borderRadius: 100,
-    borderColor: "white",
-    borderWidth: 3,
-    marginTop: 8
-  },
 
-  balls: {
-    marginTop: 10,
-    marginEnd: 90,
-    marginStart: 90,
-    display: "flex",
-    flexDirection: 'row',
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
 
-  button: {
-    width: '48%',
-    height: 40,
-    backgroundColor: colors.primary,
-    borderRadius: 8,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
+blueBall: {
+  backgroundColor: colors.darkGreen,
+  height: 15,
+  width:15,
+  borderRadius: 100,
+  borderColor: "black",
+  borderWidth: 1,
+  marginTop: 8
+},
 
-  buttons: {
-    marginTop: 10,
-    display: "flex",
-    flexDirection: 'row',
-    alignItems: "center",
-    justifyContent: "space-between"
+balls: {
+  marginTop:10,
+  marginEnd: 90,
+  marginStart: 90,
+  display: "flex",
+  flexDirection: 'row',
+  alignItems: "center",
+  justifyContent:"space-between"
+},
+
+button: {
+  display: 'flex',
+  width: '85%',
+  flexDirection: 'row',
+  alignSelf: "center",
+  justifyContent: "center",
+  height: 45,
+  backgroundColor: colors.darkGreen,
+  borderRadius: 100,
+  marginTop: 26,
+  
+},
+
+buttonTxt: {
+  color: "white",
+  textAlign: 'center',
+  display:'flex',
+  paddingTop: 10,
+  fontFamily: fonts.raj500,
+  fontSize: 18,
+},
+
+  buttons:{
+      display: "flex",
+      flexDirection: 'row',
+      alignItems: "center",
+      justifyContent:"space-between"
+
   },
 
   inputImageIcon: {

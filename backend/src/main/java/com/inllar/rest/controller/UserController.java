@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inllar.rest.requests.GetChatsResponse;
+import com.inllar.rest.requests.GetMessagesRequest;
+import com.inllar.rest.requests.GetMessagesResponse;
 import com.inllar.rest.requests.GetUserResponse;
 import com.inllar.rest.requests.SendMessageRequest;
 import com.inllar.rest.services.UserService;
@@ -62,6 +64,15 @@ public class UserController {
 	public void sendMessage(@RequestBody SendMessageRequest request) {
 		try {
 			userService.sendMessage(request);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@PostMapping("/messages")
+	public GetMessagesResponse getMessages(@RequestBody GetMessagesRequest request) {
+		try {
+			return userService.getMessages(request);
 		} catch (Exception e) {
 			throw e;
 		}

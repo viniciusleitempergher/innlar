@@ -3,13 +3,11 @@ import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
     centeredView: {
-      display: "flex",
       justifyContent: "center",
       marginTop: 22
     },
 
     innlarIcon: {
-      display: "flex",
       alignSelf: "center",
       marginBottom: 5,
       width: 100,
@@ -17,7 +15,6 @@ export const styles = StyleSheet.create({
     },
 
     modal:{
-      display: "flex",
       width: "80%",
       height: "100%",
       alignSelf: "flex-end"

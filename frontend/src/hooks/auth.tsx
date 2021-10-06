@@ -1,10 +1,10 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, Dispatch, SetStateAction, useEffect } from "react";
 import { useContext } from "react";
 import { useState } from "react";
 import { ReactNode } from "react";
 import * as AuthSession from 'expo-auth-session';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { api } from "../screens/services/api";
+import { api } from "../services/api";
 import * as SecureStore from 'expo-secure-store';
 
 type User = {
@@ -20,6 +20,7 @@ type User = {
 type AuthContextData = {
     //user: User,
     loading: boolean,
+    setLoading: Dispatch<SetStateAction<boolean>>,
     signIn: (email: string, password: string) => Promise<void | number>,
     user: User;
     //signOut: () => Promise<void>,
@@ -60,6 +61,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         return new Promise<void>(async (resolve) => {
             try {
+                api.defaults.headers = "";
                 await (() => {
                     return new Promise((resolve) => {
                         setTimeout(resolve, 2000);
@@ -103,6 +105,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     return (
         <AuthContext.Provider value={{
+            setLoading,
             loading,
             user,
             signIn

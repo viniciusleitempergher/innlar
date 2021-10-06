@@ -61,7 +61,9 @@ line: {
     borderColor:'#878787',
     width: '90%',
     marginBottom: 20
-}
+},
 
-
+list: {
+    width: "100%",
+},
 });

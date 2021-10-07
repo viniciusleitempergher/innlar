@@ -30,6 +30,7 @@ import com.inllar.rest.requests.GetMessagesRequest;
 import com.inllar.rest.requests.GetMessagesResponse;
 import com.inllar.rest.requests.GetUserResponse;
 import com.inllar.rest.requests.SendMessageRequest;
+import com.inllar.rest.requests.SendMessageResponse;
 import com.inllar.rest.utils.JwtTokenUtil;
 
 @Service("userService")
@@ -157,7 +158,7 @@ public class UserService {
 		return response;
 	}
 
-	public void sendMessage(SendMessageRequest request) {
+	public SendMessageResponse sendMessage(SendMessageRequest request) {
 
 		String message = request.getMessage();
 		String receiverId = request.getUserId();
@@ -196,6 +197,15 @@ public class UserService {
 		chat.setMessages(messages);
 
 		chatRepository.save(chat);
+
+		SendMessageResponse response = new SendMessageResponse();
+		messageModel.setSender(messageModel.getSender().getUserData());
+		messageModel.setChat(null);
+		messageModel.getSender().setProperties(null);
+		messageModel.getSender().setChats(null);
+		response.setMessage(messageModel);
+
+		return response;
 	}
 
 	public GetMessagesResponse getMessages(GetMessagesRequest request) {
@@ -213,7 +223,7 @@ public class UserService {
 
 		if (chatRepository.existsByUsersIn(usersOfChat)) {
 			Chat chat = chatRepository.findByUsersIn(usersOfChat).get(0);
-			
+
 			List<User> changedUsers = new ArrayList<User>();
 			chat.getUsers().forEach((userOfChat) -> {
 				userOfChat = userOfChat.getUserData();

@@ -18,6 +18,7 @@ import com.inllar.rest.requests.GetMessagesRequest;
 import com.inllar.rest.requests.GetMessagesResponse;
 import com.inllar.rest.requests.GetUserResponse;
 import com.inllar.rest.requests.SendMessageRequest;
+import com.inllar.rest.requests.SendMessageResponse;
 import com.inllar.rest.services.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -61,9 +62,9 @@ public class UserController {
 	}
 
 	@PostMapping("/send-message")
-	public void sendMessage(@RequestBody SendMessageRequest request) {
+	public SendMessageResponse sendMessage(@RequestBody SendMessageRequest request) {
 		try {
-			userService.sendMessage(request);
+			return userService.sendMessage(request);
 		} catch (Exception e) {
 			throw e;
 		}

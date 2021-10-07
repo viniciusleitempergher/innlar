@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { TextArea } from '../../components/textArea';
 import { colors } from '../../global/styles/colors';
 
 import { fonts } from '../../global/styles/fonts';
@@ -9,7 +10,7 @@ export const styles = StyleSheet.create({
     marginTop: getStatusBarHeight(),    
     width: '100%',
     marginBottom: getBottomSpace() + 20,
-    height: 1200,
+    height: 1400,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -41,7 +42,7 @@ export const styles = StyleSheet.create({
   propertyTitle: {
     textAlign: "left",
     fontFamily: fonts.raj700,
-    color: "#000",
+    color: colors.title,
     fontSize: 21,
     marginBottom: 8,
     marginTop: 12
@@ -58,7 +59,7 @@ export const styles = StyleSheet.create({
   propertyDescription: {
     width: '100%',
     height: 105,
-    color: '#000',
+    color: colors.title,
     fontFamily: fonts.raj500,
     fontSize: 15,
     textAlignVertical: 'center',
@@ -68,13 +69,13 @@ export const styles = StyleSheet.create({
 
   description: {
     width: '100%',
-    color: '#000',
     fontFamily: fonts.raj700,
     fontSize: 16,
     textAlignVertical: 'center',
     textAlign: 'left',
     marginTop: 15,
-    marginBottom: 10
+    marginBottom: 10,
+    color: colors.title
   },
 
   roomIcons: {
@@ -84,13 +85,9 @@ export const styles = StyleSheet.create({
 
   roomIconsText: {
     marginTop: 5,
-    marginLeft: 5
-  },
-
-  line: {
-    borderBottomColor: '#01525A',
-    borderBottomWidth: 1,
-    marginBottom: 10
+    marginLeft: 5,
+    color: '#764D35',
+    fontFamily: fonts.raj400
   },
 
   icons: {
@@ -104,7 +101,8 @@ export const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: -5
+    marginHorizontal: -5,
+    
   },
 
   carIcon:{
@@ -112,7 +110,7 @@ export const styles = StyleSheet.create({
   },
 
   titleDescription: {
-    color: "#000",
+    color: colors.title,
     marginTop: 30,
     fontSize: 18,
     fontFamily: fonts.raj700,
@@ -120,28 +118,30 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    color: "#000",
     fontFamily: fonts.raj700,
     fontSize: 18,
     marginTop: 10,
-    marginBottom: 3
+    marginBottom: 3,
+    color: colors.title
   },
 
   text: {
     fontFamily: fonts.raj500,
-    fontSize: 15
+    fontSize: 15,
+    color: colors.title
   },
 
   profile: {
     fontFamily: fonts.raj500,
     fontSize: 16,
-    textAlign: "center"
-
+    textAlign: "center",
+    color: colors.title
   },
 
   email: {
     fontFamily: fonts.raj400,
-    textAlign: "center"
+    textAlign: "center",
+    color: colors.title
   },
 
   stars: {
@@ -149,6 +149,34 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
   },
 
-  
+  button:{
+    width: '30%',
+    height: 30,
+    borderRadius: 20,  
+    fontFamily: fonts.raj500,
+    color: '#fff',
+    fontSize: 18,
+    textAlignVertical: 'center',
+    alignSelf: "center",
+    backgroundColor: "#764D35",
+    textAlign: 'center',
+    marginTop: 18
+  },
 
+  textButton: {
+    marginTop: 6,
+    alignSelf: "center",
+    fontFamily: fonts.raj500,
+    color: '#fff',
+  },
+  
+  arrow: {
+    color: '#575757'
+  },
+
+  colorIcons:{
+    color: '#764D35'
+  },
+
+ 
 });

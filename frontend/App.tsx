@@ -16,7 +16,7 @@ import { PropertyRegister } from './src/screens/propertyRegister';
 import { Home } from './src/screens/home';
 import { PropertyInfo } from './src/screens/propertyInfo';
 import { InicialPage } from './src/screens/inicialPage';
-import { AuthProvider } from './src/hooks/auth';
+import { AuthProvider } from './src/contexts/auth';
 import { Routes } from './src/routes';
 
 import { PropertyEdit } from './src/screens/propertyEdit/Index';
@@ -25,6 +25,7 @@ import { Chat } from './src/screens/chat';
 import { Conversations } from './src/screens/conversations';
 import { Property } from './src/components/property';
 import { UserProfile } from './src/components/userProfile';
+import { MessagesProvider } from './src/contexts/messages';
 
 
 export default function App() {
@@ -47,7 +48,9 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <Routes />
+        <MessagesProvider>
+          <Routes />
+        </MessagesProvider>
       </AuthProvider>
     </Background>
   );

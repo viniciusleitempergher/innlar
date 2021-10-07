@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { createStackNavigator } from "@react-navigation/stack";
-import { useAuth } from '../hooks/auth';
+import { useAuth } from '../contexts/auth';
 import { AppRoutes } from './appRoutes';
 import { SignRoutes } from './signRoutes';
 import { NavigationContainer } from '@react-navigation/native';

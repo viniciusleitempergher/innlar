@@ -15,7 +15,6 @@ import { Checkbox } from './src/components/checkbox';
 import { PropertyRegister } from './src/screens/propertyRegister';
 import { Home } from './src/screens/home';
 import { PropertyInfo } from './src/screens/propertyInfo';
-import { ChatList } from './src/screens/chatList';
 import { InicialPage } from './src/screens/inicialPage';
 import { AuthProvider } from './src/hooks/auth';
 import { Routes } from './src/routes';
@@ -48,7 +47,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <ChatList />
+        <Routes />
       </AuthProvider>
     </Background>
   );

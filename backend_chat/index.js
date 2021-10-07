@@ -19,21 +19,21 @@ io.on("connection", (socket) => {
     console.log("usuário conectado: " + userId);
     if (!users.find(user => user === userId)) {
         users.push({ userId, socketId: socket.id });
-        console.log("usuários conectados: " + users);
     }
 
     socket.emit("users", users);
 
     socket.on("send message", (message, to) => {
-        const { socketId } = users.find(user => user.userId === to);
-        io.to(socketId).emit("new message", message);
+        const user = users.find(user => user.userId === to);
+        io.to(user.socketId).emit("new message", message );
     });
 
     socket.on("disconnect", () => {
         users.filter(user => user !== userId)
-        console.log("usuários: " + users);
     })
 });
 
-httpServer.listen(3000);
+httpServer.listen(3000, () => {
+    console.log("Server started!");
+});
 

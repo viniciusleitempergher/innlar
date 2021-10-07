@@ -26,8 +26,11 @@ import com.inllar.rest.repositories.ChatRepository;
 import com.inllar.rest.repositories.MessageRepository;
 import com.inllar.rest.repositories.UserRepository;
 import com.inllar.rest.requests.GetChatsResponse;
+import com.inllar.rest.requests.GetMessagesRequest;
+import com.inllar.rest.requests.GetMessagesResponse;
 import com.inllar.rest.requests.GetUserResponse;
 import com.inllar.rest.requests.SendMessageRequest;
+import com.inllar.rest.requests.SendMessageResponse;
 import com.inllar.rest.utils.JwtTokenUtil;
 
 @Service("userService")
@@ -134,7 +137,16 @@ public class UserService {
 		List<Chat> chats = user.getChats();
 
 		chats.forEach((chat) -> {
-			chat.setUsers(null);
+
+			List<User> changedUsers = new ArrayList<User>();
+			chat.getUsers().forEach((userOfChat) -> {
+				userOfChat = userOfChat.getUserData();
+				userOfChat.setChats(null);
+				userOfChat.setProperties(null);
+				changedUsers.add(userOfChat);
+			});
+			chat.setUsers(changedUsers);
+
 			chat.getMessages().forEach((message) -> {
 				message.setSender(message.getSender().getUserData());
 				message.setChat(null);
@@ -146,7 +158,7 @@ public class UserService {
 		return response;
 	}
 
-	public void sendMessage(SendMessageRequest request) {
+	public SendMessageResponse sendMessage(SendMessageRequest request) {
 
 		String message = request.getMessage();
 		String receiverId = request.getUserId();
@@ -185,5 +197,50 @@ public class UserService {
 		chat.setMessages(messages);
 
 		chatRepository.save(chat);
+
+		SendMessageResponse response = new SendMessageResponse();
+		messageModel.setSender(messageModel.getSender().getUserData());
+		messageModel.setChat(null);
+		messageModel.getSender().setProperties(null);
+		messageModel.getSender().setChats(null);
+		response.setMessage(messageModel);
+
+		return response;
+	}
+
+	public GetMessagesResponse getMessages(GetMessagesRequest request) {
+		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+		User sender = jwt.getUserFromAccessToken(token);
+
+		User receiver = getUser(UUID.fromString(request.getUserId()));
+
+		List<User> usersOfChat = new ArrayList<User>();
+		usersOfChat.add(receiver);
+		usersOfChat.add(sender);
+
+		GetMessagesResponse response = new GetMessagesResponse();
+
+		if (chatRepository.existsByUsersIn(usersOfChat)) {
+			Chat chat = chatRepository.findByUsersIn(usersOfChat).get(0);
+
+			List<User> changedUsers = new ArrayList<User>();
+			chat.getUsers().forEach((userOfChat) -> {
+				userOfChat = userOfChat.getUserData();
+				userOfChat.setChats(null);
+				userOfChat.setProperties(null);
+				changedUsers.add(userOfChat);
+			});
+			chat.setUsers(changedUsers);
+
+			chat.getMessages().forEach((message) -> {
+				message.setSender(message.getSender().getUserData());
+				message.setChat(null);
+			});
+
+			response.setMessages(chat.getMessages());
+		}
+
+		return response;
 	}
 }

@@ -47,7 +47,9 @@ export const ModalMenu = ({ navigation }: any) => {
               <FontAwesome style={styles.userImage} name="user-circle-o" />
               <View style={styles.buttons}>
                 <Button style={styles.button} title="Meu Perfil" />
-                <Button style={styles.button} title="Conversas" onPress={handleConversations} />
+
+                <Button title="Conversas" style={styles.button} onPress={handleConversations} />
+
                 <Button style={styles.button} title="Registrar Propriedades"
                 />
 

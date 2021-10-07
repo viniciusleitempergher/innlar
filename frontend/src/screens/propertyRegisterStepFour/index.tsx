@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
-import { Form } from '../../components/form';
-import { TextArea } from '../../components/textArea';
-import { Button } from '../../components/button';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Text, View, KeyboardAvoidingView, Platform } from "react-native";
+import { Form } from "../../components/form";
+import { TextArea } from "../../components/textArea";
+import { Button } from "../../components/button";
+import { MaterialIcons } from "@expo/vector-icons";
 
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { styles } from './styles';
-
+import { styles } from "./styles";
 
 type Props = {
-    back: VoidFunction,
-    next: VoidFunction
-  }
+  back: VoidFunction;
+  next: VoidFunction;
+};
 
 export function PropertyRegisterStepFour({ next, back }: Props) {
-
   const [valor, setValor] = useState("");
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <View style={styles.container}>
@@ -32,28 +30,37 @@ export function PropertyRegisterStepFour({ next, back }: Props) {
           </View>
           <View style={[styles.nameField, styles.field]}>
             <Text style={styles.steps}>4º Passo</Text>
-            <Text style={styles.description}>Quanto vale a sua propriedade?</Text>
-            <Text style={styles.smallDescription}>Defina o valor de venda abaixo: (O valor poderá ser alterado a qualquer momento no seu perfil)</Text>
+            <Text style={styles.description}>
+              Quanto vale a sua propriedade?
+            </Text>
+            <Text style={styles.smallDescription}>
+              Defina o valor de venda abaixo: (O valor poderá ser alterado a
+              qualquer momento no seu perfil)
+            </Text>
             <TextArea style={styles.inputName} onChangeText={setValor} />
           </View>
           <View style={styles.line} />
           <View style={[styles.nameField, styles.field]}>
             <Text style={styles.description}>Adicione Fotos</Text>
-            <Text style={styles.smallDescription}>Adicione fotos da sua propriedade e seus cômodos (*obrigatório)</Text>
+            <Text style={styles.smallDescription}>
+              Adicione fotos da sua propriedade e seus cômodos (*obrigatório)
+            </Text>
             <View style={styles.inputDescription}>
-                <MaterialIcons style={styles.inputImageIcon} name="image-search"/>
+              <MaterialIcons
+                style={styles.inputImageIcon}
+                name="image-search"
+              />
             </View>
           </View>
           <View style={styles.line} />
           <View style={styles.buttons}>
-          <TouchableOpacity onPress={back} style={styles.button}>
+            <TouchableOpacity onPress={back} style={styles.button}>
               <Text style={styles.buttonTxt}>Voltar</Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
 
-          <TouchableOpacity  onPress={next} style={styles.button}>
+            <TouchableOpacity onPress={next} style={styles.button}>
               <Text style={styles.buttonTxt}>Finalizar</Text>
-          </TouchableOpacity>
-        
+            </TouchableOpacity>
           </View>
           <View style={styles.balls}>
             <View style={styles.blueBall} />
@@ -62,7 +69,6 @@ export function PropertyRegisterStepFour({ next, back }: Props) {
             <View style={styles.blueBall} />
           </View>
         </Form>
-
       </View>
     </KeyboardAvoidingView>
   );

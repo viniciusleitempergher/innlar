@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { Text, View, KeyboardAvoidingView, Platform } from 'react-native';
-import { Form } from '../../components/form';
-import { TextArea } from '../../components/textArea';
-import { Button } from '../../components/button';
-import { Checkbox } from '../../components/checkbox'
-import { styles } from './styles';
-import { Question } from '../../components/question';
-import { CheckBoxQuestion } from '../../components/checkboxQuestion';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { Text, View, KeyboardAvoidingView, Platform } from "react-native";
+import { Form } from "../../components/form";
+import { TextArea } from "../../components/textArea";
+import { Button } from "../../components/button";
+import { Checkbox } from "../../components/checkbox";
+import { styles } from "./styles";
+import { Question } from "../../components/question";
+import { CheckBoxQuestion } from "../../components/checkboxQuestion";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Props = {
-  back: VoidFunction,
-  next: VoidFunction
-}
+  back: VoidFunction;
+  next: VoidFunction;
+};
 
 export function PropertyRegisterStepThree({ back, next }: Props) {
-
   const [area, setArea] = useState("");
   const [quartos, setQuartos] = useState("");
   const [banheiros, setBanheiros] = useState("");
@@ -31,12 +29,12 @@ export function PropertyRegisterStepThree({ back, next }: Props) {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <View style={styles.container}>
         <Form title="">
-        <View>
+          <View>
             <Text style={styles.title}>Registre sua Propriedade</Text>
           </View>
           <View style={[styles.nameField, styles.field]}>
@@ -48,20 +46,43 @@ export function PropertyRegisterStepThree({ back, next }: Props) {
           <Question title="Nº de Banheiros:" onChangeText={setBanheiros} />
           <Question title="Nº de Salas:" onChangeText={setSalas} />
           <Question title="Nº de Cozinhas:" onChangeText={setCozinhas} />
-          <CheckBoxQuestion title="Possui área de festa?" checked={areaFesta} onPress={() => { setAreaFesta(!areaFesta) }} />
-          <CheckBoxQuestion title="Possui churrasqueira?" checked={churrasqueira} onPress={() => { setChurasqueira(!churrasqueira) }} />
-          <CheckBoxQuestion title="Possui piscina?" checked={piscina} onPress={() => { setPiscina(!piscina) }} />
-          <CheckBoxQuestion title="Possui garagem?" checked={garagem} onPress={() => { setGaragem(!garagem) }} />
+          <CheckBoxQuestion
+            title="Possui área de festa?"
+            checked={areaFesta}
+            onPress={() => {
+              setAreaFesta(!areaFesta);
+            }}
+          />
+          <CheckBoxQuestion
+            title="Possui churrasqueira?"
+            checked={churrasqueira}
+            onPress={() => {
+              setChurasqueira(!churrasqueira);
+            }}
+          />
+          <CheckBoxQuestion
+            title="Possui piscina?"
+            checked={piscina}
+            onPress={() => {
+              setPiscina(!piscina);
+            }}
+          />
+          <CheckBoxQuestion
+            title="Possui garagem?"
+            checked={garagem}
+            onPress={() => {
+              setGaragem(!garagem);
+            }}
+          />
 
           <View style={styles.buttons}>
-          <TouchableOpacity onPress={back} style={styles.button}>
+            <TouchableOpacity onPress={back} style={styles.button}>
               <Text style={styles.buttonTxt}>Voltar</Text>
-          </TouchableOpacity>
+            </TouchableOpacity>
 
-          <TouchableOpacity  onPress={next} style={styles.button}>
+            <TouchableOpacity onPress={next} style={styles.button}>
               <Text style={styles.buttonTxt}>Continuar</Text>
-          </TouchableOpacity>
-        
+            </TouchableOpacity>
           </View>
 
           <View style={styles.balls}>

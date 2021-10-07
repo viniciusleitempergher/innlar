@@ -35,7 +35,7 @@ export function Profile() {
       >
         <View style={styles.container}>
           <Form title="">
-            <AntDesign name="arrowleft" size={30} color="black" />
+            <AntDesign name="arrowleft" size={30} style={styles.arrow} />
             <View style={styles.profileIconBorder}>
               <EvilIcons style={styles.profileIcon} name="user" color="black" />
             </View>

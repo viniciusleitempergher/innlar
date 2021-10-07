@@ -13,7 +13,6 @@ export const styles = StyleSheet.create({
     borderTopColor: 'transparent',
     borderWidth: 1,
     fontFamily: fonts.raj500,
-    color: colors.darkGreen,
     fontSize: 18,
     marginRight: 4,
     paddingHorizontal: 16,

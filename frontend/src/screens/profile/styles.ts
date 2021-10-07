@@ -140,5 +140,10 @@ export const styles = StyleSheet.create({
     fontFamily: fonts.raj500,
     fontSize: 18,
     marginBottom: 8,
-  }
+  },
+
+  arrow: {
+    color: '#575757'
+  },
+  
 });

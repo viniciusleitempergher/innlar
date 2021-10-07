@@ -46,7 +46,7 @@ export default function App() {
         translucent
       />
       <AuthProvider>
-        <Profile />
+        <PropertyInfo />
       </AuthProvider>
     </Background>
   );

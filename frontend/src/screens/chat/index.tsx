@@ -52,13 +52,14 @@ export function Chat({ route }: any) {
 
         setMessages((prevMessages: Array<MessageType>) => [...prevMessages, message]);
 
-        for (let chat of chats) {
+        let chatsCopy = chats.slice();
+        chatsCopy.forEach((chat) => {
             if (chat.users.filter(user => user.id == receiverId)) {
                 chat.messages.push(message);
             }
-        }
+        })
 
-        setChats(chats);
+        setChats(chatsCopy);
 
         socket.emit("send message", message, receiverId);
 

@@ -59,13 +59,13 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 100,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   googleIcon: {
     fontSize: 30, 
     color: "#666666",
-    marginLeft: 20
   },
 
   googleTxt: {

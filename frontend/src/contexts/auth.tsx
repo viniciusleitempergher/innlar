@@ -82,7 +82,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
                 setUser(user)
                 resolve()
-            } catch (e) {
+            } catch (e: any) {
                 resolve(e.response.status);
             } finally {
                 setLoading(false)

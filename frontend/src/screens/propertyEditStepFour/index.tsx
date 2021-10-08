@@ -8,6 +8,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+
 import { styles } from "./styles";
 
 type Props = {
@@ -17,6 +18,10 @@ type Props = {
 
 export function PropertyEditStepFour({ next, back }: Props) {
   const [valor, setValor] = useState("");
+
+  function handleSelectImages() {
+
+  }
 
   return (
     <KeyboardAvoidingView
@@ -47,6 +52,7 @@ export function PropertyEditStepFour({ next, back }: Props) {
             </Text>
             <View style={styles.inputDescription}>
               <MaterialIcons
+                onPress={handleSelectImages}
                 style={styles.inputImageIcon}
                 name="image-search"
               />

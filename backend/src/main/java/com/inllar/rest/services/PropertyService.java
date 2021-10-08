@@ -66,7 +66,7 @@ public class PropertyService {
 		property.setNumberKitchens(request.getNumberKitchens());
 		property.setSquareMeters(request.getSquareMeters());
 		property.setValue(request.getValue());
-
+		property.setNumberRooms(request.getNumberRooms());
 		Address address = new Address();
 
 		address.setCep(request.getCep());

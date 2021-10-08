@@ -17,6 +17,14 @@ export const ModalMenu = ({ navigation }: any) => {
     navigation.navigate("conversations")
   }
 
+  function handleMyProfile() {
+    navigation.navigate("profile")
+  }
+
+  function handleRegisterProperty() {
+    navigation.navigate("propertyRegisterStepOne")
+  }
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -46,15 +54,13 @@ export const ModalMenu = ({ navigation }: any) => {
               </View>
               <FontAwesome style={styles.userImage} name="user-circle-o" />
               <View style={styles.buttons}>
-                <Button style={styles.button} title="Meu Perfil" />
+                <Button style={styles.button} title="Meu Perfil" onPress={handleMyProfile} />
 
                 <Button title="Conversas" style={styles.button} onPress={handleConversations} />
 
-                <Button style={styles.button} title="Registrar Propriedades"
-                />
+                <Button style={styles.button} title="Registrar Propriedades" onPress={handleRegisterProperty} />
 
-                <Button style={styles.button1} title="Sair"
-                />
+                <Button style={styles.button1} title="Sair" />
 
               </View>
             </View>

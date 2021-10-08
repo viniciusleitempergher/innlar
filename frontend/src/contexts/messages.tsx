@@ -30,7 +30,7 @@ export function MessagesProvider({ children }: MessagesProviderProps) {
         (async () => {
             try {
                 const chatsResponse = await api.get("/users/my-chats");
-
+                
                 setChats(chatsResponse.data.chats);
 
                 setLoading(false);
@@ -49,6 +49,8 @@ export function MessagesProvider({ children }: MessagesProviderProps) {
                 });
             } catch (e) {
                 throw e;
+            } finally {
+                setLoading(false)
             }
         })();
     }, []);

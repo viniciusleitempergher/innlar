@@ -18,7 +18,7 @@ import { styles } from './styles';
 export function Chat({ route }: any) {
     const flatListRef = useRef<any>();
 
-    const { loading, chats } = useMessages();
+    const { loading, chats, setChats } = useMessages();
 
     const [messages, setMessages] = useState([] as Array<MessageType>);
 
@@ -51,6 +51,14 @@ export function Chat({ route }: any) {
         const message = messageResponse.data.message;
 
         setMessages((prevMessages: Array<MessageType>) => [...prevMessages, message]);
+
+        for (let chat of chats) {
+            if (chat.users.filter(user => user.id == receiverId)) {
+                chat.messages.push(message);
+            }
+        }
+
+        setChats(chats);
 
         socket.emit("send message", message, receiverId);
 
@@ -99,7 +107,7 @@ export function Chat({ route }: any) {
                                 <TouchableOpacity onPress={handleSendMessage}>
                                     <Text>
                                         Send
-                                </Text>
+                                    </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

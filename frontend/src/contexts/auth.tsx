@@ -2,10 +2,9 @@ import React, { createContext, Dispatch, SetStateAction, useEffect } from "react
 import { useContext } from "react";
 import { useState } from "react";
 import { ReactNode } from "react";
-import * as AuthSession from 'expo-auth-session';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { api } from "../services/api";
 import * as SecureStore from 'expo-secure-store';
+import { Loading } from "../components/loading";
 
 type User = {
     id: string,
@@ -110,7 +109,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
             user,
             signIn
         }}>
-            {children}
+            {
+                loading
+                    ?
+                    <Loading />
+                    :
+                    children
+            }
         </AuthContext.Provider>
     )
 }

@@ -12,6 +12,7 @@ import AppLoading from "expo-app-loading";
 import { Routes } from "./src/routes";
 import { MessagesProvider } from "./src/contexts/messages";
 import { AuthProvider } from "./src/contexts/auth";
+import { PropertyInfo } from "./src/screens/propertyInfo";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -33,7 +34,7 @@ export default function App() {
       />
       <AuthProvider>
         <MessagesProvider>
-          <Routes />
+          <PropertyInfo />
         </MessagesProvider>
       </AuthProvider>
     </Background>

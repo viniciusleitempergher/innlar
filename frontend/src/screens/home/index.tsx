@@ -85,7 +85,7 @@ export function Home({ navigation }: any) {
                   style={styles.propertyImage}
                 />
                 <Text style={styles.propertyTitle}>Apartamento Luxuoso </Text>
-                <Text style={styles.value}>Valor: R$1.000.000,50</Text>
+                <Text style={styles.value}>Valor: R$1.000.000,00</Text>
                 <View style={styles.info}>
                   <FontAwesome style={styles.icon} name="user" />
                   <Text style={styles.info1}>José Vinicius</Text>

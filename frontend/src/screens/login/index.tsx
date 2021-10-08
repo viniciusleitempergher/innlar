@@ -27,7 +27,6 @@ import * as GoogleSignIn from 'expo-google-sign-in';
 
 export function Login({ navigation }: any) {
   const { signIn, loading } = useAuth();
-
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 

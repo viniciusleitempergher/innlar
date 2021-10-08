@@ -1,9 +1,9 @@
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons} from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { RefObject, useRef, useState } from 'react';
 
 import { useEffect } from "react";
-import { Alert, KeyboardAvoidingView, Platform, Text, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, Text, View, ImageBackground } from "react-native";
 import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Loading } from '../../components/loading';
 import { TextArea } from '../../components/textArea';
@@ -90,10 +90,10 @@ export function Chat({ route }: any) {
                                 data={messages}
                                 keyExtractor={item => item.id}
                                 renderItem={({ item }) => (
-                                    <View>
-                                        <Text>{(item.sender.id !== user.id) ? item.sender.name : "Você"}</Text>
-                                        <Text>{item.text}</Text>
-                                        <Text>{getMessageDate(item.timestamp)}</Text>
+                                    <View style={styles.balloon}>
+                                        <Text style={styles.userName}>{(item.sender.id !== user.id) ? item.sender.name : "Você"}</Text>
+                                        <Text style={styles.message}>{item.text}</Text>
+                                        <Text style={styles.date}>{getMessageDate(item.timestamp)}</Text>
                                     </View>
                                 )}
                                 ItemSeparatorComponent={() => <View style={{}} />}
@@ -105,10 +105,8 @@ export function Chat({ route }: any) {
                             <View style={styles.sendArea}>
                                 <TextArea style={styles.sendInput} onChangeText={setInputText} value={inputText} />
                                 <TouchableOpacity onPress={handleSendMessage}>
-                                    <Text>
-                                        Send
-                                    </Text>
-                                </TouchableOpacity>
+                                    <MaterialCommunityIcons name="send-circle" size={45} color="black" />
+                                </TouchableOpacity> 
                             </View>
                         </View>
                     </KeyboardAvoidingView>

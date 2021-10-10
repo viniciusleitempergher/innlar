@@ -178,5 +178,56 @@ export const styles = StyleSheet.create({
     color: '#764D35'
   },
 
- 
+  inputAddress:{
+    width: '100%',
+    height: 30,
+    borderRadius: 50,  
+    fontFamily: fonts.raj500,
+    color: colors.inputTxt,
+    fontSize: 18,
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    borderWidth: 1,
+    position:"absolute",
+    backgroundColor: "#B9A78D",
+    marginTop: 15
+},
+
+  textInput: {
+    marginTop: 20,
+    marginLeft: 8,
+    fontFamily: fonts.raj700,
+    color: colors.title,
+    zIndex: 1,
+
+  },
+
+  alugueButton: {
+    width: 100,
+    height: 28,
+    borderRadius: 20,  
+    fontFamily: fonts.raj500,
+    color: '#fff',
+    fontSize: 18,
+    textAlignVertical: 'center',
+    alignSelf: "center",
+    backgroundColor: "#764D35",
+    textAlign: 'center',
+    marginTop: 16,
+    marginRight: 1
+  },
+
+  alugueAgora: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    
+  },
+
+  textButton2: {
+    marginTop: 5,
+    alignSelf: "center",
+    fontFamily: fonts.raj500,
+    color: '#fff',
+
+  }
 });

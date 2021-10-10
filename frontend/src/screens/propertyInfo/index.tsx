@@ -65,16 +65,24 @@ export function PropertyInfo() {
             <Text style={styles.description}>Caracteristicas:</Text>
             <View style={styles.icons}>
               <View style={styles.roomIcons}>
-                <FontAwesome name="bed" size={24} style={styles.colorIcons}/>
+                <FontAwesome name="bed" size={24} style={styles.colorIcons} />
               </View>
               <View style={styles.roomIcons}>
-                <FontAwesome name="bathtub" size={24} style={styles.colorIcons} />
+                <FontAwesome
+                  name="bathtub"
+                  size={24}
+                  style={styles.colorIcons}
+                />
               </View>
               <View style={styles.carIcon}>
                 <FontAwesome5 name="car" size={24} style={styles.colorIcons} />
               </View>
               <View style={styles.roomIcons}>
-                <MaterialIcons name="grid-on" size={24} style={styles.colorIcons} />
+                <MaterialIcons
+                  name="grid-on"
+                  size={24}
+                  style={styles.colorIcons}
+                />
               </View>
             </View>
             <View style={styles.textIcons}>
@@ -92,7 +100,7 @@ export function PropertyInfo() {
                 de serviço e duas vagas de garagem individuais.
               </Text>
             </View>
-            <MapView 
+            <MapView
               showsUserLocation={true} //destacando a localização do usuário no mapa
               showsMyLocationButton={false} //ocultando o botão que move o mapa para a localização do usuário
               toolbarEnabled={false} //ocultando opções do google maps ao clicar em objetos do mapa
@@ -124,6 +132,14 @@ export function PropertyInfo() {
             <TouchableOpacity style={[styles.button, { marginTop: 15 }]}>
               <Text style={styles.textButton}>Chat</Text>
             </TouchableOpacity>
+
+            <View style={styles.alugueAgora}>
+              <Text style={styles.textInput}>R$1.000.000,00</Text>
+              <TextArea style={styles.inputAddress} />
+              <TouchableOpacity style={styles.alugueButton}>
+                <Text style={styles.textButton2}>Alugue agora</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Form>
       </View>

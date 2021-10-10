@@ -12,7 +12,6 @@ import AppLoading from "expo-app-loading";
 import { Routes } from "./src/routes";
 import { MessagesProvider } from "./src/contexts/messages";
 import { AuthProvider } from "./src/contexts/auth";
-import { PropertyFormDataProvider } from './src/contexts/propertyFormData';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

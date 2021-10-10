@@ -10,6 +10,7 @@ public class PropertyRegisterRequest implements Serializable {
 	private int numberBathRooms;
 	private int numberBedRooms;
 	private int numberKitchens;
+	private int numberRooms;
 	private double squareMeters;
 	private boolean hasPool;
 	private boolean hasPartyArea;
@@ -161,5 +162,13 @@ public class PropertyRegisterRequest implements Serializable {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public int getNumberRooms() {
+		return numberRooms;
+	}
+
+	public void setNumberRooms(int numberRooms) {
+		this.numberRooms = numberRooms;
 	}
 }

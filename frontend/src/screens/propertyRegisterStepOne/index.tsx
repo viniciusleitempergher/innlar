@@ -7,16 +7,11 @@ import { Button } from "../../components/button";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { styles } from "./styles";
+import { usePropertyFormData } from "../../contexts/propertyFormData";
 
-import { stepTwoParams } from "../propertyRegister";
+export function PropertyRegisterStepOne({ navigation }: any) {
 
-type Props = {
-  next(params: stepTwoParams): void;
-};
-
-export function PropertyRegisterStepOne({ next }: Props) {
-  const [nome, setNome] = useState("");
-  const [desc, setDesc] = useState("");
+  const { name, description, setName, setDescription } = usePropertyFormData();
 
   return (
     <KeyboardAvoidingView
@@ -33,7 +28,7 @@ export function PropertyRegisterStepOne({ next }: Props) {
             <Text style={styles.description}>
               Comece definindo o nome da sua propriedade abaixo:
             </Text>
-            <TextArea style={styles.inputName} onChangeText={setNome} />
+            <TextArea style={styles.inputName} onChangeText={setName} value={name} />
           </View>
           <View style={styles.line} />
           <View style={[styles.nameField, styles.field]}>
@@ -46,13 +41,14 @@ export function PropertyRegisterStepOne({ next }: Props) {
               placeholder="Descrição"
               numberOfLines={7}
               multiline
-              onChangeText={setDesc}
+              onChangeText={setDescription}
+              value={description}
             />
           </View>
           <View style={styles.line} />
           <TouchableOpacity
             onPress={() => {
-              next({ nome, descricao: desc });
+              navigation.navigate("propertyRegisterStepTwo")
             }}
             style={styles.button}
           >

@@ -1,15 +1,11 @@
 package com.inllar.rest.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityNotFoundException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.inllar.rest.exceptions.NotFoundException;
-import com.inllar.rest.models.Address;
-import com.inllar.rest.models.Property;
-import com.inllar.rest.repositories.AddressRepository;
 import com.inllar.rest.requests.PropertiesFilterResponse;
 import com.inllar.rest.requests.PropertiesGetResponse;
 import com.inllar.rest.requests.PropertyGetResponse;
@@ -45,6 +39,7 @@ public class PropertyController {
 
 	@ApiOperation("Create new properties")
 	@PostMapping("/create")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public PropertyRegisterResponse createProperty(@RequestBody PropertyRegisterRequest request) {
 		try {
 			return propertyService.createProperty(request);

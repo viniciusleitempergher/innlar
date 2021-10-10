@@ -17,15 +17,23 @@ io.on("connection", (socket) => {
     const userId = socket.handshake.auth.userId;
 
     console.log("usuário conectado: " + userId);
-    if (!users.find(user => user === userId)) {
+
+    if (users.find(user => user.userId == userId))
+        users.map((user) => {
+            if (user.userId == userId) {
+                user.socketId = socket.id;
+            }
+        })
+    else
         users.push({ userId, socketId: socket.id });
-    }
 
     socket.emit("users", users);
 
     socket.on("send message", (message, to) => {
         const user = users.find(user => user.userId === to);
-        io.to(user.socketId).emit("new message", message );
+        if (user) {
+            io.to(user.socketId).emit("new message", message);
+        }
     });
 
     socket.on("disconnect", () => {

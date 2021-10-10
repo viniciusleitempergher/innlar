@@ -7,21 +7,13 @@ import { Button } from '../../components/button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { styles } from './styles';
-import { stepThreeParams } from '../propertyRegister';
+import { usePropertyFormData } from '../../contexts/propertyFormData';
 
-type Props = {
-  back: VoidFunction,
-  next(params: stepThreeParams): void
-}
+export function PropertyRegisterStepTwo({ navigation }: any) {
 
-export function PropertyRegisterStepTwo({ next, back }: Props) {
-
-  const [state, setState] = useState("");
-  const [cep, setCep] = useState("");
-  const [district, setDistrict] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [number, setNumber] = useState(0);
+  const { setState, setCep, setCity, setStreet, setNumber, setDistrict,
+    state, cep, city, street, number, district
+  } = usePropertyFormData();
 
   return (
     <KeyboardAvoidingView
@@ -30,7 +22,7 @@ export function PropertyRegisterStepTwo({ next, back }: Props) {
     >
       <View style={styles.container}>
         <Form title="">
-        <View>
+          <View>
             <Text style={styles.title}>Registre sua Propriedade</Text>
           </View>
           <View style={[styles.nameField, styles.field]}>
@@ -39,38 +31,39 @@ export function PropertyRegisterStepTwo({ next, back }: Props) {
           </View>
           <View>
             <Text style={styles.smallDescription}>Estado:</Text>
-            <TextArea style={styles.inputAddress} onChangeText={setState} />
+            <TextArea style={styles.inputAddress} onChangeText={setState} value={state} />
           </View>
           <View>
             <Text style={styles.smallDescription}>CEP:</Text>
-            <TextArea style={styles.inputAddress} onChangeText={setCep} />
+            <TextArea style={styles.inputAddress} onChangeText={setCep} value={cep} />
           </View>
           <View>
             <Text style={styles.smallDescription}>Cidade:</Text>
-            <TextArea style={styles.inputAddress} onChangeText={setCity} />
+            <TextArea style={styles.inputAddress} onChangeText={setCity} value={city} />
           </View>
           <View>
             <Text style={styles.smallDescription}>Bairro:</Text>
-            <TextArea style={styles.inputAddress} onChangeText={setDistrict} />
+            <TextArea style={styles.inputAddress} onChangeText={setDistrict} value={district} />
           </View>
           <View>
             <Text style={styles.smallDescription}>Rua:</Text>
-            <TextArea style={styles.inputAddress} onChangeText={setStreet} />
+            <TextArea style={styles.inputAddress} onChangeText={setStreet} value={street} />
           </View>
           <View>
             <Text style={styles.smallDescription}>Nº da propriedade:</Text>
-            <TextArea keyboardType='numeric' style={styles.inputAddress} onChangeText={(txt) => { setNumber(+txt) }} />
+            <TextArea keyboardType='numeric' style={styles.inputAddress} onChangeText={(txt) => { setNumber(txt) }}
+              value={number} />
           </View>
-          
-          <View style={styles.buttons}>
-          <TouchableOpacity onPress={back} style={styles.button}>
-              <Text style={styles.buttonTxt}>Voltar</Text>
-          </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => { next({ cep, city, district, number, state, street }) }} style={styles.button}>
+          <View style={styles.buttons}>
+            <TouchableOpacity onPress={() => { navigation.navigate("propertyRegisterStepOne") }} style={styles.button}>
+              <Text style={styles.buttonTxt}>Voltar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => { navigation.navigate("propertyRegisterStepThree") }} style={styles.button}>
               <Text style={styles.buttonTxt}>Continuar</Text>
-          </TouchableOpacity>
-        
+            </TouchableOpacity>
+
           </View>
 
           <View style={styles.balls}>

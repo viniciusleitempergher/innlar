@@ -37,6 +37,9 @@ public class Property {
 	@Column(name = "number_bedrooms", nullable = false)
 	private int numberBedRooms;
 
+	@Column(name = "number_rooms", nullable = false)
+	private int numberRooms;
+
 	@Column(name = "number_kitchens", nullable = false)
 	private int numberKitchens;
 
@@ -218,5 +221,13 @@ public class Property {
 
 	public void setHasGarage(boolean hasGarage) {
 		this.hasGarage = hasGarage;
+	}
+
+	public int getNumberRooms() {
+		return numberRooms;
+	}
+
+	public void setNumberRooms(int numberRooms) {
+		this.numberRooms = numberRooms;
 	}
 }

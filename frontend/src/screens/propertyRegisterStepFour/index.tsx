@@ -9,14 +9,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { styles } from "./styles";
+import { usePropertyFormData } from "../../contexts/propertyFormData";
 
-type Props = {
-  back: VoidFunction;
-  next: VoidFunction;
-};
+export function PropertyRegisterStepFour({ navigation }: any) {
 
-export function PropertyRegisterStepFour({ next, back }: Props) {
-  const [valor, setValor] = useState("");
+  const { propertyValue, setPropertyValue, registerProperty } = usePropertyFormData();
+
+  async function handleRegisterProperty() {
+    registerProperty()
+
+    navigation.navigate("home");
+  }
 
   return (
     <KeyboardAvoidingView
@@ -37,7 +40,7 @@ export function PropertyRegisterStepFour({ next, back }: Props) {
               Defina o valor de venda abaixo: (O valor poderá ser alterado a
               qualquer momento no seu perfil)
             </Text>
-            <TextArea style={styles.inputName} onChangeText={setValor} />
+            <TextArea style={styles.inputName} onChangeText={setPropertyValue} value={propertyValue} />
           </View>
           <View style={styles.line} />
           <View style={[styles.nameField, styles.field]}>
@@ -54,11 +57,11 @@ export function PropertyRegisterStepFour({ next, back }: Props) {
           </View>
           <View style={styles.line} />
           <View style={styles.buttons}>
-            <TouchableOpacity onPress={back} style={styles.button}>
+            <TouchableOpacity onPress={() => { navigation.navigate("propertyRegisterStepThree") }} style={styles.button}>
               <Text style={styles.buttonTxt}>Voltar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={next} style={styles.button}>
+            <TouchableOpacity onPress={handleRegisterProperty} style={styles.button}>
               <Text style={styles.buttonTxt}>Finalizar</Text>
             </TouchableOpacity>
           </View>

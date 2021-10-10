@@ -39,16 +39,18 @@ export function MessagesProvider({ children }: MessagesProviderProps) {
                 socket.connect();
 
                 socket.on("new message", (message: MessageType) => {
-                    for (let chat of chats) {
+                    let chatsCopy = chats.slice();
+                    chatsCopy.forEach(chat => {
                         if (chat.users.filter(user => message.sender.id == user.id)) {
                             chat.messages.push(message)
-                            break;
                         }
-                    }
-                    setChats(chats)
+                    })
+                    setChats(chatsCopy)
                 });
             } catch (e) {
                 throw e;
+            } finally {
+                setLoading(false)
             }
         })();
     }, []);

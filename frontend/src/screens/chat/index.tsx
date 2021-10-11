@@ -25,6 +25,7 @@ import { socket } from "../../services/chat";
 import { MessageType } from "../../types/message";
 import { styles } from "./styles";
 import { EvilIcons } from "@expo/vector-icons";
+import { UserType } from "../../types/user";
 
 export function Chat({ route }: any) {
   const flatListRef = useRef<any>();
@@ -39,9 +40,16 @@ export function Chat({ route }: any) {
 
   const receiverId = route.params.userId;
 
+  const [receiver, setReceiver] = useState({} as UserType);
+
   useEffect(() => {
     for (let chat of chats) {
-      if (chat.users.filter((user) => user.id == receiverId)) {
+      if (
+        chat.users.filter((userOfChat) => {
+          setReceiver(userOfChat);
+          return userOfChat.id == receiverId;
+        })
+      ) {
         setMessages(chat.messages);
       }
     }
@@ -95,14 +103,16 @@ export function Chat({ route }: any) {
           style={styles.container}
         >
           <View style={styles.container}>
-            <AntDesign
+          <View style={styles.user}>
+            <AntDesign style={styles.arrow}
               name="arrowleft"
               size={30}
               color="black"
               onPress={handleGoBack}
             />
-            <View>
+         
               <EvilIcons style={styles.profileIcon} name="user" color="black" />
+              <Text style={styles.nameUser}>{receiver.name}</Text>
             </View>
             <FlatList
               ref={flatListRef}

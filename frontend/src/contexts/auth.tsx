@@ -47,7 +47,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         (async () => {
             try {
                 const accessToken = await SecureStore.getItemAsync("accessToken");
-                console.log(accessToken);
 
                 const refreshToken = await SecureStore.getItemAsync("refreshToken");
 

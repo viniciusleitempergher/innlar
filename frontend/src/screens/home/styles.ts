@@ -103,7 +103,6 @@ export const styles = StyleSheet.create({
   },
 
   info: {
-    display: "flex",
     flexDirection: "row",
   },
 
@@ -115,8 +114,12 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: fonts.raj500,
     marginTop: 10,
-    textDecorationLine:"underline",
-    textAlign:"center"
+    textDecorationLine: "underline",
+    textAlign: "center"
   },
 
+
+  list: {
+    width: "100%",
+  },
 });

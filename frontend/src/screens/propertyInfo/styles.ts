@@ -7,7 +7,7 @@ import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: getStatusBarHeight(),    
+    marginTop: getStatusBarHeight(),
     width: '100%',
     marginBottom: getBottomSpace() + 20,
     height: 1400,
@@ -58,7 +58,6 @@ export const styles = StyleSheet.create({
 
   propertyDescription: {
     width: '100%',
-    height: 105,
     color: colors.title,
     fontFamily: fonts.raj500,
     fontSize: 15,
@@ -85,7 +84,6 @@ export const styles = StyleSheet.create({
 
   roomIconsText: {
     marginTop: 5,
-    marginLeft: 5,
     color: '#764D35',
     fontFamily: fonts.raj400
   },
@@ -102,10 +100,10 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: -5,
-    
+
   },
 
-  carIcon:{
+  carIcon: {
     marginRight: -20
   },
 
@@ -149,10 +147,10 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
   },
 
-  button:{
+  button: {
     width: '30%',
     height: 30,
-    borderRadius: 20,  
+    borderRadius: 20,
     fontFamily: fonts.raj500,
     color: '#fff',
     fontSize: 18,
@@ -169,65 +167,59 @@ export const styles = StyleSheet.create({
     fontFamily: fonts.raj500,
     color: '#fff',
   },
-  
+
   arrow: {
     color: '#575757'
   },
 
-  colorIcons:{
+  colorIcons: {
     color: '#764D35'
   },
 
-  inputAddress:{
-    width: '100%',
-    height: 30,
-    borderRadius: 50,  
-    fontFamily: fonts.raj500,
-    color: colors.inputTxt,
-    fontSize: 18,
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    borderWidth: 1,
-    position:"absolute",
-    backgroundColor: "#B9A78D",
-    marginTop: 15
-},
-
   textInput: {
-    marginTop: 20,
-    marginLeft: 8,
+    fontSize: 20,
     fontFamily: fonts.raj700,
     color: colors.title,
     zIndex: 1,
-
   },
 
   alugueButton: {
     width: 100,
     height: 28,
-    borderRadius: 20,  
+    borderRadius: 20,
     fontFamily: fonts.raj500,
     color: '#fff',
     fontSize: 18,
-    textAlignVertical: 'center',
     alignSelf: "center",
     backgroundColor: "#764D35",
-    textAlign: 'center',
-    marginTop: 16,
-    marginRight: 1
+    marginRight: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   alugueAgora: {
+    alignSelf: "center",
     flexDirection: "row",
     justifyContent: "space-between",
-    
+    width: '80%',
+    height: 50,
+    borderRadius: 50,
+    fontFamily: fonts.raj500,
+    color: colors.inputTxt,
+    textAlignVertical: 'center',
+    textAlign: 'center',
+    borderWidth: 1,
+    backgroundColor: "#B9A78D",
+    marginTop: 15,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    bottom: 10,
+    fontWeight: "400",
   },
 
   textButton2: {
-    marginTop: 5,
     alignSelf: "center",
     fontFamily: fonts.raj500,
     color: '#fff',
-
   }
 });

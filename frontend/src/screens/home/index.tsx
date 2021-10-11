@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Text,
@@ -7,95 +7,108 @@ import {
   Platform,
   Image,
   ScrollView,
-  Modal,
-  Alert,
-  Pressable,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import { Form } from "../../components/form";
-import { TextArea } from "../../components/textArea";
-import { Button } from "../../components/button";
-import { FontAwesome } from "@expo/vector-icons";
 import { ModalHome } from "../../components/modal";
 import { ModalMenu } from "../../components/modalMenu";
 
 import { styles } from "./styles";
+import { PropertyResult } from "../../components/propertyResult";
+
+import { FlatList } from "react-native-gesture-handler";
+import { api } from "../../services/api";
+import { PropertyType } from "../../types/property";
+import { Loading } from "../../components/loading";
 
 export function Home({ navigation }: any) {
+  const [properties, setProperties] = useState([] as Array<PropertyType>);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      try {
+        let response = await api.get("/properties/search", {
+          params: {
+            cep: "",
+            city: "",
+            district: "",
+            state: "",
+          }
+        })
+
+        setProperties(response.data.properties);
+      } catch (e) {
+        throw e;
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  function handleGoToProperty(propertyId: string) {
+    navigation.navigate({
+      name: 'propertyInfo',
+      params: { propertyId },
+    });
+  }
+
   return (
-    <ScrollView>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <ImageBackground
-          source={require("../../assets/whiteBackground.jpg")}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <View style={styles.container}>
-            <Form title="">
-              <ModalMenu navigation={navigation} />
-              <View style={styles.innlarIcon}>
-                <Image
-                  source={require("../../assets/logoPreta.png")}
-                  style={styles.innlarIcon}
-                />
-              </View>
-              <View style={styles.searchProperty}>
-                <ModalHome />
-              </View>
-              <View style={[styles.property, styles.nameField, styles.field]}>
-                <View style={styles.line} />
-                <Image
-                  source={require("../../assets/testeCasa.jpg")}
-                  style={styles.propertyImage}
-                />
-                <Text style={styles.propertyTitle}>
-                  Residencial Monte Carlo
-                </Text>
-                <Text style={styles.value}>Valor: R$650.000,00</Text>
-                <View style={styles.info}>
-                  <FontAwesome style={styles.icon} name="user" />
-                  <Text style={styles.info1}>Joana Garcia</Text>
+    <>
+      {
+        loading
+          ? <Loading />
+          :
+          <ScrollView>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              style={styles.container}
+            >
+              <ImageBackground
+                source={require("../../assets/whiteBackground.jpg")}
+                style={{ width: "100%", height: "100%" }}
+              >
+                <View style={styles.container}>
+                  <Form title="">
+                    <ModalMenu navigation={navigation} />
+                    <View style={styles.innlarIcon}>
+                      <Image
+                        source={require("../../assets/logoPreta.png")}
+                        style={styles.innlarIcon}
+                      />
+                    </View>
+                    <View style={styles.searchProperty}>
+                      <ModalHome />
+                    </View>
+
+                    <FlatList
+                      data={properties}
+                      keyExtractor={item => item.id}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => { handleGoToProperty(item.id) }}>
+                          <PropertyResult srcImage={item.images[0]} propertyName={item.name} value={item.value} userName={item.user.name} />
+                        </TouchableOpacity>
+                      )}
+                      ItemSeparatorComponent={() => <View style={{}} />}
+                      contentContainerStyle={{ paddingBottom: 69 }}
+                      style={styles.list}
+                      showsVerticalScrollIndicator={false}
+                    />
+
+                    <PropertyResult
+                      propertyName="Residencial Monte Carlo"
+                      srcImage="https://construtoralage.com.br/wp-content/uploads/2019/08/apartamento-2-3-4-quartos.jpg"
+                      value="R$650.000,00"
+                      userName="Joana Garcia"
+                    />
+                  </Form>
                 </View>
-
-                <Text style={styles.info2}>Ver mais informações</Text>
-              </View>
-
-              <View style={[styles.property, styles.nameField, styles.field]}>
-                <View style={styles.line} />
-                <Image
-                  source={require("../../assets/testeCasa2.jpg")}
-                  style={styles.propertyImage}
-                />
-                <Text style={styles.propertyTitle}>Casa Bela Vista</Text>
-                <Text style={styles.value}>Valor: R$845.600,00</Text>
-                <View style={styles.info}>
-                  <FontAwesome style={styles.icon} name="user" />
-                  <Text style={styles.info1}>Pedro Antônio</Text>
-                </View>
-
-                <Text style={styles.info2}>Ver mais informações</Text>
-              </View>
-
-              <View style={[styles.property, styles.nameField, styles.field]}>
-                <View style={styles.line} />
-                <Image
-                  source={require("../../assets/testeCasa3.png")}
-                  style={styles.propertyImage}
-                />
-                <Text style={styles.propertyTitle}>Apartamento Luxuoso </Text>
-                <Text style={styles.value}>Valor: R$1.000.000,00</Text>
-                <View style={styles.info}>
-                  <FontAwesome style={styles.icon} name="user" />
-                  <Text style={styles.info1}>José Vinicius</Text>
-                </View>
-                <Text style={styles.info2}>Ver mais informações</Text>
-              </View>
-            </Form>
-          </View>
-        </ImageBackground>
-      </KeyboardAvoidingView>
-    </ScrollView>
+              </ImageBackground>
+            </KeyboardAvoidingView>
+          </ScrollView>
+      }
+    </>
   );
 }

@@ -5,6 +5,8 @@ import { ReactNode } from "react";
 import { api } from "../services/api";
 import * as SecureStore from 'expo-secure-store';
 import { Loading } from "../components/loading";
+import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
 
 type User = {
     id: string,
@@ -17,18 +19,22 @@ type User = {
 }
 
 type AuthContextData = {
-    //user: User,
-    loading: boolean,
-    setLoading: Dispatch<SetStateAction<boolean>>,
-    signIn: (email: string, password: string) => Promise<void | number>,
+    loading: boolean;
+    setLoading: Dispatch<SetStateAction<boolean>>;
+    signIn: (email: string, password: string) => Promise<void | number>;
+    googleSignin: VoidFunction;
     user: User;
-    //signOut: () => Promise<void>,
+    signOut: VoidFunction;
 }
+
+type BackendResponse = {
+    accessToken: string;
+    refreshToken: string;
+};
 
 type AuthProviderProps = {
     children: ReactNode,
 }
-
 
 export const AuthContext = createContext({} as AuthContextData)
 
@@ -60,26 +66,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
         return new Promise<void>(async (resolve) => {
             try {
-                api.defaults.headers.authorization = "";
+                await signOut();
                 await (() => {
                     return new Promise((resolve) => {
                         setTimeout(resolve, 2000);
                     })
                 })()
 
-                const response = await api.post("/auth/login", {
+                const tokensResponse = await api.post("/auth/login", {
                     email,
                     password
                 })
 
-                const { accessToken, refreshToken } = response.data;
+                handleWithResponse(tokensResponse.data);
 
-                await SecureStore.setItemAsync("accessToken", accessToken);
-                await SecureStore.setItemAsync("refreshToken", refreshToken);
-
-                let user = await prepareUser(accessToken, refreshToken);
-
-                setUser(user)
                 resolve()
             } catch (e: any) {
                 resolve(e.response.status);
@@ -87,6 +87,53 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 setLoading(false)
             }
         })
+    }
+
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        responseType: 'id_token',
+        expoClientId: '648197320786-mcu8ni0jrqjoeaoi95cforg0cmrjcacb.apps.googleusercontent.com',
+        iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+        webClientId: '648197320786-mcu8ni0jrqjoeaoi95cforg0cmrjcacb.apps.googleusercontent.com',
+    });
+
+    async function googleSignin() {
+        promptAsync();
+    }
+
+    useEffect(() => {
+        (async () => {
+            if (response && response.type === 'success') {
+                setLoading(true);
+                try {
+                    await signOut();
+                    let idToken = response.params.id_token;
+
+                    const tokensResponse = await api.post("/auth/google-login", {
+                        token: idToken
+                    })
+
+                    await handleWithResponse(tokensResponse.data);
+                } catch (e) {
+                    throw e;
+                } finally {
+                    setLoading(false);
+                }
+            }
+        })();
+    }, [response]);
+
+    async function handleWithResponse(data: BackendResponse) {
+        const { accessToken, refreshToken } = data;
+
+        console.log(accessToken, refreshToken);
+
+        await SecureStore.setItemAsync("accessToken", accessToken);
+        await SecureStore.setItemAsync("refreshToken", refreshToken);
+
+        let user = await prepareUser(accessToken, refreshToken);
+
+        setUser(user)
     }
 
     async function prepareUser(accessToken: string, refreshToken: string) {
@@ -102,12 +149,41 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return user;
     }
 
+    async function signOut() {
+        api.defaults.headers.authorization = '';
+        await SecureStore.setItemAsync("accessToken", '');
+        await SecureStore.setItemAsync("refreshToken", '');
+        setUser({} as User);
+    }
+
+    api.interceptors.response.use((response) => response, async (error) => {
+        if (error.status == 401) {
+            const originalRequest = error.config
+
+            const response = await api.post("/auth/refresh", {
+                token: user.refreshToken
+            });
+
+            if (response.status == 200) {
+                handleWithResponse(response.data);
+                return await api(originalRequest);
+            } else {
+                signOut();
+            }
+
+            return;
+        }
+        throw error;
+    });
+
     return (
         <AuthContext.Provider value={{
             setLoading,
             loading,
             user,
-            signIn
+            signIn,
+            googleSignin,
+            signOut,
         }}>
             {
                 loading

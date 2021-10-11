@@ -64,6 +64,7 @@ public class PropertyService {
 		property.setNumberBathRooms(request.getNumberBathRooms());
 		property.setNumberBedRooms(request.getNumberBedRooms());
 		property.setNumberKitchens(request.getNumberKitchens());
+		property.setNumberRooms(request.getNumberRooms());
 		property.setSquareMeters(request.getSquareMeters());
 		property.setValue(request.getValue());
 		property.setNumberRooms(request.getNumberRooms());
@@ -129,12 +130,13 @@ public class PropertyService {
 
 	public PropertiesGetResponse getPropertiesByAddress(String cep, String city, String district, String state) {
 		Address requestedAddress = new Address();
-		requestedAddress.setCep(cep);
-		requestedAddress.setCity(city);
-		requestedAddress.setDistrict(district);
-		requestedAddress.setState(state);
 
-		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues().withIgnorePaths("number");
+		requestedAddress.setCep(cep.equals("") ? null : cep);
+		requestedAddress.setCity(city.equals("") ? null : city);
+		requestedAddress.setDistrict(district.equals("") ? null : district);
+		requestedAddress.setState(state.equals("") ? null : state);
+
+		ExampleMatcher matcher = ExampleMatcher.matchingAny().withIgnoreNullValues().withIgnorePaths("number");
 		Example<Address> example = Example.of(requestedAddress, matcher);
 
 		List<Address> matchingAddresses = addressRepository.findAll(example);

@@ -8,8 +8,6 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { Button } from "../../components/button";
 import { Form } from "../../components/form";
 import { TextArea } from "../../components/textArea";
 
@@ -19,14 +17,10 @@ import { styles } from "./styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { api } from "../../services/api";
 import { Loading } from "../../components/loading";
-import { useNavigation } from "@react-navigation/native";
-import { Background } from "../../components/background";
 import { useAuth } from "../../contexts/auth";
 
-import * as GoogleSignIn from 'expo-google-sign-in';
-
 export function Login({ navigation }: any) {
-  const { signIn, loading } = useAuth();
+  const { signIn, loading, googleSignin } = useAuth();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -48,14 +42,7 @@ export function Login({ navigation }: any) {
   }
 
   async function handleGoogleSignin() {
-    await GoogleSignIn.initAsync({
-      clientId: "648197320786-mcu8ni0jrqjoeaoi95cforg0cmrjcacb.apps.googleusercontent.com"
-    });
-
-    await GoogleSignIn.askForPlayServicesAsync();
-    const { type, user } = await GoogleSignIn.signInAsync();
-    console.log(user);
-
+    googleSignin();
   }
 
   return (

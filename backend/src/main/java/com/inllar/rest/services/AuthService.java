@@ -199,13 +199,18 @@ public class AuthService {
 		return accessToken;
 	}
 
-	public String refreshAccessToken(String refreshToken) {
+	public TokensResponse refreshAccessToken(String refreshToken) {
 		User user = jwt.getUserFromRefreshToken(refreshToken);
 
 		if (jwt.validateRefreshToken(refreshToken, user)) {
 			RefreshToken refreshTokenData = refreshTokenRepository.findByUser(user);
 
-			return jwt.generateAccessToken(refreshTokenData);
+			String accessToken = jwt.generateAccessToken(refreshTokenData);
+			
+			TokensResponse response = new TokensResponse();
+			response.setAccessToken(accessToken);
+			response.setRefreshToken(refreshToken);
+			return response;
 		} else {
 			throw new AccessDeniedException("Invalid Token");
 		}

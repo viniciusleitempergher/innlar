@@ -87,6 +87,7 @@ public class Property {
 		property.setNumberBathRooms(numberBathRooms);
 		property.setNumberBedRooms(numberBedRooms);
 		property.setNumberKitchens(numberKitchens);
+		property.setNumberRooms(numberRooms);
 		property.setSquareMeters(squareMeters);
 		property.setUser(user);
 		property.setValue(value);

@@ -8,9 +8,12 @@ import { styles } from './styles';
 import { useNavigation } from "@react-navigation/native";
 
 import { StackNavigationProp } from '@react-navigation/stack'
+import { useAuth } from "../../contexts/auth";
 
 
 export const ModalMenu = ({ navigation }: any) => {
+  const { signOut, user } = useAuth();
+
   const [modalVisible, setModalVisible] = useState(false);
 
   function handleConversations() {
@@ -18,11 +21,18 @@ export const ModalMenu = ({ navigation }: any) => {
   }
 
   function handleMyProfile() {
-    navigation.navigate("profile")
+    navigation.navigate({
+      name: "profile",
+      params: { userId: user.id }
+    })
   }
 
   function handleRegisterProperty() {
     navigation.navigate("propertyRegisterStepOne")
+  }
+
+  function handleSignOut() {
+    signOut();
   }
 
   return (
@@ -60,7 +70,7 @@ export const ModalMenu = ({ navigation }: any) => {
 
                 <Button style={styles.button} title="Registrar Propriedades" onPress={handleRegisterProperty} />
 
-                <Button style={styles.button1} title="Sair" />
+                <Button style={styles.button1} title="Sair" onPress={handleSignOut} />
 
               </View>
             </View>

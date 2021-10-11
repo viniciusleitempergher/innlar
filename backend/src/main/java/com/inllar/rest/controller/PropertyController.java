@@ -92,7 +92,7 @@ public class PropertyController {
 		}
 	}
 
-	@ApiOperation("Get all the properties of a user")
+	@ApiOperation("Get all the properties of an user")
 	@GetMapping("/get-from-user")
 	public PropertiesGetResponse getPropertiesFromUser(@RequestParam String userUuid) {
 		try {

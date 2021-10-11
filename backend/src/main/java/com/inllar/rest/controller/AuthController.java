@@ -5,6 +5,7 @@ import javax.persistence.EntityExistsException;
 import javax.security.sasl.AuthenticationException;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,6 +62,16 @@ public class AuthController {
 			TokensResponse response = authService.googleLogin(googleId);
 			return response;
 		} catch (AuthenticationException e) {
+			throw new UnauthorizedException();
+		}
+	}
+
+	@ApiOperation("Endpoint used to refresh the access token by the refresh token")
+	@PostMapping("/refresh")
+	public TokensResponse refresh(@RequestBody TokenRequest request) {
+		try {
+			return authService.refreshAccessToken(request.getToken());
+		} catch (AccessDeniedException e) {
 			throw new UnauthorizedException();
 		}
 	}

@@ -24,12 +24,12 @@
  <p> Siga os comandos abaixo na pasta raiz e teste você mesmo: </p>
 
 docker build -t postgresql_innlar_image ./postgres
-<br/>
+<br/><br/>
 docker network create innlar_network
-<br/>
+<br/><br/>
 docker run -d -p 5432:5432 --name innlar_postgres_container --network innlar_network -e POSTGRES_PASSWORD=admin postgresql_innlar_image
-<br/>
+<br/><br/>
 docker build -t backend_innlar_image ./backend
-<br/>
-docker run -d -p 8080:8080 --name backend_innlar_container --network innlar_network -e DATABASE_ADDRESS=innlar_postgres_container -e DATABASE_PORT=5432 -e DATABASE_NAME=innlar -e DATABASE_USERNAME=postgres -e DATABASE_PASSWORD=admin -e JWT_ACCESS_SECRET=e1f42533-a2cd-45be-866c-1c7255d4a39d -e JWT_REFRESH_SECRET=1c1d9163-d814-487b-ae7f-42f79ed6ccbb -e JWT_ACCESS_SECONDS_VALIDITY=2400 -e JWT_REFRESHTOKEN_HOURS_VALIDITY=24 -e GOOGLE_AUTH_CLIENT_ID=648197320786-mcu8ni0jrqjoeaoi95cforg0cmrjcacb.apps.googleusercontent.com backend_innlar_image
+<br/><br/>
+docker run -d -p 8080:8080 --name backend_innlar_container --network innlar_network -e DATABASE_ADDRESS=innlar_postgres_container -e DATABASE_PORT=5432 -e DATABASE_NAME=innlar -e DATABASE_USERNAME=postgres -e DATABASE_PASSWORD=admin -e JWT_ACCESS_SECRET=digite_uma_senha -e JWT_REFRESH_SECRET=digite_outra_senha -e JWT_ACCESS_SECONDS_VALIDITY=2400 -e JWT_REFRESHTOKEN_HOURS_VALIDITY=24 -e GOOGLE_AUTH_CLIENT_ID=648197320786-mcu8ni0jrqjoeaoi95cforg0cmrjcacb.apps.googleusercontent.com backend_innlar_image
 

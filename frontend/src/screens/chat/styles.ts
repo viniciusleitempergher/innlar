@@ -32,28 +32,40 @@ export const styles = StyleSheet.create({
   userName: {
     fontFamily: fonts.raj700,
     fontSize: 18,
-    marginLeft: 10,
+  },
+
+  userYou: {
+    fontFamily: fonts.raj700,
+    fontSize: 18,
+    textAlign: "right"
   },
 
   message: {
     fontFamily: fonts.raj500,
     fontSize: 16,
-    marginLeft: 10,
   },
 
   date: {
     fontFamily: fonts.raj400,
     fontSize: 14,
-    marginRight: 10,
     textAlign:"right"
   },
 
   balloon: {
+    alignSelf: 'flex-start',
     backgroundColor: 'white',
     marginBottom: 5,
     marginLeft: 10,
     marginRight: 10,
-    borderRadius: 10
+    borderRadius: 10,
+    paddingHorizontal: 15,
   },
   
+  profileIcon: {
+    fontSize: 80,
+    marginLeft: -5,
+    marginTop: 3,
+    
+  },
+
 });

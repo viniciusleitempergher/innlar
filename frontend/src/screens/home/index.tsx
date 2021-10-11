@@ -26,6 +26,11 @@ export function Home({ navigation }: any) {
   const [properties, setProperties] = useState([] as Array<PropertyType>);
   const [loading, setLoading] = useState(false);
 
+  const [ceps, setCeps] = useState([] as Array<string>);
+  const [cities, setCities] = useState([] as Array<string>);
+  const [districts, setDistricts] = useState([] as Array<string>);
+  const [states, setStates] = useState([] as Array<string>);
+
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -40,6 +45,15 @@ export function Home({ navigation }: any) {
         })
 
         setProperties(response.data.properties);
+
+        let filtersResponse = await api.get("/properties/search-filters");
+
+        const { cep, city, district, state } = filtersResponse.data;
+
+        setCeps(cep);
+        setCities(city);
+        setDistricts(district);
+        setStates(state);
       } catch (e) {
         throw e;
       } finally {

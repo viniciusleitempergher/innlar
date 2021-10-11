@@ -175,12 +175,14 @@ public class UserService {
 
 		Chat chat;
 
-		if (!chatRepository.existsByUsersIn(usersOfChat)) {
+		if (!chatRepository.existsByUsers(usersOfChat)) {
 			chat = new Chat();
 			chat.setUsers(usersOfChat);
 			chatRepository.save(chat);
+			System.out.println(usersOfChat);
 		} else {
-			chat = chatRepository.findByUsersIn(usersOfChat).get(0);
+			chat = chatRepository.findByUsers(usersOfChat).get(0);
+			System.out.println(chat.toString());
 		}
 
 		List<Message> messages = chat.getMessages();
@@ -221,8 +223,8 @@ public class UserService {
 
 		GetMessagesResponse response = new GetMessagesResponse();
 
-		if (chatRepository.existsByUsersIn(usersOfChat)) {
-			Chat chat = chatRepository.findByUsersIn(usersOfChat).get(0);
+		if (chatRepository.existsByUsers(usersOfChat)) {
+			Chat chat = chatRepository.findByUsers(usersOfChat).get(0);
 
 			List<User> changedUsers = new ArrayList<User>();
 			chat.getUsers().forEach((userOfChat) -> {

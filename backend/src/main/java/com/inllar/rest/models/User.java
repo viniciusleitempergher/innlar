@@ -29,6 +29,7 @@ public class User {
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
+	@JsonIgnore
 	@Column(name = "password", nullable = false)
 	private String password;
 
@@ -41,6 +42,7 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Property> properties;
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "user")
 	private RefreshToken refreshToken;
 	

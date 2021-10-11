@@ -34,12 +34,6 @@ export const styles = StyleSheet.create({
     fontSize: 18,
   },
 
-  userYou: {
-    fontFamily: fonts.raj700,
-    fontSize: 18,
-    textAlign: "right"
-  },
-
   message: {
     fontFamily: fonts.raj500,
     fontSize: 16,
@@ -63,9 +57,24 @@ export const styles = StyleSheet.create({
   
   profileIcon: {
     fontSize: 80,
-    marginLeft: -5,
-    marginTop: 3,
-    
   },
+
+  user: {
+    display: "flex",
+    flexDirection: "row",
+    marginBottom: 15,
+  },
+
+  nameUser: {
+    marginTop: 19,
+    fontFamily: fonts.raj700,
+    fontSize: 18,
+    marginLeft: 8
+  },
+
+  arrow: {
+    marginLeft: 10,
+   marginTop: 18
+  }
 
 });

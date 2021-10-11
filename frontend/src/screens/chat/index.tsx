@@ -25,142 +25,149 @@ import { socket } from "../../services/chat";
 import { MessageType } from "../../types/message";
 import { styles } from "./styles";
 import { EvilIcons } from "@expo/vector-icons";
+import { UserType } from "../../types/user";
 
 export function Chat({ route }: any) {
-	const flatListRef = useRef<any>();
+  const flatListRef = useRef<any>();
 
-	const { loading, chats, setChats } = useMessages();
+  const { loading, chats, setChats } = useMessages();
 
-	const [messages, setMessages] = useState([] as Array<MessageType>);
+  const [messages, setMessages] = useState([] as Array<MessageType>);
 
-	const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState("");
 
-	const { user } = useAuth();
+  const { user } = useAuth();
 
-	const receiverId = route.params.userId;
+  const receiverId = route.params.userId;
 
-	useEffect(() => {
-		for (let chat of chats) {
-			if (chat.users.filter((user) => user.id == receiverId)) {
-				setMessages(chat.messages);
-			}
-		}
-	}, [chats]);
+  const [receiver, setReceiver] = useState({} as UserType);
 
-	function getMessageDate(timestamp: string): string {
-		let date: any = new Date(timestamp);
+  useEffect(() => {
+    for (let chat of chats) {
+      if (
+        chat.users.filter((userOfChat) => {
+          setReceiver(userOfChat);
+          return userOfChat.id == receiverId;
+        })
+      ) {
+        setMessages(chat.messages);
+      }
+    }
+  }, [chats]);
 
-		return `${date.getHours()}:${date.getMinutes()}`;
-	}
+  function getMessageDate(timestamp: string): string {
+    let date: any = new Date(timestamp);
 
-	async function handleSendMessage() {
-		const messageResponse = await api.post("/users/send-message", {
-			message: inputText,
-			userId: receiverId,
-		});
+    return `${date.getHours()}:${date.getMinutes()}`;
+  }
 
-		const message = messageResponse.data.message;
+  async function handleSendMessage() {
+    const messageResponse = await api.post("/users/send-message", {
+      message: inputText,
+      userId: receiverId,
+    });
 
-		setMessages((prevMessages: Array<MessageType>) => [
-			...prevMessages,
-			message,
-		]);
+    const message = messageResponse.data.message;
 
-		let chatsCopy = chats.slice();
-		chatsCopy.forEach((chat) => {
-			if (chat.users.filter((user) => user.id == receiverId)) {
-				chat.messages.push(message);
-			}
-		});
+    setMessages((prevMessages: Array<MessageType>) => [
+      ...prevMessages,
+      message,
+    ]);
 
-		setChats(chatsCopy);
+    let chatsCopy = chats.slice();
+    chatsCopy.forEach((chat) => {
+      if (chat.users.filter((user) => user.id == receiverId)) {
+        chat.messages.push(message);
+      }
+    });
 
-		socket.emit("send message", message, receiverId);
+    setChats(chatsCopy);
 
-		setInputText("");
-	}
+    socket.emit("send message", message, receiverId);
 
-	const navigation = useNavigation();
-	function handleGoBack() {
-		navigation.goBack();
-	}
+    setInputText("");
+  }
 
-	return (
-		<>
-			{loading ? (
-				<Loading />
-			) : (
-					<KeyboardAvoidingView
-						behavior={Platform.OS === "ios" ? "padding" : "height"}
-						style={styles.container}
-					>
-						<View style={styles.container}>
-							<AntDesign
-								name="arrowleft"
-								size={30}
-								color="black"
-								onPress={handleGoBack}
-							/>
-							<View>
-								<EvilIcons style={styles.profileIcon} name="user" color="black" />
-							</View>
-							<FlatList
-								ref={flatListRef}
-								onContentSizeChange={() => flatListRef.current.scrollToEnd()}
-								onLayout={() => flatListRef.current.scrollToEnd()}
-								data={messages}
-								keyExtractor={(item) => item.id}
-								renderItem={({ item }) => {								
-									return (
-										<>
-											{item.sender.id !== user.id ? (
-												<View style={styles.balloon}>
-													<Text style={styles.userName}>{item.sender.name}</Text>
-													<Text style={styles.message}>{item.text}</Text>
-													<Text style={styles.date}>
-														{getMessageDate(item.timestamp)}
-													</Text>
-												</View>
-											) : (
-													<View style={[styles.balloon, { alignSelf: "flex-end" }]}>
-														<Text style={[styles.userName, { textAlign: "right" }]}>
-															Você
-                          </Text>
-														<Text style={[styles.message, { textAlign: "right" }]}>
-															{item.text}
-														</Text>
-														<Text style={styles.date}>
-															{getMessageDate(item.timestamp)}
-														</Text>
-													</View>
-												)}
-										</>
+  const navigation = useNavigation();
+  function handleGoBack() {
+    navigation.goBack();
+  }
 
-									)
-								}}
-								ItemSeparatorComponent={() => <View style={{}} />}
-								contentContainerStyle={{ paddingBottom: 69 }}
-								style={styles.list}
-								showsVerticalScrollIndicator={false}
-							/>
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
+        >
+          <View style={styles.container}>
+          <View style={styles.user}>
+            <AntDesign style={styles.arrow}
+              name="arrowleft"
+              size={30}
+              color="black"
+              onPress={handleGoBack}
+            />
+         
+              <EvilIcons style={styles.profileIcon} name="user" color="black" />
+              <Text style={styles.nameUser}>{receiver.name}</Text>
+            </View>
+            <FlatList
+              ref={flatListRef}
+              onContentSizeChange={() => flatListRef.current.scrollToEnd()}
+              onLayout={() => flatListRef.current.scrollToEnd()}
+              data={messages}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <>
+                  {item.sender.id !== user.id ? (
+                    <View style={styles.balloon}>
+                      <Text style={styles.userName}>{item.sender.name}</Text>
+                      <Text style={styles.message}>{item.text}</Text>
+                      <Text style={styles.date}>
+                        {getMessageDate(item.timestamp)}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View style={[styles.balloon, { alignSelf: "flex-end" }]}>
+                      <Text style={[styles.userName, { textAlign: "right" }]}>
+                        Você
+                      </Text>
+                      <Text style={[styles.message, { textAlign: "right" }]}>
+                        {item.text}
+                      </Text>
+                      <Text style={styles.date}>
+                        {getMessageDate(item.timestamp)}
+                      </Text>
+                    </View>
+                  )}
+                </>
+              )}
+              ItemSeparatorComponent={() => <View style={{}} />}
+              contentContainerStyle={{ paddingBottom: 69 }}
+              style={styles.list}
+              showsVerticalScrollIndicator={false}
+            />
 
-							<View style={styles.sendArea}>
-								<TextArea
-									style={styles.sendInput}
-									onChangeText={setInputText}
-									value={inputText}
-								/>
-								<TouchableOpacity onPress={handleSendMessage}>
-									<MaterialCommunityIcons
-										name="send-circle"
-										size={45}
-										color="black"
-									/>
-								</TouchableOpacity>
-							</View>
-						</View>
-					</KeyboardAvoidingView>
-				)}
-		</>
-	);
+            <View style={styles.sendArea}>
+              <TextArea
+                style={styles.sendInput}
+                onChangeText={setInputText}
+                value={inputText}
+              />
+              <TouchableOpacity onPress={handleSendMessage}>
+                <MaterialCommunityIcons
+                  name="send-circle"
+                  size={45}
+                  color="black"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      )}
+    </>
+  );
 }

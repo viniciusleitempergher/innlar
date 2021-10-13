@@ -12,7 +12,8 @@ export const styles = StyleSheet.create({
     marginBottom: getBottomSpace() + 20,
     height: 1400,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    
   },
   inputTitle: {
     marginBottom: 5
@@ -34,9 +35,11 @@ export const styles = StyleSheet.create({
   propertyImage: {
     alignSelf: "center",
     width: "100%",
-    marginTop: 12,
     height: 240,
-    borderRadius: 8
+    borderRadius: 8,
+    opacity: 0.1,
+    backgroundColor: '#000000'
+    
   },
 
   propertyTitle: {
@@ -118,7 +121,7 @@ export const styles = StyleSheet.create({
   title: {
     fontFamily: fonts.raj700,
     fontSize: 18,
-    marginTop: 10,
+    marginTop: 15,
     marginBottom: 3,
     color: colors.title
   },
@@ -194,7 +197,8 @@ export const styles = StyleSheet.create({
     backgroundColor: "#764D35",
     marginRight: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    
   },
 
   alugueAgora: {
@@ -208,13 +212,13 @@ export const styles = StyleSheet.create({
     color: colors.inputTxt,
     textAlignVertical: 'center',
     textAlign: 'center',
-    borderWidth: 1,
     backgroundColor: "#B9A78D",
     marginTop: 15,
     paddingHorizontal: 15,
     alignItems: 'center',
     bottom: 10,
     fontWeight: "400",
+    
   },
 
   textButton2: {

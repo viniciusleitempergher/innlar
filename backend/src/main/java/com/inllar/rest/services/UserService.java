@@ -173,16 +173,20 @@ public class UserService {
 		usersOfChat.add(receiver);
 		usersOfChat.add(sender);
 
-		Chat chat;
+		Chat chat = new Chat();
 
-		if (!chatRepository.existsByUsers(usersOfChat)) {
-			chat = new Chat();
+		boolean chatExists = false;
+
+		for (Chat chatOfList : sender.getChats()) {
+			if (chatOfList.getUsers().contains(receiver)) {
+				chat = chatOfList;
+				chatExists = true;
+			}
+		}
+
+		if (!chatExists) {
 			chat.setUsers(usersOfChat);
 			chatRepository.save(chat);
-			System.out.println(usersOfChat);
-		} else {
-			chat = chatRepository.findByUsers(usersOfChat).get(0);
-			System.out.println(chat.toString());
 		}
 
 		List<Message> messages = chat.getMessages();
@@ -223,25 +227,25 @@ public class UserService {
 
 		GetMessagesResponse response = new GetMessagesResponse();
 
-		if (chatRepository.existsByUsers(usersOfChat)) {
-			Chat chat = chatRepository.findByUsers(usersOfChat).get(0);
-
-			List<User> changedUsers = new ArrayList<User>();
-			chat.getUsers().forEach((userOfChat) -> {
-				userOfChat = userOfChat.getUserData();
-				userOfChat.setChats(null);
-				userOfChat.setProperties(null);
-				changedUsers.add(userOfChat);
-			});
-			chat.setUsers(changedUsers);
-
-			chat.getMessages().forEach((message) -> {
-				message.setSender(message.getSender().getUserData());
-				message.setChat(null);
-			});
-
-			response.setMessages(chat.getMessages());
-		}
+//		if (chatRepository.existsByUsers(usersOfChat)) {
+//			Chat chat = chatRepository.findByUsers(usersOfChat).get(0);
+//
+//			List<User> changedUsers = new ArrayList<User>();
+//			chat.getUsers().forEach((userOfChat) -> {
+//				userOfChat = userOfChat.getUserData();
+//				userOfChat.setChats(null);
+//				userOfChat.setProperties(null);
+//				changedUsers.add(userOfChat);
+//			});
+//			chat.setUsers(changedUsers);
+//
+//			chat.getMessages().forEach((message) -> {
+//				message.setSender(message.getSender().getUserData());
+//				message.setChat(null);
+//			});
+//
+//			response.setMessages(chat.getMessages());
+//		}
 
 		return response;
 	}

@@ -1,14 +1,13 @@
 FROM node
 
-WORKDIR /frontend
+WORKDIR /backend_chat
 
 COPY package*.json .
 
-RUN npm install --global expo-cli
 RUN npm install
 
 COPY . .
 
-EXPOSE 19000 19001 19002
+EXPOSE 3000
 
 ENTRYPOINT ["npm", "start"]

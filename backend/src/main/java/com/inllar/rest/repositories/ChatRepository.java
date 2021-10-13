@@ -11,9 +11,4 @@ import com.inllar.rest.models.Message;
 import com.inllar.rest.models.User;
 
 public interface ChatRepository extends JpaRepository<Chat, UUID> {
-	@Query("select * from users u inner join chats_users c_u where u.id = c_u.users_id")
-	boolean existsByUsers(List<User> users);
-
-	@Query("select * from users u inner join chats_users c_u where u.id = c_u.users_id")
-	List<Chat> findByUsers(List<User> users);
 }

@@ -1,4 +1,4 @@
-FROM maven
+FROM openjdk
 
 WORKDIR /backend
 
@@ -6,4 +6,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["mvn", "clean", "package"]
+ENTRYPOINT ["java", "-jar", "./target/backend-0.0.1-SNAPSHOT.jar"]

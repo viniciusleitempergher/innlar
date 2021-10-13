@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-export const socket = io("http://10.10.204.194:3000", {
+export const socket = io(process.env.BACKEND_CHAT_SOCKET_URL + "", {
     autoConnect: false,
 })
 

@@ -102,8 +102,9 @@ export function PropertyInfo({ navigation, route }: any) {
                 <Form>
                   <AntDesign name="arrowleft" size={30} style={styles.arrow} onPress={handleGoBack} />
                   <View style={styles.property}>
+                    
                     <Image
-                      source={{ uri: "" }}
+                      source={{ uri: "../../assets/testeCasa.jpg" }}
                       style={styles.propertyImage}
                     />
 
@@ -140,7 +141,7 @@ export function PropertyInfo({ navigation, route }: any) {
                       <Text style={styles.roomIconsText}>{property.squareMeters} m²</Text>
                     </View>
                     <View>
-                      <Text style={styles.titleDescription}>Descriçao</Text>
+                      <Text style={styles.titleDescription}>Descrição</Text>
                       <Text style={styles.propertyDescription}>
                         {property.description}
                       </Text>

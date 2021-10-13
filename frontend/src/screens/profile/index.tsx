@@ -26,9 +26,11 @@ import { Property } from "../../components/property";
 import { Loading } from "../../components/loading";
 import { api } from "../../services/api";
 import { UserType } from "../../types/user";
+import { useAuth } from "../../contexts/auth";
 
 export function Profile({ navigation, route }: any) {
   const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
   const [userOfProfile, setUserOfProfile] = useState({} as UserType);
   const userId = route.params.userId;
 
@@ -54,7 +56,7 @@ export function Profile({ navigation, route }: any) {
     })();
   }, []);
 
-  const me = false;
+  const me = user.id == userId;
 
   return (
     <>
@@ -92,13 +94,13 @@ export function Profile({ navigation, route }: any) {
                         />
                       </View>
                     ) : (
-                      <FontAwesome5
-                        style={styles.button}
-                        name="home"
-                        size={35}
-                        color="black"
-                      />
-                    )}
+                        <FontAwesome5
+                          style={styles.button}
+                          name="home"
+                          size={35}
+                          color="black"
+                        />
+                      )}
                     <View style={styles.stars}>
                       <Entypo name="star" size={24} color="black" />
                       <Entypo name="star" size={24} color="black" />

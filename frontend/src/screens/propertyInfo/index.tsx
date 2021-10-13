@@ -144,6 +144,13 @@ export function PropertyInfo({ navigation, route }: any) {
                       <Text style={styles.propertyDescription}>
                         {property.description}
                       </Text>
+                      <Text style={styles.titleDescription}>Outras Características</Text>
+                      <Text style={styles.propertyDescription}>
+                        Possui garagem? {property.hasGarage ? "sim" : "não"}
+                      </Text>
+                      <Text style={styles.propertyDescription}>
+                        Possui Área de Festa? {property.hasPartyArea ? "sim" : "não"}
+                      </Text>
                     </View>
                     <MapView
                       showsUserLocation={true} //destacando a localização do usuário no mapa

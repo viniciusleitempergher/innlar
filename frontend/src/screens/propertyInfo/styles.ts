@@ -100,7 +100,7 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: -5,
-
+    marginBottom: 25,
   },
 
   carIcon: {
@@ -109,7 +109,7 @@ export const styles = StyleSheet.create({
 
   titleDescription: {
     color: colors.title,
-    marginTop: 30,
+    marginTop: 5,
     fontSize: 18,
     fontFamily: fonts.raj700,
     marginBottom: 3

@@ -1,33 +1,22 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 import { Alert, Modal, Text, Pressable, View } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 
 import { Button } from '../button';
 
 import { styles } from './styles';
-
-import { PickerModal } from '../pickerModal';
+import { ItemPicker } from "../picker";
 
 type Props = {
-  ceps: Array<string>;
-  cities: Array<string>;
-  districts: Array<string>;
-  states: Array<string>;
+  items: Array<string>;
+  text: string;
+  setItem: Dispatch<SetStateAction<string>>;
+  item: string;
 }
 
-export function ModalHome({ ceps, cities, districts, states }: Props) {
+export function PickerModal({ items, text, setItem, item }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [cep, setCep] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [district, setDistrict] = useState("");
-
-  function handleSearch() {
-    setModalVisible(!modalVisible)
-    console.log(cep, state, city, district);
-
-  }
 
   return (
     <View style={styles.centeredView}>
@@ -49,18 +38,15 @@ export function ModalHome({ ceps, cities, districts, states }: Props) {
                 <AntDesign name="close" size={24} color="#4B5754" />
               </Pressable>
             </View>
-            <Text style={styles.modalText}>Selecione onde você deseja encontrar a sua propriedade:</Text>
+            <Text style={styles.modalText}>{text}</Text>
             <View style={styles.buttons}>
-              <PickerModal items={ceps} text="Selecionar Cep" item={cep} setItem={setCep} />
-              <PickerModal items={states} text="Selecionar Estado" item={state} setItem={setState} />
-              <PickerModal items={cities} text="Selecionar Cidade" item={city} setItem={setCity} />
-              <PickerModal items={districts} text="Selecionar Bairro" item={district} setItem={setDistrict} />
+              <ItemPicker items={items} style={styles.buttonSearch} item={item} setItem={setItem} />
             </View>
 
             <View style={styles.buttonsModalClose}>
               <Pressable
                 style={[styles.button, styles.buttonClose]}
-                onPress={handleSearch}
+                onPress={() => setModalVisible(!modalVisible)}
               >
                 <Text style={styles.textStyle}>Buscar</Text>
               </Pressable>
@@ -71,10 +57,10 @@ export function ModalHome({ ceps, cities, districts, states }: Props) {
 
       </Modal>
       <Pressable
-        style={[styles.button, styles.buttonOpen]}
+        style={[styles.button, styles.buttonSearch]}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.textStyle}>Buscar Propriedade</Text>
+        <Text style={styles.textStyle}>{item == "" ? text : item}</Text>
       </Pressable>
     </View>
   );

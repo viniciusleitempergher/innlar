@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { LogBox, StatusBar, StyleSheet, Text, View } from "react-native";
 import { Background } from "./src/components/background";
 
 import {
@@ -13,6 +13,8 @@ import { Routes } from "./src/routes";
 import { MessagesProvider } from "./src/contexts/messages";
 import { AuthProvider } from "./src/contexts/auth";
 import { PropertyFormDataProvider } from "./src/contexts/propertyFormData";
+
+LogBox.ignoreAllLogs();
 
 export default function App() {
   const [fontsLoaded] = useFonts({

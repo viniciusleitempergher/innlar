@@ -1,23 +1,29 @@
-import React, { ReactText, useState } from 'react';
+import React, { Dispatch, ReactText, SetStateAction, useState } from 'react';
 import { Picker } from '@react-native-community/picker';
-import { Text } from 'react-native';
+import { PickerProps, Text } from 'react-native';
 
-type Props = {
+type Props = PickerProps & {
     items: Array<string>;
+    item: string;
+    setItem: Dispatch<SetStateAction<string>>;
 }
 
-export function ItemPicker({ items }: Props) {
-    const [selectedItem, setSelectedItem] = useState("" as ReactText);
+export function ItemPicker({ items, item, setItem, ...rest }: Props) {
+    setItem(items[0]);
 
     return (
         <Picker
-            selectedValue={selectedItem}
+            selectedValue={item}
             onValueChange={(itemValue) =>
-                setSelectedItem(itemValue)
+                setItem(itemValue + "")
             }
+            mode="dropdown"
+            {...rest}
         >
             {
-                
+                items.map(item => (
+                    <Picker.Item label={item} value={item} />
+                ))
             }
         </Picker>
     )

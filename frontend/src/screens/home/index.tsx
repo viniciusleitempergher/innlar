@@ -94,7 +94,7 @@ export function Home({ navigation }: any) {
                       />
                     </View>
                     <View style={styles.searchProperty}>
-                      <ModalHome />
+                      <ModalHome ceps={ceps} cities={cities} states={states} districts={districts} />
                     </View>
 
                     <FlatList

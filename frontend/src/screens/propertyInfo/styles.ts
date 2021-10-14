@@ -33,13 +33,11 @@ export const styles = StyleSheet.create({
   },
 
   propertyImage: {
+
     alignSelf: "center",
     width: "100%",
     height: 240,
-    borderRadius: 8,
-    opacity: 0.1,
-    backgroundColor: '#000000'
-    
+    borderRadius: 8, 
   },
 
   propertyTitle: {

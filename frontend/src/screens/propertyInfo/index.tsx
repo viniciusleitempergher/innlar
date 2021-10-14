@@ -23,13 +23,17 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Loading } from "../../components/loading";
 import { api } from "../../services/api";
 import { PropertyType } from "../../types/property";
+import { useAuth } from "../../contexts/auth";
+import { UserType } from "../../types/user";
 
 export function PropertyInfo({ navigation, route }: any) {
-  let [loading, setLoading] = useState(true);
-  let [property, setProperty] = useState({} as PropertyType);
+  const { user } = useAuth();
 
-  let [latitude, setLatitude] = useState(0);
-  let [longitude, setLongitude] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [property, setProperty] = useState({} as PropertyType);
+
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   const propertyId = route.params.propertyId;
 
@@ -40,7 +44,7 @@ export function PropertyInfo({ navigation, route }: any) {
           params: { uuid: propertyId }
         });
 
-        const property = propertyResponse.data.property;
+        const property: PropertyType = propertyResponse.data.property;
 
         let queryString = property.address.street + " " + property.address.district + " " + property.address.city + " " + property.address.cep;
         queryString = queryString.split(" ").join("%20");
@@ -86,7 +90,18 @@ export function PropertyInfo({ navigation, route }: any) {
   function handleChat() {
     navigation.navigate({
       name: "chat",
-      params: { userId: property.user.id }
+      params: {
+        userId: property.user.id,
+        chat: {
+          users: [
+            property.user,
+            user,
+          ],
+          messages: {
+
+          }
+        }
+      }
     })
   }
 
@@ -102,7 +117,7 @@ export function PropertyInfo({ navigation, route }: any) {
                 <Form>
                   <AntDesign name="arrowleft" size={30} style={styles.arrow} onPress={handleGoBack} />
                   <View style={styles.property}>
-                    
+
                     <Image
                       source={{ uri: "../../assets/testeCasa.jpg" }}
                       style={styles.propertyImage}

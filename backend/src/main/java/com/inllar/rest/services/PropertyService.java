@@ -43,6 +43,8 @@ public class PropertyService {
 	private UserRepository userRepository;
 	@Autowired
 	private ImageRepository imageRepository;
+	@Autowired
+	private S3BucketStorageService bucketService;
 
 	@Autowired
 	private JwtTokenUtil jwt;
@@ -109,17 +111,15 @@ public class PropertyService {
 
 		for (int i = 0; i < images.length; i++) {
 			MultipartFile image = images[i];
-			String url = "user_content/" + user.getId().toString() + "/" + property.getId();
-			String filename = UUID.randomUUID().toString();
 			try {
-				FileUploadUtil.saveFile(url, filename, image);
+				String url = bucketService.uploadFile(image);
 				Image dbImage = new Image();
-				dbImage.setUrl(url + "/" + filename);
+				dbImage.setUrl(url);
 				dbImage.setProperty(property);
 
 				dbImages.add(dbImage);
 				imageRepository.save(dbImage);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

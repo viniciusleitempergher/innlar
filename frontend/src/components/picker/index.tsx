@@ -9,20 +9,19 @@ type Props = PickerProps & {
 }
 
 export function ItemPicker({ items, item, setItem, ...rest }: Props) {
-    setItem(items[0]);
 
     return (
         <Picker
             selectedValue={item}
-            onValueChange={(itemValue) =>
-                setItem(itemValue + "")
-            }
+            onValueChange={(itemValue) => {
+                setItem(itemValue + "");
+            }}
             mode="dropdown"
             {...rest}
         >
             {
                 items.map(item => (
-                    <Picker.Item label={item} value={item} />
+                    <Picker.Item label={item} value={item} key={item} />
                 ))
             }
         </Picker>

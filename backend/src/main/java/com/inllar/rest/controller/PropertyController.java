@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityNotFoundException;
+import javax.security.sasl.AuthenticationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.inllar.rest.exceptions.NotFoundException;
+import com.inllar.rest.exceptions.UnauthorizedException;
 import com.inllar.rest.requests.PropertiesFilterResponse;
 import com.inllar.rest.requests.PropertiesGetResponse;
 import com.inllar.rest.requests.PropertyGetResponse;
@@ -54,6 +56,8 @@ public class PropertyController {
 			@RequestParam("propertyId") String propertyId) throws Exception {
 		try {
 			propertyService.saveImages(files, propertyId);
+		} catch (AuthenticationException e) {
+			throw new UnauthorizedException();
 		} catch (Exception e) {
 			throw e;
 		}

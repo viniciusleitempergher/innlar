@@ -15,6 +15,7 @@ import { AntDesign, EvilIcons } from "@expo/vector-icons";
 import { FontAwesome, FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import axios from "axios";
+import imagemCasa from '../../assets/testeCasa2.jpg'
 
 import { styles } from "./styles";
 import MapView, { Marker } from "react-native-maps";
@@ -97,17 +98,18 @@ export function PropertyInfo({ navigation, route }: any) {
           <Loading />
           :
           <>
+          
             <ScrollView>
               <View style={styles.container}>
                 <Form>
                   <AntDesign name="arrowleft" size={30} style={styles.arrow} onPress={handleGoBack} />
                   <View style={styles.property}>
-                    
-                    <Image
-                      source={{ uri: "../../assets/testeCasa.jpg" }}
+
+                  <Image
+                      source={imagemCasa}
                       style={styles.propertyImage}
                     />
-
+                
                     <Text style={styles.propertyTitle}>{property.name}</Text>
                     <View style={styles.stars}>
                       <Entypo name="star" size={20} color="black" />
@@ -202,6 +204,7 @@ export function PropertyInfo({ navigation, route }: any) {
               </View>
             </ScrollView>
             <View style={styles.alugueAgora}>
+              
               <Text style={styles.textInput}>R$ {property.value}</Text>
               <TouchableOpacity style={styles.alugueButton} onPress={handleChat}>
                 <Text style={styles.textButton2}>Alugue agora</Text>

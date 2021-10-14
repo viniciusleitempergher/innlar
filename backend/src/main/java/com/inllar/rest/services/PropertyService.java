@@ -136,7 +136,7 @@ public class PropertyService {
 		requestedAddress.setDistrict(district.equals("") ? null : district);
 		requestedAddress.setState(state.equals("") ? null : state);
 
-		ExampleMatcher matcher = ExampleMatcher.matchingAny().withIgnoreNullValues().withIgnorePaths("number");
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues().withIgnorePaths("number");
 		Example<Address> example = Example.of(requestedAddress, matcher);
 
 		List<Address> matchingAddresses = addressRepository.findAll(example);

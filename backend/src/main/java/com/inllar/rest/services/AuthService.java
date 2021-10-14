@@ -29,7 +29,6 @@ import com.inllar.rest.repositories.RefreshTokenRepository;
 import com.inllar.rest.repositories.UserRepository;
 import com.inllar.rest.requests.LoginRequest;
 import com.inllar.rest.requests.RegisterRequest;
-import com.inllar.rest.requests.TokenRequest;
 import com.inllar.rest.requests.TokensResponse;
 import com.inllar.rest.utils.JwtTokenUtil;
 

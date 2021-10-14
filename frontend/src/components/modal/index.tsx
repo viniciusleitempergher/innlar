@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Alert, Modal, Text, Pressable, View } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 
@@ -7,15 +7,18 @@ import { Button } from '../button';
 import { styles } from './styles';
 
 import { PickerModal } from '../pickerModal';
+import { PropertyType } from "../../types/property";
+import { api } from "../../services/api";
 
 type Props = {
   ceps: Array<string>;
   cities: Array<string>;
   districts: Array<string>;
   states: Array<string>;
+  setProperties: Dispatch<SetStateAction<PropertyType[]>>;
 }
 
-export function ModalHome({ ceps, cities, districts, states }: Props) {
+export function ModalHome({ ceps, cities, districts, states, setProperties }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [cep, setCep] = useState("");
@@ -23,10 +26,20 @@ export function ModalHome({ ceps, cities, districts, states }: Props) {
   const [city, setCity] = useState("");
   const [district, setDistrict] = useState("");
 
-  function handleSearch() {
+  async function handleSearch() {
     setModalVisible(!modalVisible)
     console.log(cep, state, city, district);
+    const response = await api.get("/properties/search", {
+      params: {
+        cep,
+        state,
+        city,
+        district
+      }
+    });
 
+    console.log(response.data.properties);
+    setProperties(response.data.properties);
   }
 
   return (

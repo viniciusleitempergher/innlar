@@ -1,6 +1,7 @@
 import React, { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useContext } from "react";
 import { ReactNode } from "react";
+import { Loading } from "../components/loading";
 import { api } from "../services/api";
 import { socket } from "../services/chat";
 import { ChatType } from "../types/chat";
@@ -61,7 +62,12 @@ export function MessagesProvider({ children }: MessagesProviderProps) {
             loading,
             setChats
         }}>
-            {children}
+            {
+                loading ?
+                    <Loading />
+                    :
+                    children
+            }
         </MessagesContext.Provider>
     )
 }

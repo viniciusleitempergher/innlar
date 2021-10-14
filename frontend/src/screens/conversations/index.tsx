@@ -23,15 +23,18 @@ export function Conversations({ navigation }: any) {
         navigation.goBack();
     }
 
-    function handleChat(users: Array<UserType>) {
+    function handleChat(chat: ChatType) {
+        let users = chat.users;
         let userId = '';
         users.forEach((userOfList) => {
-            if (userOfList.id !== user.id)
+            if (userOfList.id !== user.id) {
                 userId = userOfList.id;
+            }
         });
+
         navigation.navigate({
             name: 'chat',
-            params: { userId }
+            params: { userId, chat }
         });
     }
 
@@ -79,7 +82,7 @@ export function Conversations({ navigation }: any) {
                                 keyExtractor={item => item.id}
                                 renderItem={({ item }) => (
                                     <TouchableOpacity onPress={() => {
-                                        handleChat(item.users)
+                                        handleChat(item)
                                     }}>
                                         <View style={styles.chat}>
                                             <FontAwesome name="user-circle-o" size={60} color="black" />

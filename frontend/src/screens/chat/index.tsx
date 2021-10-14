@@ -41,12 +41,14 @@ export function Chat({ route }: any) {
   const { user } = useAuth();
 
   const receiverId = route.params.userId;
+  const chatFromParam = route.params.chat;
 
   const [receiver, setReceiver] = useState({} as UserType);
 
   useEffect(() => {
     (async () => {
       try {
+
         let response = await api.get("/users", {
           params: {
             id: receiverId
@@ -64,11 +66,7 @@ export function Chat({ route }: any) {
 
   useEffect(() => {
     for (let chat of chats) {
-      if (
-        chat.users.filter((userOfChat) => {
-          return userOfChat.id == receiverId;
-        })
-      ) {
+      if (chat.users == chatFromParam.users) {
         setMessages(chat.messages);
       }
     }
@@ -117,76 +115,76 @@ export function Chat({ route }: any) {
       {loading || thisLoading ? (
         <Loading />
       ) : (
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={styles.container}
-          >
-            <View style={styles.container}>
-              <View style={styles.user}>
-                <AntDesign style={styles.arrow}
-                  name="arrowleft"
-                  size={30}
-                  color="black"
-                  onPress={handleGoBack}
-                />
-
-                <EvilIcons style={styles.profileIcon} name="user" color="black" />
-                <Text style={styles.nameUser}>{receiver.name}</Text>
-              </View>
-              <FlatList
-                ref={flatListRef}
-                onContentSizeChange={() => flatListRef.current.scrollToEnd()}
-                onLayout={() => flatListRef.current.scrollToEnd()}
-                data={messages}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <>
-                    {item.sender.id !== user.id ? (
-                      <View style={styles.balloon}>
-                        <Text style={styles.userName}>{item.sender.name}</Text>
-                        <Text style={styles.message}>{item.text}</Text>
-                        <Text style={styles.date}>
-                          {getMessageDate(item.timestamp)}
-                        </Text>
-                      </View>
-                    ) : (
-                        <View style={[styles.balloon, { alignSelf: "flex-end" }]}>
-                          <Text style={[styles.userName, { textAlign: "right" }]}>
-                            Você
-                      </Text>
-                          <Text style={[styles.message, { textAlign: "right" }]}>
-                            {item.text}
-                          </Text>
-                          <Text style={styles.date}>
-                            {getMessageDate(item.timestamp)}
-                          </Text>
-                        </View>
-                      )}
-                  </>
-                )}
-                ItemSeparatorComponent={() => <View style={{}} />}
-                contentContainerStyle={{ paddingBottom: 69 }}
-                style={styles.list}
-                showsVerticalScrollIndicator={false}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
+        >
+          <View style={styles.container}>
+            <View style={styles.user}>
+              <AntDesign style={styles.arrow}
+                name="arrowleft"
+                size={30}
+                color="black"
+                onPress={handleGoBack}
               />
 
-              <View style={styles.sendArea}>
-                <TextArea
-                  style={styles.sendInput}
-                  onChangeText={setInputText}
-                  value={inputText}
-                />
-                <TouchableOpacity onPress={handleSendMessage}>
-                  <MaterialCommunityIcons
-                    name="send-circle"
-                    size={45}
-                    color="black"
-                  />
-                </TouchableOpacity>
-              </View>
+              <EvilIcons style={styles.profileIcon} name="user" color="black" />
+              <Text style={styles.nameUser}>{receiver.name}</Text>
             </View>
-          </KeyboardAvoidingView>
-        )}
+            <FlatList
+              ref={flatListRef}
+              onContentSizeChange={() => flatListRef.current.scrollToEnd()}
+              onLayout={() => flatListRef.current.scrollToEnd()}
+              data={messages}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <>
+                  {item.sender.id !== user.id ? (
+                    <View style={styles.balloon}>
+                      <Text style={styles.userName}>{item.sender.name}</Text>
+                      <Text style={styles.message}>{item.text}</Text>
+                      <Text style={styles.date}>
+                        {getMessageDate(item.timestamp)}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View style={[styles.balloon, { alignSelf: "flex-end" }]}>
+                      <Text style={[styles.userName, { textAlign: "right" }]}>
+                        Você
+                      </Text>
+                      <Text style={[styles.message, { textAlign: "right" }]}>
+                        {item.text}
+                      </Text>
+                      <Text style={styles.date}>
+                        {getMessageDate(item.timestamp)}
+                      </Text>
+                    </View>
+                  )}
+                </>
+              )}
+              ItemSeparatorComponent={() => <View style={{}} />}
+              contentContainerStyle={{ paddingBottom: 69 }}
+              style={styles.list}
+              showsVerticalScrollIndicator={false}
+            />
+
+            <View style={styles.sendArea}>
+              <TextArea
+                style={styles.sendInput}
+                onChangeText={setInputText}
+                value={inputText}
+              />
+              <TouchableOpacity onPress={handleSendMessage}>
+                <MaterialCommunityIcons
+                  name="send-circle"
+                  size={45}
+                  color="black"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      )}
     </>
   );
 }

@@ -1,7 +1,6 @@
 package com.inllar.rest.filters;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.FilterChain;

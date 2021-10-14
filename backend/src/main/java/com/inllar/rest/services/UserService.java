@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,8 +62,7 @@ public class UserService {
 
 			PasswordGenerator passGen = new PasswordGenerator();
 			List<CharacterRule> rules = Arrays.asList(new CharacterRule(EnglishCharacterData.UpperCase, 1),
-					new CharacterRule(EnglishCharacterData.LowerCase, 1),
-					new CharacterRule(EnglishCharacterData.Digit, 1),
+					new CharacterRule(EnglishCharacterData.LowerCase, 1), new CharacterRule(EnglishCharacterData.Digit, 1),
 					new CharacterRule(EnglishCharacterData.Special, 1));
 			String password = passGen.generatePassword(8, rules);
 
@@ -173,7 +171,7 @@ public class UserService {
 		usersOfChat.add(receiver);
 		usersOfChat.add(sender);
 
-		Chat chat = new Chat();
+		Chat chat = null;
 
 		boolean chatExists = false;
 
@@ -185,6 +183,7 @@ public class UserService {
 		}
 
 		if (!chatExists) {
+			chat = new Chat();
 			chat.setUsers(usersOfChat);
 			chatRepository.save(chat);
 		}
@@ -227,25 +226,25 @@ public class UserService {
 
 		GetMessagesResponse response = new GetMessagesResponse();
 
-//		if (chatRepository.existsByUsers(usersOfChat)) {
-//			Chat chat = chatRepository.findByUsers(usersOfChat).get(0);
-//
-//			List<User> changedUsers = new ArrayList<User>();
-//			chat.getUsers().forEach((userOfChat) -> {
-//				userOfChat = userOfChat.getUserData();
-//				userOfChat.setChats(null);
-//				userOfChat.setProperties(null);
-//				changedUsers.add(userOfChat);
-//			});
-//			chat.setUsers(changedUsers);
-//
-//			chat.getMessages().forEach((message) -> {
-//				message.setSender(message.getSender().getUserData());
-//				message.setChat(null);
-//			});
-//
-//			response.setMessages(chat.getMessages());
-//		}
+		// if (chatRepository.existsByUsers(usersOfChat)) {
+		// Chat chat = chatRepository.findByUsers(usersOfChat).get(0);
+		//
+		// List<User> changedUsers = new ArrayList<User>();
+		// chat.getUsers().forEach((userOfChat) -> {
+		// userOfChat = userOfChat.getUserData();
+		// userOfChat.setChats(null);
+		// userOfChat.setProperties(null);
+		// changedUsers.add(userOfChat);
+		// });
+		// chat.setUsers(changedUsers);
+		//
+		// chat.getMessages().forEach((message) -> {
+		// message.setSender(message.getSender().getUserData());
+		// message.setChat(null);
+		// });
+		//
+		// response.setMessages(chat.getMessages());
+		// }
 
 		return response;
 	}

@@ -96,21 +96,22 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
                 formData.append("images", image);
             }
 
-            formData.append("propertyId", propertyId);
-
-            await api.post("/properties/images", {}, {
+            const imagesResponse = await api.post("/properties/images", {}, {
                 headers: {
                     'Content-Type': `multipart/form-data`
                 },
                 params: {
                     formData,
+                    propertyId,
                 }
-            })
+            });
 
             if (response.status == 201) {
                 Alert.alert("Propriedade Criada!")
             }
-        } catch (e) {
+        } catch (e: any) {
+            console.log(e);
+
             throw e;
         } finally {
             setLoading(false);

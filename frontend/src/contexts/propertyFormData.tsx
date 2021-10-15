@@ -90,9 +90,21 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
 
             const propertyId = response.data.propertyId;
 
-            api.post("/properties/images", {
-                propertyId,
-                
+            let formData = new FormData();
+
+            for (let image of images) {
+                formData.append("images", image);
+            }
+
+            formData.append("propertyId", propertyId);
+
+            await api.post("/properties/images", {}, {
+                headers: {
+                    'Content-Type': `multipart/form-data`
+                },
+                params: {
+                    formData,
+                }
             })
 
             if (response.status == 201) {

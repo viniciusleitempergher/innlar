@@ -42,7 +42,7 @@ public class S3BucketStorageService {
 			ObjectMetadata metadata = new ObjectMetadata();
 			metadata.setContentLength(file.getSize());
 			amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), metadata);
-			return endpointUrl + "/" + bucketName + "/" + fileName;
+			return endpointUrl + bucketName + "/" + fileName;
 		} catch (IOException ioe) {
 			logger.error("IOException: " + ioe.getMessage());
 		} catch (AmazonServiceException serviceException) {

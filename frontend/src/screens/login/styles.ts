@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { colors } from '../../global/styles/colors';
 import { fonts } from '../../global/styles/fonts';
 
@@ -9,7 +10,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-
+    marginTop: getStatusBarHeight() + 15,
   },
   emailInput: {
     marginTop: '5%'

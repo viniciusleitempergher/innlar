@@ -28,8 +28,7 @@ type PropertyFormContextData = {
     district: string; setDistrict: React.Dispatch<React.SetStateAction<string>>;
     street: string; setStreet: React.Dispatch<React.SetStateAction<string>>;
     cep: string; setCep: React.Dispatch<React.SetStateAction<string>>;
-    images: CameraRollAssetType[]; setImages: React.Dispatch<React.SetStateAction<CameraRollAssetType[]>>;
-    registerProperty: VoidFunction;
+    registerProperty: (images: any[]) => void;
 }
 
 type PropertyFormProviderProps = {
@@ -60,9 +59,8 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
     const [district, setDistrict] = useState("");
     const [street, setStreet] = useState("");
     const [cep, setCep] = useState("");
-    const [images, setImages] = useState([] as CameraRollAssetType[]);
 
-    async function registerProperty() {
+    async function registerProperty(images: any[]) {
         setLoading(true);
 
         try {
@@ -92,19 +90,15 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
 
             let formData = new FormData();
 
-            for (let image of images) {
-                formData.append("images", image);
-            }
+
+            formData.append("images", images[0].uri);
 
             formData.append("propertyId", propertyId);
 
-            await api.post("/properties/images", {}, {
+            await api.post("/properties/images", formData, {
                 headers: {
                     'Content-Type': `multipart/form-data`
                 },
-                params: {
-                    formData,
-                }
             })
 
             if (response.status == 201) {
@@ -137,7 +131,6 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
             district, setDistrict,
             street, setStreet,
             cep, setCep,
-            images, setImages,
             registerProperty
         }}>
             {

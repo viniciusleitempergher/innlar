@@ -13,7 +13,7 @@ type Props = {
 }
 
 export function PropertyResult({ srcImage, propertyName, value, userName }: Props) {
-  const httpUrl = { uri: srcImage };
+  const httpUrl = { uri: "" };
 
   return (
     <View style={[styles.property, styles.nameField, styles.field]}>

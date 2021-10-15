@@ -75,11 +75,10 @@ export function SelectImages({ navigation }: any) {
     []
   );
 
-  const { setImages, registerProperty } = usePropertyFormData();
+  const { registerProperty } = usePropertyFormData();
 
-  function onSuccess(data: CameraRollAssetType[]) {
-    setImages(data);
-    registerProperty();
+  function onSuccess(data: CameraRollAssetType[]) {    
+    registerProperty(data);
   }
 
   return (

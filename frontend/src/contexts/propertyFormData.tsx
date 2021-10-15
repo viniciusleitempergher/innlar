@@ -1,7 +1,7 @@
 import React, { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useContext } from "react";
 import { ReactNode } from "react";
-import { Alert } from "react-native";
+import { Alert, CameraRollAssetType } from "react-native";
 import { Loading } from "../components/loading";
 import { api } from "../services/api";
 import { socket } from "../services/chat";
@@ -28,6 +28,7 @@ type PropertyFormContextData = {
     district: string; setDistrict: React.Dispatch<React.SetStateAction<string>>;
     street: string; setStreet: React.Dispatch<React.SetStateAction<string>>;
     cep: string; setCep: React.Dispatch<React.SetStateAction<string>>;
+    images: CameraRollAssetType[]; setImages: React.Dispatch<React.SetStateAction<CameraRollAssetType[]>>;
     registerProperty: VoidFunction;
 }
 
@@ -59,6 +60,7 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
     const [district, setDistrict] = useState("");
     const [street, setStreet] = useState("");
     const [cep, setCep] = useState("");
+    const [images, setImages] = useState([] as CameraRollAssetType[]);
 
     async function registerProperty() {
         setLoading(true);
@@ -85,6 +87,13 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
                 city,
                 state
             });
+
+            const propertyId = response.data.propertyId;
+
+            api.post("/properties/images", {
+                propertyId,
+                
+            })
 
             if (response.status == 201) {
                 Alert.alert("Propriedade Criada!")
@@ -116,6 +125,7 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
             district, setDistrict,
             street, setStreet,
             cep, setCep,
+            images, setImages,
             registerProperty
         }}>
             {

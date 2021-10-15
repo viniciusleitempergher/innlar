@@ -10,6 +10,7 @@ import { PropertyRegisterStepOne } from '../screens/propertyRegisterStepOne';
 import { PropertyRegisterStepTwo } from '../screens/propertyRegisterStepTwo';
 import { PropertyRegisterStepThree } from '../screens/propertyRegisterStepThree';
 import { PropertyRegisterStepFour } from '../screens/propertyRegisterStepFour';
+import { SelectImages } from '../screens/selectImages';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -24,6 +25,7 @@ export function AppRoutes() {
             <Screen name="propertyRegisterStepTwo" component={PropertyRegisterStepTwo} />
             <Screen name="propertyRegisterStepThree" component={PropertyRegisterStepThree} />
             <Screen name="propertyRegisterStepFour" component={PropertyRegisterStepFour} />
+            <Screen name="selectImages" component={SelectImages} />
             <Screen name="conversations" component={Conversations} />
             <Screen name="chat" component={Chat} />
             <Screen name="profile" component={Profile} />

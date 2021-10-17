@@ -1,6 +1,7 @@
 package com.inllar.rest.services;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -36,12 +37,12 @@ public class S3BucketStorageService {
 	 * @param file
 	 * @return String
 	 */
-	public String uploadFile(MultipartFile file) {
+	public String uploadFile(InputStream stream, String filename) {
 		try {
-			String fileName = generateFileName(file);
+			String fileName = generateFileName(filename);
 			ObjectMetadata metadata = new ObjectMetadata();
-			metadata.setContentLength(file.getSize());
-			amazonS3Client.putObject(bucketName, fileName, file.getInputStream(), metadata);
+			metadata.setContentLength(stream.available());
+			amazonS3Client.putObject(bucketName, fileName, stream, metadata);
 			return endpointUrl + bucketName + "/" + fileName;
 		} catch (IOException ioe) {
 			logger.error("IOException: " + ioe.getMessage());
@@ -55,8 +56,8 @@ public class S3BucketStorageService {
 		return "File not uploaded";
 	}
 
-	private String generateFileName(MultipartFile multiPart) {
-		return new Date().getTime() + "-" + multiPart.getOriginalFilename().replace(" ", "_");
+	private String generateFileName(String filename) {
+		return new Date().getTime() + "-" + filename.replace(" ", "_");
 	}
 
 	public String deleteFileFromS3Bucket(String fileUrl) {

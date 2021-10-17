@@ -1,4 +1,5 @@
 import { AddressType } from "./address"
+import { ImageType } from "./image"
 import { UserType } from "./user"
 
 export type PropertyType = {
@@ -9,7 +10,7 @@ export type PropertyType = {
   hasPartyArea: boolean;
   hasGrill: boolean;
   hasPool: boolean;
-  images: Array<string>;
+  images: Array<ImageType>;
   name: string;
   numberBathRooms: number;
   numberBedRooms: number;

@@ -1,10 +1,13 @@
 package com.inllar.rest.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityNotFoundException;
 import javax.security.sasl.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,14 +56,15 @@ public class PropertyController {
 
 	@ApiOperation("Upload property images")
 	@PostMapping("/images")
-	public void uploadImages(@RequestParam("images") MultipartFile[] files,
-			@RequestParam("propertyId") String propertyId) throws Exception {
+	public void uploadImages(HttpServletRequest request) throws Exception {
 		try {
-			propertyService.saveImages(files, propertyId);
+			ArrayList<Part> partsList = new ArrayList<Part>(request.getParts());
+			
+			propertyService.saveImages(partsList);
 		} catch (AuthenticationException e) {
 			throw new UnauthorizedException();
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
 		}
 	}
 

@@ -1,12 +1,14 @@
 package com.inllar.rest.services;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityNotFoundException;
 import javax.security.sasl.AuthenticationException;
+import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -94,7 +96,16 @@ public class PropertyService {
 		return response;
 	}
 
-	public void saveImages(MultipartFile[] images, String propertyId) throws AuthenticationException {
+	public void saveImages(ArrayList<Part> partsList) throws IOException {
+
+		String propertyId = partsList.get(0).getName();
+
+		ArrayList<InputStream> images = new ArrayList<InputStream>();
+
+		for (int i = 1; i < partsList.size(); i++) {
+			images.add(partsList.get(i).getInputStream());
+		}
+
 		Property property = propertyRepository.findById(UUID.fromString(propertyId))
 				.orElseThrow(() -> new EntityNotFoundException());
 
@@ -109,10 +120,10 @@ public class PropertyService {
 
 		List<Image> dbImages = new ArrayList<Image>();
 
-		for (int i = 0; i < images.length; i++) {
-			MultipartFile image = images[i];
+		for (int i = 0; i < images.size(); i++) {
+			InputStream image = images.get(i);
 			try {
-				String url = bucketService.uploadFile(image);
+				String url = bucketService.uploadFile(image, "property-image.png");
 				Image dbImage = new Image();
 				dbImage.setUrl(url);
 				dbImage.setProperty(property);
@@ -249,7 +260,7 @@ public class PropertyService {
 		for (int i = 0; i < imagesId.length; i++) {
 			Image image = imageRepository.findById(UUID.fromString(imagesId[i]))
 					.orElseThrow(() -> new EntityNotFoundException());
-			FileUploadUtil.removeFile("", image.getUrl());
+			bucketService.deleteFileFromS3Bucket(image.getUrl());
 			imageRepository.delete(image);
 		}
 	}

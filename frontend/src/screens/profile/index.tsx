@@ -25,6 +25,7 @@ import { api } from "../../services/api";
 import { UserType } from "../../types/user";
 import { useAuth } from "../../contexts/auth";
 import { PropertyType } from "../../types/property";
+import { usePropertyFormData } from "../../contexts/propertyFormData";
 
 export function Profile({ navigation, route }: any) {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,8 @@ export function Profile({ navigation, route }: any) {
   const userId = route.params.userId;
 
   const [properties, setProperties] = useState([] as Array<PropertyType>);
+
+  const { setPropertyStatesToEdit } = usePropertyFormData();
 
   function handleGoBack() {
     navigation.goBack();
@@ -72,8 +75,9 @@ export function Profile({ navigation, route }: any) {
 
   }
 
-  function handleEditProperty() {
-
+  function handleEditProperty(id: string) {
+    setPropertyStatesToEdit(id);
+    navigation.navigate("")
   }
 
   function handleRemoveProperty(propertyId: string) {
@@ -147,13 +151,13 @@ export function Profile({ navigation, route }: any) {
                         />
                       </View>
                     ) : (
-                      <FontAwesome5
-                        style={styles.button}
-                        name="home"
-                        size={35}
-                        color="black"
-                      />
-                    )}
+                        <FontAwesome5
+                          style={styles.button}
+                          name="home"
+                          size={35}
+                          color="black"
+                        />
+                      )}
                     <View style={styles.stars}>
                       <Entypo name="star" size={24} color="black" />
                       <Entypo name="star" size={24} color="black" />
@@ -190,7 +194,7 @@ export function Profile({ navigation, route }: any) {
                             srcImage={item.images[0].url}
                             propertyName={item.name}
                           />
-                          {me && <Text style={styles.edit} onPress={handleEditProperty}>Editar</Text>}
+                          {me && <Text style={styles.edit} onPress={() => { handleEditProperty(item.id) }}>Editar</Text>}
                           {me && <Text style={styles.edit} onPress={() => { handleRemoveProperty(item.id) }}>Remover</Text>}
                         </TouchableOpacity>
                       )}

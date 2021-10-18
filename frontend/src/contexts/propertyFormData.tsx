@@ -6,7 +6,9 @@ import { Loading } from "../components/loading";
 import { api } from "../services/api";
 import { socket } from "../services/chat";
 import { ChatType } from "../types/chat";
+import { ImageType } from "../types/image";
 import { MessageType } from "../types/message";
+import { PropertyType } from "../types/property";
 import { useAuth } from "./auth";
 
 type PropertyFormContextData = {
@@ -28,6 +30,8 @@ type PropertyFormContextData = {
     district: string; setDistrict: React.Dispatch<React.SetStateAction<string>>;
     street: string; setStreet: React.Dispatch<React.SetStateAction<string>>;
     cep: string; setCep: React.Dispatch<React.SetStateAction<string>>;
+    setPropertyStatesToEdit: (id: string) => void;
+    images: Array<ImageType>;
     registerProperty: (images: any[]) => void;
 }
 
@@ -59,6 +63,8 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
     const [district, setDistrict] = useState("");
     const [street, setStreet] = useState("");
     const [cep, setCep] = useState("");
+
+    const [images, setImages] = useState([] as Array<ImageType>);
 
     async function registerProperty(images: any[]) {
         setLoading(true);
@@ -117,6 +123,44 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
         }
     }
 
+    async function setPropertyStatesToEdit(propertyId: string) {
+        setLoading(true);
+        try {
+            const response = await api.get("/properties", {
+                params: {
+                    uuid: propertyId
+                }
+            });
+
+            const property: PropertyType = response.data.property;
+
+            setName(property.name);
+            setPropertyValue(property.value + "");
+            setNumberBathRooms(property.numberBathRooms + "");
+            setNumberBedRooms(property.numberBedRooms + "");
+            setNumberKitchens(property.numberKitchens + "");
+            setNumberRooms(property.numberRooms + "");
+            setSquareMeters(property.squareMeters + "");
+            setHasPool(property.hasPool);
+            setHasPartyArea(property.hasPartyArea);
+            setHasGrill(property.hasGrill);
+            setHasGarage(property.hasGarage);
+            setDescription(property.description);
+            setNumber(property.address.number + "");
+            setStreet(property.address.street);
+            setDistrict(property.address.district);
+            setCep(property.address.cep);
+            setCity(property.address.city);
+            setState(property.address.state);
+
+            setImages(property.images);
+        } catch (e) {
+            throw e;
+        } finally {
+            setLoading(false);
+        }
+    }
+
     function clearStates() {
         setName("");
         setPropertyValue("");
@@ -158,7 +202,9 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
             district, setDistrict,
             street, setStreet,
             cep, setCep,
-            registerProperty
+            setPropertyStatesToEdit,
+            images,
+            registerProperty,
         }}>
             {
                 loading

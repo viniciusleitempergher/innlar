@@ -10,6 +10,11 @@ import { PropertyRegisterStepOne } from '../screens/propertyRegisterStepOne';
 import { PropertyRegisterStepTwo } from '../screens/propertyRegisterStepTwo';
 import { PropertyRegisterStepThree } from '../screens/propertyRegisterStepThree';
 import { PropertyRegisterStepFour } from '../screens/propertyRegisterStepFour';
+import { PropertyEditStepOne } from '../screens/propertyEditStepOne';
+import { PropertyEditStepTwo } from '../screens/propertyEditStepTwo';
+import { PropertyEditStepThree } from '../screens/propertyEditStepThree';
+import { PropertyEditStepFour } from '../screens/propertyEditStepFour';
+import { SelectImagesToDelete } from '../screens/selectImagesToDelete';
 import { SelectImages } from '../screens/selectImages';
 
 const { Navigator, Screen } = createStackNavigator();
@@ -25,6 +30,11 @@ export function AppRoutes() {
             <Screen name="propertyRegisterStepTwo" component={PropertyRegisterStepTwo} />
             <Screen name="propertyRegisterStepThree" component={PropertyRegisterStepThree} />
             <Screen name="propertyRegisterStepFour" component={PropertyRegisterStepFour} />
+            <Screen name="propertyEditStepOne" component={PropertyEditStepOne} />
+            <Screen name="propertyEditStepTwo" component={PropertyEditStepTwo} />
+            <Screen name="propertyEditStepThree" component={PropertyEditStepThree} />
+            <Screen name="propertyEditStepFour" component={PropertyEditStepFour} />
+            <Screen name="selectImagesToDelete" component={SelectImagesToDelete} />
             <Screen name="selectImages" component={SelectImages} />
             <Screen name="conversations" component={Conversations} />
             <Screen name="chat" component={Chat} />

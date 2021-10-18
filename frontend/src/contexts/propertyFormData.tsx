@@ -30,8 +30,9 @@ type PropertyFormContextData = {
     district: string; setDistrict: React.Dispatch<React.SetStateAction<string>>;
     street: string; setStreet: React.Dispatch<React.SetStateAction<string>>;
     cep: string; setCep: React.Dispatch<React.SetStateAction<string>>;
-    setPropertyStatesToEdit: (id: string) => void;
+    setPropertyStatesToEdit: (id: string, navigation: any) => void;
     images: Array<ImageType>;
+    sendImages: (images: any[]) => void;
     registerProperty: (images: any[]) => void;
 }
 
@@ -65,6 +66,7 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
     const [cep, setCep] = useState("");
 
     const [images, setImages] = useState([] as Array<ImageType>);
+    const [propertyId, setPropertyId] = useState("");
 
     async function registerProperty(images: any[]) {
         setLoading(true);
@@ -93,21 +95,7 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
 
             const propertyId = response.data.propertyId;
 
-            let formData = new FormData();
-
-            formData.append(propertyId, propertyId);
-            for (let image of images) {
-                formData.append("images", image);
-            }
-
-            await api.post("/properties/images", formData, {
-                headers: {
-                    'Content-Type': `multipart/form-data`
-                },
-                params: {
-                    images: formData
-                }
-            })
+            await uploadImages(images, propertyId);
 
             if (response.status == 201) {
                 Alert.alert("Propriedade Criada!");
@@ -123,8 +111,40 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
         }
     }
 
-    async function setPropertyStatesToEdit(propertyId: string) {
+    async function sendImages(images: any[]) {
         setLoading(true);
+        try {
+            await uploadImages(images, propertyId);
+
+            Alert.alert("Propriedade editada!");
+        } catch (e) {
+            throw e;
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async function uploadImages(images: any[], propertyId: string) {
+        let formData = new FormData();
+
+        formData.append(propertyId, propertyId);
+        for (let image of images) {
+            formData.append("images", image);
+        }
+
+        let response = await api.post("/properties/images", formData, {
+            headers: {
+                'Content-Type': `multipart/form-data`
+            },
+            params: {
+                images: formData
+            }
+        });
+
+        return response;
+    }
+
+    async function setPropertyStatesToEdit(propertyId: string, navigation: any) {
         try {
             const response = await api.get("/properties", {
                 params: {
@@ -154,10 +174,12 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
             setState(property.address.state);
 
             setImages(property.images);
+            setPropertyId(propertyId);
+
+            navigation.navigate("propertyEditStepOne");
         } catch (e) {
             throw e;
         } finally {
-            setLoading(false);
         }
     }
 
@@ -204,6 +226,7 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
             cep, setCep,
             setPropertyStatesToEdit,
             images,
+            sendImages,
             registerProperty,
         }}>
             {

@@ -16,6 +16,7 @@ import { PropertyEditStepThree } from '../screens/propertyEditStepThree';
 import { PropertyEditStepFour } from '../screens/propertyEditStepFour';
 import { SelectImagesToDelete } from '../screens/selectImagesToDelete';
 import { SelectImages } from '../screens/selectImages';
+import { SelectImagesToAdd } from '../screens/selectImagesToAdd';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -35,6 +36,7 @@ export function AppRoutes() {
             <Screen name="propertyEditStepThree" component={PropertyEditStepThree} />
             <Screen name="propertyEditStepFour" component={PropertyEditStepFour} />
             <Screen name="selectImagesToDelete" component={SelectImagesToDelete} />
+            <Screen name="selectImagesToAdd" component={SelectImagesToAdd} />
             <Screen name="selectImages" component={SelectImages} />
             <Screen name="conversations" component={Conversations} />
             <Screen name="chat" component={Chat} />

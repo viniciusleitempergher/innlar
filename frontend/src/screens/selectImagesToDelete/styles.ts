@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     marginTop: 15,
+    marginBottom: 15,
     fontFamily: fonts.raj500
   },
 

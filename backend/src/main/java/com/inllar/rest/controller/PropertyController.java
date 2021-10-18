@@ -133,9 +133,9 @@ public class PropertyController {
 
 	@ApiOperation("Delete the images by the id from param")
 	@DeleteMapping("/images")
-	public void deleteImages(@RequestParam("images") String[] imagesId) throws IOException {
+	public void deleteImages(@RequestParam("image") String imageId) throws IOException {
 		try {
-			propertyService.removeImages(imagesId);
+			propertyService.removeImage(imageId);
 		} catch (EntityNotFoundException e) {
 			throw new NotFoundException();
 		}

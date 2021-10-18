@@ -110,13 +110,6 @@ export function Home({ navigation }: any) {
                       style={styles.list}
                       showsVerticalScrollIndicator={false}
                     />
-
-                    <PropertyResult
-                      propertyName="Residencial Monte Carlo"
-                      srcImage="https://construtoralage.com.br/wp-content/uploads/2019/08/apartamento-2-3-4-quartos.jpg"
-                      value="R$650.000,00"
-                      userName="Joana Garcia"
-                    />
                   </Form>
                 </View>
               </ImageBackground>

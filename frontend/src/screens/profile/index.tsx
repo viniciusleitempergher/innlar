@@ -76,8 +76,7 @@ export function Profile({ navigation, route }: any) {
   }
 
   function handleEditProperty(id: string) {
-    setPropertyStatesToEdit(id);
-    navigation.navigate("")
+    setPropertyStatesToEdit(id, navigation);
   }
 
   function handleRemoveProperty(propertyId: string) {

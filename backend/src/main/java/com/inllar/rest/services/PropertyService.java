@@ -267,12 +267,9 @@ public class PropertyService {
 		propertyRepository.save(propertyToEdit);
 	}
 
-	public void removeImages(String[] imagesId) throws IOException {
-		for (int i = 0; i < imagesId.length; i++) {
-			Image image = imageRepository.findById(UUID.fromString(imagesId[i]))
-					.orElseThrow(() -> new EntityNotFoundException());
-			bucketService.deleteFileFromS3Bucket(image.getUrl());
-			imageRepository.delete(image);
-		}
+	public void removeImage(String imageId) throws IOException {
+		Image image = imageRepository.findById(UUID.fromString(imageId)).orElseThrow(() -> new EntityNotFoundException());
+		bucketService.deleteFileFromS3Bucket(image.getUrl());
+		imageRepository.delete(image);
 	}
 }

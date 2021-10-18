@@ -9,30 +9,30 @@ import {
   ScrollView,
   ImageBackground,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { Form } from "../../components/form";
 import { EvilIcons, MaterialCommunityIcons } from "@expo/vector-icons";
-
+import { FlatList } from "react-native-gesture-handler";
 import { styles } from "./styles";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-
-import apto from "../../assets/testeCasa.jpg";
-import apto2 from "../../assets/testeCasa2.jpg";
-import apto3 from "../../assets/testeCasa3.png";
 
 import { Property } from "../../components/property";
 import { Loading } from "../../components/loading";
 import { api } from "../../services/api";
 import { UserType } from "../../types/user";
 import { useAuth } from "../../contexts/auth";
+import { PropertyType } from "../../types/property";
 
 export function Profile({ navigation, route }: any) {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const [userOfProfile, setUserOfProfile] = useState({} as UserType);
   const userId = route.params.userId;
+
+  const [properties, setProperties] = useState([] as Array<PropertyType>);
 
   function handleGoBack() {
     navigation.goBack();
@@ -48,6 +48,16 @@ export function Profile({ navigation, route }: any) {
         });
 
         setUserOfProfile(response.data);
+
+        let propertiesResponse = await api.get("/properties/get-from-user", {
+          params: {
+            userUuid: userId
+          }
+        })
+
+        console.log(propertiesResponse.data);
+
+        setProperties(propertiesResponse.data.properties);
       } catch (e) {
         throw e;
       } finally {
@@ -57,6 +67,49 @@ export function Profile({ navigation, route }: any) {
   }, []);
 
   const me = user.id == userId;
+
+  function handleGoToProperty(id: string) {
+
+  }
+
+  function handleEditProperty() {
+
+  }
+
+  function handleRemoveProperty(propertyId: string) {
+    let buttons = [{
+      text: 'Sim',
+      onPress: () => { removeProperty(propertyId) },
+    }, {
+      text: 'Não',
+      onPress: () => { }
+    }];
+
+    Alert.alert("Tem certeza que deseja excluir esta propiedade?", "Esta ação não pode ser desfeita.", buttons);
+  }
+
+  async function removeProperty(id: string) {
+    setLoading(true);
+    try {
+      let response = await api.delete("/properties/delete", {
+        params: {
+          propertyId: id
+        }
+      });
+
+      setLoading(false);
+
+      if (response.status == 200) {
+        Alert.alert("Propriedade removida com sucesso!");
+      } else {
+        Alert.alert("Houve um erro ao deletar a propiedade, tente novamente mais tarde...");
+      }
+    } catch (e) {
+      throw e;
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <>
@@ -94,13 +147,13 @@ export function Profile({ navigation, route }: any) {
                         />
                       </View>
                     ) : (
-                        <FontAwesome5
-                          style={styles.button}
-                          name="home"
-                          size={35}
-                          color="black"
-                        />
-                      )}
+                      <FontAwesome5
+                        style={styles.button}
+                        name="home"
+                        size={35}
+                        color="black"
+                      />
+                    )}
                     <View style={styles.stars}>
                       <Entypo name="star" size={24} color="black" />
                       <Entypo name="star" size={24} color="black" />
@@ -127,15 +180,25 @@ export function Profile({ navigation, route }: any) {
                     </View>
                     <Text style={styles.title}>Propriedades</Text>
 
-                    <Property
-                      srcImage={apto}
-                      propertyName="Residencial Monte Carlo"
+                    <FlatList
+                      data={properties}
+                      keyExtractor={item => item.id}
+                      renderItem={({ item }) => (
+                        <TouchableOpacity onPress={() => { handleGoToProperty(item.id) }}>
+
+                          <Property
+                            srcImage={item.images[0].url}
+                            propertyName={item.name}
+                          />
+                          {me && <Text style={styles.edit} onPress={handleEditProperty}>Editar</Text>}
+                          {me && <Text style={styles.edit} onPress={() => { handleRemoveProperty(item.id) }}>Remover</Text>}
+                        </TouchableOpacity>
+                      )}
+                      ItemSeparatorComponent={() => <View style={{}} />}
+                      contentContainerStyle={{ paddingBottom: 69 }}
+                      style={{ width: '100%' }}
+                      showsVerticalScrollIndicator={false}
                     />
-                    {me && <Text style={styles.edit}>Editar</Text>}
-                    <Property srcImage={apto2} propertyName="Casa Bela Vista" />
-                    {me && <Text style={styles.edit}>Editar</Text>}
-                    <Property srcImage={apto3} propertyName="Apartamento Luxuoso" />
-                    {me && <Text style={styles.edit}>Editar</Text>}
                   </Form>
                 </View>
               </ImageBackground>

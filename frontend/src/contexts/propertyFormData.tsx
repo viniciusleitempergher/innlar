@@ -90,7 +90,9 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
             let formData = new FormData();
 
             formData.append(propertyId, propertyId);
-            formData.append("images", images[0]);
+            for (let image of images) {
+                formData.append("images", image);
+            }
 
             await api.post("/properties/images", formData, {
                 headers: {
@@ -102,15 +104,38 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
             })
 
             if (response.status == 201) {
-                Alert.alert("Propriedade Criada!")
+                Alert.alert("Propriedade Criada!");
+                clearStates();
+            } else {
+                Alert.alert("Ocorreu um erro ao criar a propriedade... Talvez você esteja sem conexão!?")
             }
         } catch (e: any) {
             console.log(e);
-
             throw e;
         } finally {
             setLoading(false);
         }
+    }
+
+    function clearStates() {
+        setName("");
+        setPropertyValue("");
+        setNumberBathRooms("");
+        setNumberBedRooms("");
+        setNumberKitchens("");
+        setNumberRooms("");
+        setSquareMeters("");
+        setHasPool(false);
+        setHasPartyArea(false);
+        setHasGrill(false);
+        setHasGarage(false);
+        setDescription("");
+        setNumber("");
+        setStreet("");
+        setDistrict("");
+        setCep("");
+        setCity("");
+        setState("");
     }
 
     return (

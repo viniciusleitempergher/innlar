@@ -54,12 +54,22 @@ public class PropertyController {
 		}
 	}
 
+	@ApiOperation("Delete the property by its id")
+	@DeleteMapping("/delete")
+	public void deleteProperty(@RequestParam String propertyId) {
+		try {
+			propertyService.deleteProperty(propertyId);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	@ApiOperation("Upload property images")
 	@PostMapping("/images")
 	public void uploadImages(HttpServletRequest request) throws Exception {
 		try {
 			ArrayList<Part> partsList = new ArrayList<Part>(request.getParts());
-			
+
 			propertyService.saveImages(partsList);
 		} catch (AuthenticationException e) {
 			throw new UnauthorizedException();

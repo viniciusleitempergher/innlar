@@ -61,7 +61,9 @@ public class S3BucketStorageService {
 	}
 
 	public String deleteFileFromS3Bucket(String fileUrl) {
-		String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+		String[] parts = fileUrl.split("/");
+		String fileName = parts[parts.length - 1];
+		System.out.println("Deleting object: " + fileName);
 		amazonS3Client.deleteObject(new DeleteObjectRequest(bucketName + "/", fileName));
 		return "Successfully deleted";
 	}

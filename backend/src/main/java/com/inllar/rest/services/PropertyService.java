@@ -15,7 +15,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.inllar.rest.exceptions.UnauthorizedException;
 import com.inllar.rest.models.Address;
@@ -31,7 +30,6 @@ import com.inllar.rest.requests.PropertiesFilterResponse;
 import com.inllar.rest.requests.PropertiesGetResponse;
 import com.inllar.rest.requests.PropertyGetResponse;
 import com.inllar.rest.requests.PropertyRegisterRequest;
-import com.inllar.rest.utils.FileUploadUtil;
 import com.inllar.rest.utils.JwtTokenUtil;
 
 @Service("propertyService")
@@ -94,6 +92,19 @@ public class PropertyService {
 		response.setPropertyId(property.getId().toString());
 
 		return response;
+	}
+
+	public void deleteProperty(String propertyId) {
+		Property property = propertyRepository.findById(UUID.fromString(propertyId))
+				.orElseThrow(() -> new EntityNotFoundException());
+
+		List<Image> images = property.getImages();
+
+		for (int i = 0; i < images.size(); i++) {
+			bucketService.deleteFileFromS3Bucket(images.get(i).getUrl());
+		}
+
+		propertyRepository.delete(property);
 	}
 
 	public void saveImages(ArrayList<Part> partsList) throws IOException {

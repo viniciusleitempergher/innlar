@@ -48,7 +48,7 @@ export function PropertyEditStepOne({ navigation }: any) {
           <View style={styles.line} />
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("propertyRegisterStepTwo")
+              navigation.navigate("propertyEditStepTwo")
             }}
             style={styles.button}
           >

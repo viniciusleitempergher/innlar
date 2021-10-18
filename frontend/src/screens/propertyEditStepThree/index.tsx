@@ -69,11 +69,11 @@ export function PropertyEditStepThree({ navigation }: any) {
             />
 
             <View style={styles.buttons}>
-              <TouchableOpacity onPress={() => { navigation.navigate("propertyRegisterStepTwo") }} style={styles.button}>
+              <TouchableOpacity onPress={() => { navigation.navigate("propertyEditStepTwo") }} style={styles.button}>
                 <Text style={styles.buttonTxt}>Voltar</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={() => { navigation.navigate("propertyRegisterStepFour") }} style={styles.button}>
+              <TouchableOpacity onPress={() => { navigation.navigate("propertyEditStepFour") }} style={styles.button}>
                 <Text style={styles.buttonTxt}>Continuar</Text>
               </TouchableOpacity>
             </View>

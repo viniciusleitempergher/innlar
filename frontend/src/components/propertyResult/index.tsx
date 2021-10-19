@@ -24,7 +24,7 @@ export function PropertyResult({ srcImage, propertyName, value, userName }: Prop
       <Text style={styles.propertyTitle}>
         {propertyName}
       </Text>
-      <Text style={styles.value}>Valor: R$ {value}</Text>
+      <Text style={styles.value}>Valor: {value}</Text>
       <View style={styles.info}>
         <FontAwesome style={styles.icon} name="user" />
         <Text style={styles.info1}>{userName}</Text>

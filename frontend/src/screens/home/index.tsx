@@ -69,6 +69,11 @@ export function Home({ navigation }: any) {
     });
   }
 
+  function currencyFormat(num: number) {
+    let formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+    return formatter.format(+num.toFixed(2));
+  }
+
   return (
     <>
       {
@@ -102,7 +107,7 @@ export function Home({ navigation }: any) {
                       keyExtractor={item => item.id}
                       renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => { handleGoToProperty(item.id) }}>
-                          <PropertyResult srcImage={item.images[0].url} propertyName={item.name} value={item.value} userName={item.user.name} />
+                          <PropertyResult srcImage={item.images[0].url} propertyName={item.name} value={currencyFormat(item.value)} userName={item.user.name} />
                         </TouchableOpacity>
                       )}
                       ItemSeparatorComponent={() => <View style={{}} />}

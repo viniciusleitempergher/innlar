@@ -41,11 +41,24 @@ export function MessagesProvider({ children }: MessagesProviderProps) {
 
                 socket.on("new message", (message: MessageType) => {
                     let chatsCopy = chatsResponse.data.chats.slice();
+                    let flag = false;
                     chatsCopy.forEach((chat: ChatType) => {
                         if (chat.users.filter(user => message.sender.id == user.id)) {
-                            chat.messages.push(message)
+                            chat.messages.push(message);
+                            flag = true;
                         }
-                    })
+                    });
+                    if (!flag) {
+                        chatsCopy.push({
+                            users: [
+                                message.sender,
+                                user
+                            ],
+                            messages: [
+                                message
+                            ]
+                        })
+                    }
                     setChats(chatsCopy)
                 });
             } catch (e) {

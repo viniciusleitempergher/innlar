@@ -99,9 +99,9 @@ export function PropertyInfo({ navigation, route }: any) {
             property.user,
             user,
           ],
-          messages: {
+          messages: [
 
-          }
+          ]
         }
       }
     })

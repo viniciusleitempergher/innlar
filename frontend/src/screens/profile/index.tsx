@@ -18,7 +18,7 @@ import { styles } from "./styles";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
-
+import * as ImagePicker from "expo-image-picker";
 import { Property } from "../../components/property";
 import { Loading } from "../../components/loading";
 import { api } from "../../services/api";
@@ -70,6 +70,44 @@ export function Profile({ navigation, route }: any) {
   }, []);
 
   const me = user.id == userId;
+
+  async function handleEditAvatar() {
+    setLoading(true);
+    try {
+      let image: any = await openImagePicker();
+
+      let data = new FormData();
+      data.append("avatar", image);
+
+      let response = await api.post("/users/avatar", data);
+
+      if (response.status === 200) {
+        Alert.alert("Avatar atualizado!");
+        navigation.navigate("home");
+      }
+    } catch (e) {
+      Alert.alert("Ocorreu um erro ao atualizar sua imagem... Talvez você esteja sem conexão!?");
+    } finally {
+      setLoading(false);
+    }
+  }
+  async function openImagePicker() {
+    const permissionsResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionsResult.granted === false) {
+      alert("É necessário conceder a permissão de acesso a galeria");
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: "Images" as any,
+      aspect: [4, 3],
+      quality: 1
+    });
+
+    return pickerResult;
+  }
+
 
   function handleGoToProperty(id: string) {
 
@@ -136,11 +174,15 @@ export function Profile({ navigation, route }: any) {
                       <AntDesign name="arrowleft" size={30} color="black" />
                     </TouchableOpacity>
                     <View style={styles.profileIconBorder}>
-                      <EvilIcons
-                        style={styles.profileIcon}
-                        name="user"
-                        color="black"
-                      />
+                      {userOfProfile.avatar == "" || userOfProfile.avatar == null ?
+                        <EvilIcons
+                          style={styles.profileIcon}
+                          name="user"
+                          color="black"
+                        />
+                        :
+                        <Image source={{ uri: userOfProfile.avatar }} style={{ flex: 1, borderRadius: 500 }} />
+                      }
                     </View>
                     {me ? (
                       <View style={styles.buttonBorder}>
@@ -148,6 +190,7 @@ export function Profile({ navigation, route }: any) {
                           name="image-edit"
                           size={30}
                           color="black"
+                          onPress={handleEditAvatar}
                         />
                       </View>
                     ) : (

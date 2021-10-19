@@ -1,9 +1,12 @@
 package com.inllar.rest.controller;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.inllar.rest.requests.GetChatsResponse;
-import com.inllar.rest.requests.GetMessagesRequest;
-import com.inllar.rest.requests.GetMessagesResponse;
 import com.inllar.rest.requests.GetUserResponse;
 import com.inllar.rest.requests.SendMessageRequest;
 import com.inllar.rest.requests.SendMessageResponse;
@@ -70,12 +71,15 @@ public class UserController {
 		}
 	}
 
-	@PostMapping("/messages")
-	public GetMessagesResponse getMessages(@RequestBody GetMessagesRequest request) {
+	@ApiOperation("Update user avatar")
+	@PostMapping("/avatar")
+	public void uploadImages(HttpServletRequest request) throws Exception {
 		try {
-			return userService.getMessages(request);
+			ArrayList<Part> partsList = new ArrayList<Part>(request.getParts());
+
+			userService.updateAvatar(partsList.get(0));
 		} catch (Exception e) {
-			throw e;
+			e.printStackTrace();
 		}
 	}
 }

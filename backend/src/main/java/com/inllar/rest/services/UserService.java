@@ -1,5 +1,6 @@
 package com.inllar.rest.services;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.Part;
 
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -43,6 +45,8 @@ public class UserService {
 	private ChatRepository chatRepository;
 	@Autowired
 	private MessageRepository messageRepository;
+	@Autowired
+	private S3BucketStorageService bucketService;
 
 	public User createUser(User userData) {
 
@@ -157,7 +161,6 @@ public class UserService {
 	}
 
 	public SendMessageResponse sendMessage(SendMessageRequest request) {
-
 		String message = request.getMessage();
 		String receiverId = request.getUserId();
 
@@ -213,39 +216,14 @@ public class UserService {
 		return response;
 	}
 
-	public GetMessagesResponse getMessages(GetMessagesRequest request) {
+	public void updateAvatar(Part image) throws IOException {
 		String token = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
 
-		User sender = jwt.getUserFromAccessToken(token);
+		User user = jwt.getUserFromAccessToken(token);
 
-		User receiver = getUser(UUID.fromString(request.getUserId()));
+		String avatar = bucketService.uploadFile(image.getInputStream(), "user-image.png");
 
-		List<User> usersOfChat = new ArrayList<User>();
-		usersOfChat.add(receiver);
-		usersOfChat.add(sender);
-
-		GetMessagesResponse response = new GetMessagesResponse();
-
-		// if (chatRepository.existsByUsers(usersOfChat)) {
-		// Chat chat = chatRepository.findByUsers(usersOfChat).get(0);
-		//
-		// List<User> changedUsers = new ArrayList<User>();
-		// chat.getUsers().forEach((userOfChat) -> {
-		// userOfChat = userOfChat.getUserData();
-		// userOfChat.setChats(null);
-		// userOfChat.setProperties(null);
-		// changedUsers.add(userOfChat);
-		// });
-		// chat.setUsers(changedUsers);
-		//
-		// chat.getMessages().forEach((message) -> {
-		// message.setSender(message.getSender().getUserData());
-		// message.setChat(null);
-		// });
-		//
-		// response.setMessages(chat.getMessages());
-		// }
-
-		return response;
+		user.setAvatar(avatar);
+		userRepository.save(user);
 	}
 }

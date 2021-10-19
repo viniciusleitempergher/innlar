@@ -98,10 +98,10 @@ public class PropertyService {
 		Property property = propertyRepository.findById(UUID.fromString(propertyId))
 				.orElseThrow(() -> new EntityNotFoundException());
 
-		List<Image> images = property.getImages();
+		addressRepository.delete(property.getAddress());
 
-		for (int i = 0; i < images.size(); i++) {
-			bucketService.deleteFileFromS3Bucket(images.get(i).getUrl());
+		for (int i = 0; i < property.getImages().size(); i++) {
+			imageRepository.delete(property.getImages().get(i));
 		}
 
 		propertyRepository.delete(property);
@@ -258,6 +258,7 @@ public class PropertyService {
 		propertyToEdit.setHasPartyArea(request.isHasPartyArea());
 		propertyToEdit.setHasPool(request.isHasPool());
 		propertyToEdit.setName(request.getName());
+		propertyToEdit.setNumberRooms(request.getNumberRooms());
 		propertyToEdit.setNumberBathRooms(request.getNumberBathRooms());
 		propertyToEdit.setNumberBedRooms(request.getNumberBedRooms());
 		propertyToEdit.setNumberKitchens(request.getNumberKitchens());
@@ -269,7 +270,6 @@ public class PropertyService {
 
 	public void removeImage(String imageId) throws IOException {
 		Image image = imageRepository.findById(UUID.fromString(imageId)).orElseThrow(() -> new EntityNotFoundException());
-		bucketService.deleteFileFromS3Bucket(image.getUrl());
 		imageRepository.delete(image);
 	}
 }

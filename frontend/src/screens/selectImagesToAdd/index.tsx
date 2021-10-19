@@ -65,7 +65,7 @@ export function SelectImagesToAdd({ navigation }: any) {
         selected: 'selected',
       },
       midTextColor: "#fff",
-      minSelection: 1,
+      minSelection: 0,
       maxSelection: 10,
       buttonTextStyle: { fontFamily: fonts.raj400 },
       buttonStyle: { borderColor: "#764D35", borderWidth: 1 },
@@ -75,10 +75,11 @@ export function SelectImagesToAdd({ navigation }: any) {
     []
   );
 
-  const { sendImages } = usePropertyFormData();
+  const { sendImages, editProperty } = usePropertyFormData();
 
   function onSuccess(data: CameraRollAssetType[]) {
     sendImages(data);
+    editProperty();
   }
 
   return (

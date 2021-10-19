@@ -13,7 +13,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { api } from "../../services/api";
 
 export function SelectImagesToDelete({ navigation }: any) {
-  const { images } = usePropertyFormData();
+  const { images, setImages } = usePropertyFormData();
 
   const [loading, setLoading] = useState(false);
 
@@ -43,6 +43,8 @@ export function SelectImagesToDelete({ navigation }: any) {
       });
 
       if (response.status === 200) {
+        let index = images.findIndex((img) => img.id === imageId);
+        setImages(images.splice(index, 1));
         Alert.alert("Imagem removida!");
       }
     } catch (e) {

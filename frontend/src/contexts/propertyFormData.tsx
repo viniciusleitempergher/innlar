@@ -31,9 +31,10 @@ type PropertyFormContextData = {
     street: string; setStreet: React.Dispatch<React.SetStateAction<string>>;
     cep: string; setCep: React.Dispatch<React.SetStateAction<string>>;
     setPropertyStatesToEdit: (id: string, navigation: any) => void;
-    images: Array<ImageType>;
+    images: Array<ImageType>; setImages: React.Dispatch<React.SetStateAction<Array<ImageType>>>;
     sendImages: (images: any[]) => void;
     registerProperty: (images: any[]) => void;
+    editProperty: () => void;
 }
 
 type PropertyFormProviderProps = {
@@ -111,12 +112,53 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
         }
     }
 
+    async function editProperty() {
+        setLoading(true);
+
+        try {
+            const response = await api.post("/properties/edit", {
+                name,
+                value: propertyValue,
+                numberBathRooms,
+                numberBedRooms,
+                numberKitchens,
+                numberRooms,
+                squareMeters,
+                hasPool,
+                hasPartyArea,
+                hasGrill,
+                hasGarage,
+                description,
+                number,
+                street,
+                district,
+                cep,
+                city,
+                state
+            }, {
+                params: {
+                    propertyId
+                }
+            });
+
+            if (response.status == 200) {
+                Alert.alert("Propriedade editada!");
+                clearStates();
+            } else {
+                Alert.alert("Ocorreu um erro ao editar a propriedade... Talvez você esteja sem conexão!?")
+            }
+        } catch (e: any) {
+            console.log(e);
+            throw e;
+        } finally {
+            setLoading(false);
+        }
+    }
+
     async function sendImages(images: any[]) {
         setLoading(true);
         try {
             await uploadImages(images, propertyId);
-
-            Alert.alert("Propriedade editada!");
         } catch (e) {
             throw e;
         } finally {
@@ -225,7 +267,8 @@ export function PropertyFormDataProvider({ children }: PropertyFormProviderProps
             street, setStreet,
             cep, setCep,
             setPropertyStatesToEdit,
-            images,
+            editProperty,
+            images, setImages,
             sendImages,
             registerProperty,
         }}>

@@ -103,6 +103,7 @@ export function Profile({ navigation, route }: any) {
       setLoading(false);
 
       if (response.status == 200) {
+        navigation.navigate('home');
         Alert.alert("Propriedade removida com sucesso!");
       } else {
         Alert.alert("Houve um erro ao deletar a propiedade, tente novamente mais tarde...");
@@ -150,13 +151,13 @@ export function Profile({ navigation, route }: any) {
                         />
                       </View>
                     ) : (
-                        <FontAwesome5
-                          style={styles.button}
-                          name="home"
-                          size={35}
-                          color="black"
-                        />
-                      )}
+                      <FontAwesome5
+                        style={styles.button}
+                        name="home"
+                        size={35}
+                        color="black"
+                      />
+                    )}
                     <View style={styles.stars}>
                       <Entypo name="star" size={24} color="black" />
                       <Entypo name="star" size={24} color="black" />

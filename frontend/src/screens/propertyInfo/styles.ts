@@ -6,11 +6,15 @@ import { colors } from '../../global/styles/colors';
 import { fonts } from '../../global/styles/fonts';
 
 export const styles = StyleSheet.create({
+  scrollview: {
+    marginTop: getStatusBarHeight() + 15,
+  },
+  slider: {
+  },
   container: {
-    marginTop: getStatusBarHeight(),
     width: '100%',
     marginBottom: getBottomSpace() + 20,
-    height: 1400,
+    height: 1200,
     alignItems: 'center',
     justifyContent: 'center',
     

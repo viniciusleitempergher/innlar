@@ -26,6 +26,7 @@ import { api } from "../../services/api";
 import { PropertyType } from "../../types/property";
 import { useAuth } from "../../contexts/auth";
 import { UserType } from "../../types/user";
+import ImageSwipe from "../../components/slider";
 
 export function PropertyInfo({ navigation, route }: any) {
   const { user } = useAuth();
@@ -104,6 +105,11 @@ export function PropertyInfo({ navigation, route }: any) {
         }
       }
     })
+  };
+
+  function currencyFormat(num: number) {
+    let formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+    return formatter.format(+num.toFixed(2));
   }
 
   return (
@@ -113,18 +119,14 @@ export function PropertyInfo({ navigation, route }: any) {
           <Loading />
           :
           <>
-          
-            <ScrollView>
+
+            <ScrollView style={styles.scrollview}>
+              <ImageSwipe images={property.images} style={styles.slider} />
               <View style={styles.container}>
                 <Form>
                   <AntDesign name="arrowleft" size={30} style={styles.arrow} onPress={handleGoBack} />
                   <View style={styles.property}>
 
-                    <Image
-                      source={{ uri: "../../assets/testeCasa.jpg" }}
-                      style={styles.propertyImage}
-                    />
-                
                     <Text style={styles.propertyTitle}>{property.name}</Text>
                     <View style={styles.stars}>
                       <Entypo name="star" size={20} color="black" />
@@ -167,7 +169,13 @@ export function PropertyInfo({ navigation, route }: any) {
                         Possui garagem? {property.hasGarage ? "sim" : "não"}
                       </Text>
                       <Text style={styles.propertyDescription}>
-                        Possui Área de Festa? {property.hasPartyArea ? "sim" : "não"}
+                        Possui área de festa? {property.hasPartyArea ? "sim" : "não"}
+                      </Text>
+                      <Text style={styles.propertyDescription}>
+                        Possui piscina? {property.hasPool ? "sim" : "não"}
+                      </Text>
+                      <Text style={styles.propertyDescription}>
+                        Possui churrasqueira? {property.hasGrill ? "sim" : "não"}
                       </Text>
                     </View>
                     <MapView
@@ -219,8 +227,8 @@ export function PropertyInfo({ navigation, route }: any) {
               </View>
             </ScrollView>
             <View style={styles.alugueAgora}>
-              
-              <Text style={styles.textInput}>R$ {property.value}</Text>
+
+              <Text style={styles.textInput}>{currencyFormat(property.value)}</Text>
               <TouchableOpacity style={styles.alugueButton} onPress={handleChat}>
                 <Text style={styles.textButton2}>Alugue agora</Text>
               </TouchableOpacity>

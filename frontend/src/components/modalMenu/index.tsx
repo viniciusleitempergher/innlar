@@ -62,7 +62,10 @@ export const ModalMenu = ({ navigation }: any) => {
                   style={styles.innlarIcon}
                 />
               </View>
-              <FontAwesome style={styles.userImage} name="user-circle-o" />
+              {user.avatar == "" || user.avatar == null ?
+                <FontAwesome style={styles.userImage} name="user-circle-o" />
+                : <Image source={{ uri: user.avatar }} style={{ flex: 1, borderRadius: 500 }} />
+              }
               <View style={styles.buttons}>
                 <Button style={styles.button} title="Meu Perfil" onPress={handleMyProfile} />
 
